@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { states, departments } from "../../utils/statesAndDepartments";
 
+import Modal from "../Modal";
+
 function CreateEmployeeForm() {
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [firstName, setFirstName] = useState("");
@@ -80,12 +82,7 @@ function CreateEmployeeForm() {
 			</form>
 
 			<button onClick={saveEmployee}>Save</button>
-
-			{showConfirmationModal && (
-				<div id="confirmation" className="modal">
-					Employee Created!
-				</div>
-			)}
+			{showConfirmationModal && <Modal setModalIsOpen={setShowConfirmationModal} content="Employee Created!" id="confirmation" />}
 		</>
 	);
 }
