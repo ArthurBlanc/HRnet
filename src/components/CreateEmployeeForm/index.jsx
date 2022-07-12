@@ -3,6 +3,7 @@ import { useState } from "react";
 import { states, departments } from "../../utils/statesAndDepartments";
 
 import Modal from "../Modal";
+import Dropdown from "../Dropdown";
 
 function CreateEmployeeForm() {
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -10,11 +11,21 @@ function CreateEmployeeForm() {
 	const [lastName, setLastName] = useState("");
 	const [dateOfBirth, setDateOfBirth] = useState("");
 	const [startDate, setStartDate] = useState("");
-	const [department, setDepartment] = useState("Sales");
+	const [department, setDepartment] = useState(departments[0].label);
 	const [street, setStreet] = useState("");
 	const [city, setCity] = useState("");
-	const [countryState, setCountryState] = useState("AL");
+	const [countryStateLabel, setCountryStateLabel] = useState(states[0].label);
+	const [countryState, setCountryState] = useState(states[0].value);
 	const [zipCode, setZipCode] = useState("");
+
+	const handleStateChange = (value, label) => {
+		setCountryState(value);
+		setCountryStateLabel(label);
+	};
+
+	const handleDepartmentChange = (value) => {
+		setDepartment(value);
+	};
 
 	function saveEmployee() {
 		const employees = JSON.parse(localStorage.getItem("employees")) || [];
@@ -58,27 +69,13 @@ function CreateEmployeeForm() {
 					<label htmlFor="city">City</label>
 					<input id="city" type="text" onChange={(e) => setCity(e.target.value)} />
 
-					<label htmlFor="state">State</label>
-					<select name="state" id="state" value={countryState} onChange={(e) => setCountryState(e.target.value)}>
-						{states.map((state) => (
-							<option key={state.name} value={state.abbreviation}>
-								{state.name}
-							</option>
-						))}
-					</select>
+					<Dropdown label="State" options={states} dropdownText={countryStateLabel} onChange={handleStateChange} id={"state"} />
 
 					<label htmlFor="zip-code">Zip Code</label>
 					<input id="zip-code" type="number" onChange={(e) => setZipCode(e.target.value)} />
 				</fieldset>
 
-				<label htmlFor="department">Department</label>
-				<select name="department" id="department" value={department} onChange={(e) => setDepartment(e.target.value)}>
-					{departments.map((department) => (
-						<option key={department.name} value={department.name}>
-							{department.name}
-						</option>
-					))}
-				</select>
+				<Dropdown label="Department" options={departments} dropdownText={department} onChange={handleDepartmentChange} id={"department"} />
 			</form>
 
 			<button onClick={saveEmployee}>Save</button>

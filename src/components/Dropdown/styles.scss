@@ -1,0 +1,95 @@
+.relative {
+	position: relative;
+}
+
+.dropdown {
+	&-background {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+	}
+	&-button {
+		display: inline-block;
+		position: relative;
+		width: 14em;
+		margin-right: 0.1em;
+		padding: 0.4em 1em;
+		overflow: visible;
+		border: 1px solid #c5c5c5;
+		border-top-right-radius: 3px;
+		border-top-left-radius: 3px;
+		background: #f6f6f6;
+		color: #454545;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 1em;
+		font-weight: normal;
+		line-height: normal;
+		text-align: left;
+		text-decoration: none;
+		vertical-align: middle;
+		white-space: nowrap;
+		cursor: pointer;
+		user-select: none;
+	}
+	&-icon {
+		position: relative;
+		width: 16px;
+		height: 16px;
+		margin-top: 0;
+		float: right;
+		overflow: hidden;
+		background-image: url("/assets/ui-icons_777777_256x240.png");
+		background-position: -65px -16px;
+		background-repeat: no-repeat;
+		text-indent: -99999px;
+	}
+	&-text {
+		display: block;
+		margin-right: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	&-list {
+		display: block;
+		margin: 0;
+		padding: 0;
+		overflow: auto;
+		overflow-x: hidden;
+		border: 1px solid #c5c5c5;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+		outline: 0;
+		background: #ffffff;
+		color: #333333;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 1em;
+		list-style: none;
+		&-container {
+			display: block;
+			z-index: 100;
+			position: absolute;
+			width: calc(100% - 2px);
+			margin: 0;
+			padding: 0;
+		}
+		&-item {
+			margin: 0;
+			cursor: pointer;
+			&:hover {
+				margin: -1px;
+				border: 1px solid #003eff;
+				background: #007fff;
+				color: #ffffff;
+				font-weight: normal;
+			}
+			&-wrapper {
+				position: relative;
+				padding: 3px 1em 3px 0.4em;
+			}
+		}
+	}
+}
