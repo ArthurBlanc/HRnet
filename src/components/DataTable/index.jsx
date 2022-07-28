@@ -4,14 +4,26 @@ import { useState, useEffect } from "react";
 import "./styles.scss";
 
 function DataTable({ data, columns, tableId, sortId = "startDate" }) {
+	const [search, setSearch] = useState("");
 	const [sortColumn, setSortColumn] = useState(sortId);
 	const [sortOrder, setSortOrder] = useState("asc");
 
+	const [filteredData, setFilteredData] = useState([]);
 	const [sortedData, setSortedData] = useState([]);
 
 	useEffect(() => {
-		setSortedData(sortData(data, sortColumn, sortOrder));
-	}, [data, sortColumn, sortOrder, sortedData]);
+		setFilteredData(
+			data.filter((row) => {
+				return Object.keys(row).some((key) => {
+					return String(row[key]).toLowerCase().includes(search.toLowerCase());
+				});
+			})
+		);
+	}, [search, data]);
+
+	useEffect(() => {
+		setSortedData(sortData(filteredData, sortColumn, sortOrder));
+	}, [filteredData, sortColumn, sortOrder, sortedData]);
 
 	const sortData = (data, column, direction) => {
 		const isDate = (value) => {
@@ -29,6 +41,10 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 				return direction === "asc" ? stringA > stringB : stringB > stringA;
 			}
 		});
+	};
+
+	const handleSearch = (event) => {
+		setSearch(event.target.value);
 	};
 
 	const handleSort = (event, column) => {
@@ -79,6 +95,12 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 
 	return (
 		<div id={tableId + "-table_wrapper"} className="dataTables_wrapper">
+			<div id={tableId + "-table_filter"} className="dataTables_filter">
+				<label>
+					{"Search: "}
+					<input className="" type="search" placeholder="" aria-controls={tableId + "-table"} value={search} onChange={handleSearch} />
+				</label>
+			</div>
 			<table id={tableId + "-table"} className="dataTable" role="grid" aria-describedby="employee-table_info">
 				<thead>
 					<tr role="row">
