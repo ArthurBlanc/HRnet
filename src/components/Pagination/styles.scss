@@ -1,0 +1,41 @@
+.paginate_button {
+	box-sizing: border-box;
+	display: inline-block;
+	min-width: 1.5em;
+	margin-left: 2px;
+	padding: 0.5em 1em;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	background-color: transparent;
+	color: #333 !important;
+	text-align: center;
+	text-decoration: none !important;
+	cursor: pointer;
+	&:hover {
+		border: 1px solid #111;
+		background: linear-gradient(to bottom, #585858 0%, #111 100%);
+		background-color: #585858;
+		color: white !important;
+	}
+	&.disabled,
+	&.disabled:hover,
+	&.disabled:active {
+		border: 1px solid transparent;
+		background: transparent;
+		box-shadow: none;
+		color: #666 !important;
+		cursor: default;
+	}
+	&.current,
+	&.current:hover {
+		border: 1px solid #979797;
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #dcdcdc));
+		background: -webkit-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+		background: -moz-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+		background: -ms-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+		background: -o-linear-gradient(top, #fff 0%, #dcdcdc 100%);
+		background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+		background-color: white;
+		color: #333 !important;
+	}
+}
