@@ -1,7 +1,7 @@
 /* React component to render a table with data and columns props, row are sortable, searchable and have pagination */
 import { useState, useEffect } from "react";
 
-import Pagination from "../Pagination/index";
+import Pagination from "../Pagination";
 
 import "./styles.scss";
 
@@ -139,7 +139,7 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 				<thead>
 					<tr role="row">
 						{columns.map((column) => (
-							<th key={column.id} className="sorting" tabIndex="0" rowSpan="1" colSpan="1" onClick={(event) => handleSort(event, column.id)}>
+							<th key={column.id} className={column.sortable ? "sorting" : ""} tabIndex="0" onClick={column.sortable ? (event) => handleSort(event, column.id) : null} rowSpan="1" colSpan="1">
 								{column.name}
 							</th>
 						))}

@@ -3,15 +3,6 @@
 }
 
 .dropdown {
-	&-background {
-		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-	}
 	&-button {
 		display: inline-block;
 		position: relative;
@@ -55,6 +46,7 @@
 	}
 	&-list {
 		display: block;
+		max-height: 20vh;
 		margin: 0;
 		padding: 0;
 		overflow: auto;
@@ -89,6 +81,17 @@
 			&-wrapper {
 				position: relative;
 				padding: 3px 1em 3px 0.4em;
+				&:hover {
+					background: #007fff;
+					color: #ffffff;
+					cursor: pointer;
+				}
+				&.current-selection {
+					background: #33aaff;
+					box-shadow: #178fe5 0 1px 3px 0 inset;
+					color: #fff;
+					font-weight: 700;
+				}
 			}
 		}
 	}
