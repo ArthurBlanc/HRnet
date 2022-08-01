@@ -36,17 +36,6 @@
 	}
 }
 
-.dataTable,
-.dataTable th,
-.dataTable td {
-	box-sizing: content-box;
-}
-
-.dataTable.hover tbody tr:hover,
-.dataTable tbody tr:hover {
-	background-color: #f6f6f6;
-}
-
 .dataTable {
 	width: 100%;
 	margin: 0 auto;
@@ -101,6 +90,17 @@
 			}
 		}
 	}
+}
+
+.dataTable,
+.dataTable th,
+.dataTable td {
+	box-sizing: content-box;
+}
+
+.dataTable.hover tbody tr:hover,
+.dataTable tbody tr:hover {
+	background-color: #f6f6f6;
 }
 
 .dataTable tbody tr.even > .sorting_1,
