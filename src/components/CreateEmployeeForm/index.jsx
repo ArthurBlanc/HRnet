@@ -5,6 +5,8 @@ import { states, departments } from "../../utils/statesAndDepartments";
 import Modal from "../Modal";
 import Dropdown from "../Dropdown";
 
+import DatePicker from "../DatePicker";
+
 function CreateEmployeeForm() {
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
@@ -30,7 +32,7 @@ function CreateEmployeeForm() {
 	const [departmentError, setDepartmentError] = useState("");
 
 	const nameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
-	const dateYYYYMMDD = /^\d{4}-\d{2}-\d{2}$/;
+	const dateMMDDYYYY = /^(0[1-9]|1[0-2]).(0[1-9]|1\d|2\d|3[01]).(19|20)\d{2}$/;
 	const addressRegex = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
 	const zipRegex = /^\d{4}$|^\d{5}$/;
 
@@ -51,8 +53,7 @@ function CreateEmployeeForm() {
 	};
 
 	const validateDateOfBirth = () => {
-		if (!dateYYYYMMDD.test(dateOfBirth)) {
-			console.log(dateOfBirth);
+		if (!dateMMDDYYYY.test(dateOfBirth)) {
 			setDateOfBirthError("Date of birth is not valid");
 		} else {
 			setDateOfBirthError("");
@@ -60,8 +61,7 @@ function CreateEmployeeForm() {
 	};
 
 	const validateStartDate = () => {
-		console.log(startDate);
-		if (!dateYYYYMMDD.test(startDate)) {
+		if (!dateMMDDYYYY.test(startDate)) {
 			setStartDateError("Start date is not valid");
 		} else {
 			setStartDateError("");
@@ -118,13 +118,13 @@ function CreateEmployeeForm() {
 		setLastNameError("");
 	};
 
-	const handleDateOfBirthChange = (e) => {
-		setDateOfBirth(e.target.value);
+	const handleDateOfBirthChange = (value) => {
+		setDateOfBirth(value);
 		setDateOfBirthError("");
 	};
 
-	const handleStartDateChange = (e) => {
-		setStartDate(e.target.value);
+	const handleStartDateChange = (value) => {
+		setStartDate(value);
 		setStartDateError("");
 	};
 
@@ -209,12 +209,10 @@ function CreateEmployeeForm() {
 
 				<div className="error">{lastNameError}</div>
 
-				<label htmlFor="dateOfBirth">Date of Birth</label>
-				<input type="date" className="form-control" id="dateOfBirth" value={dateOfBirth} onChange={handleDateOfBirthChange} onBlur={validateDateOfBirth} />
+				<DatePicker id="dateOfBirth" label="Date of Birth" onChange={handleDateOfBirthChange} />
 				<div className="error">{dateOfBirthError}</div>
 
-				<label htmlFor="startDate">Start Date</label>
-				<input type="date" className="form-control" id="startDate" value={startDate} onChange={handleStartDateChange} onBlur={validateStartDate} />
+				<DatePicker id="startDate" label="Start Date" onChange={handleStartDateChange} />
 				<div className="error">{startDateError}</div>
 
 				<fieldset className="address">
