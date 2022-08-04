@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 
+import Dropdown from "../Dropdown";
+
 import "./styles.scss";
 
-function DatePicker({ id, label, onChange }) {
+function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNumber = 50 }) {
 	const months = [
 		{ label: "January", value: 1 },
 		{ label: "February", value: 2 },
@@ -39,6 +41,9 @@ function DatePicker({ id, label, onChange }) {
 
 	const [daysOfWeek] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
 	const [calendarWeeksInShowedMonth, setCalendarWeeksInShowedMonth] = useState([]);
+	const [years] = useState([...Array(yearsForwardNumber + yearsBackNumber + 1).keys()].map((i) => currentYear - yearsBackNumber + i));
+	const [minYear] = useState(currentYear - yearsBackNumber);
+	const [maxYear] = useState(currentYear + yearsForwardNumber);
 
 	useEffect(() => {
 		if (onChange) {
@@ -80,11 +85,11 @@ function DatePicker({ id, label, onChange }) {
 				daysOfWeek.forEach((daysOfWeek, j) => {
 					const dayValue = i * 7 + j + 1 - firstDayOfShowedMonth;
 
-					const isFirstYearOfTheCalendar = showedYear - 1 < 1900;
+					const isFirstYearOfTheCalendar = showedYear - 1 < minYear;
 					const isFirstMonthOfTheYear = showedMonth === 1;
 					const isFirstMonthOfTheCalendar = isFirstYearOfTheCalendar && isFirstMonthOfTheYear;
 
-					const isLastYearOfTheCalendar = showedYear + 1 > 2099;
+					const isLastYearOfTheCalendar = showedYear + 1 > maxYear;
 					const isLastMonthOfTheYear = showedMonth === 12;
 					const isLastMonthOfTheCalendar = isLastYearOfTheCalendar && isLastMonthOfTheYear;
 
@@ -97,7 +102,12 @@ function DatePicker({ id, label, onChange }) {
 						day = dayValue + numberOfDaysInPreviousMonth;
 						month = showedMonth - 1;
 
-						if (!isFirstMonthOfTheCalendar) {
+						if (isFirstMonthOfTheCalendar) {
+							className = "empty-date";
+							day = null;
+							month = null;
+							year = null;
+						} else if (!isFirstMonthOfTheCalendar) {
 							className = className + " other-month";
 						}
 
@@ -109,7 +119,12 @@ function DatePicker({ id, label, onChange }) {
 						day = dayValue - numberOfDaysInShowedMonth;
 						month = showedMonth + 1;
 
-						if (!isLastMonthOfTheCalendar) {
+						if (isLastMonthOfTheCalendar) {
+							className = "empty-date";
+							day = null;
+							month = null;
+							year = null;
+						} else if (!isLastMonthOfTheCalendar) {
 							className = className + " other-month";
 						}
 
@@ -117,6 +132,14 @@ function DatePicker({ id, label, onChange }) {
 							month = 1;
 							year = showedYear + 1;
 						}
+					}
+
+					if (day === currentDay && month === currentMonth && year === currentYear) {
+						className += " calendar-today";
+					}
+
+					if (day === selectedDay && month === selectedMonth && year === selectedYear) {
+						className += " current";
 					}
 
 					const days = {
@@ -143,6 +166,8 @@ function DatePicker({ id, label, onChange }) {
 		currentYear,
 		daysOfWeek,
 		firstDayOfShowedMonth,
+		maxYear,
+		minYear,
 		numberOfDaysInPreviousMonth,
 		numberOfDaysInShowedMonth,
 		numberOfWeeksInShowedMonth,
@@ -199,7 +224,7 @@ function DatePicker({ id, label, onChange }) {
 		}
 
 		if (showedMonth === 12) {
-			if (showedYear < 2099) {
+			if (showedYear < maxYear) {
 				setShowedMonth(1);
 
 				setShowedYear(showedYear + 1);
@@ -214,13 +239,21 @@ function DatePicker({ id, label, onChange }) {
 			e.preventDefault();
 		}
 		if (showedMonth === 1) {
-			if (showedYear > 1900) {
+			if (showedYear > minYear) {
 				setShowedMonth(12);
 				setShowedYear(showedYear - 1);
 			}
 		} else {
 			setShowedMonth(showedMonth - 1);
 		}
+	};
+
+	const handleShowedMonthChange = (value) => {
+		setShowedMonth(value);
+	};
+
+	const handleShowedYearChange = (value) => {
+		setShowedYear(value);
 	};
 
 	const handleDayClick = (e) => {
@@ -254,8 +287,12 @@ function DatePicker({ id, label, onChange }) {
 								>
 									Today
 								</button>
-								<div className="label month-picker">{months[showedMonth - 1].label}</div>
-								<div className="label year-picker">{showedYear}</div>
+								<div className="label month-picker">
+									<Dropdown options={months} selectedOptionNumber={showedMonth - 1} onChange={handleShowedMonthChange} id="month" />
+								</div>
+								<div className="label year-picker">
+									<Dropdown options={years} selectedOptionNumber={years.findIndex((item) => item === showedYear)} onChange={handleShowedYearChange} id="year" />
+								</div>
 								<button className="next" onClick={handleNextMonth}></button>
 							</div>
 

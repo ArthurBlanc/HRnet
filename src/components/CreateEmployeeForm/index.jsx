@@ -209,10 +209,10 @@ function CreateEmployeeForm() {
 
 				<div className="error">{lastNameError}</div>
 
-				<DatePicker id="dateOfBirth" label="Date of Birth" onChange={handleDateOfBirthChange} />
+				<DatePicker id="dateOfBirth" label="Date of Birth" labelClassName="form-label" onChange={handleDateOfBirthChange} yearsBackNumber={80} yearsForwardNumber={0} />
 				<div className="error">{dateOfBirthError}</div>
 
-				<DatePicker id="startDate" label="Start Date" onChange={handleStartDateChange} />
+				<DatePicker id="startDate" label="Start Date" labelClassName="form-label" onChange={handleStartDateChange} yearsBackNumber={50} yearsForwardNumber={1} />
 				<div className="error">{startDateError}</div>
 
 				<fieldset className="address">
