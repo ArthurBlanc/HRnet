@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 import "./styles.scss";
 
-function Dropdown({ label, options, onChange, id, selectedOptionNumber = 0 }) {
+function Dropdown({ label, options, onChange, id, selectedOptionNumber = 0, listLabel = "Choose your option", showListLabel = false }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedOption, setSelectedOption] = useState();
+	const [selectedOption, setSelectedOption] = useState("");
 
 	useEffect(() => {
 		if (options[0].label) {
@@ -32,14 +32,28 @@ function Dropdown({ label, options, onChange, id, selectedOptionNumber = 0 }) {
 	}, [isOpen, id]);
 
 	useEffect(() => {
-		const intElemScrollTop = document.querySelector(".current-selection");
-		if (intElemScrollTop) {
-			intElemScrollTop.scrollIntoView({
-				behavior: "instant",
-				inline: "start",
-			});
+		if (isOpen) {
+			const dropdown = document.querySelector(`#${id}`);
+			const selectedOption = dropdown.querySelector(`.current-selection`);
+			selectedOption.scrollIntoView();
 		}
-	}, [isOpen]);
+	}, [isOpen, id]);
+
+	useEffect(() => {
+		if (showListLabel) {
+			if (isOpen) {
+				const label = document.querySelector(`#${id}-label`);
+				if (label) {
+					label.classList.add("active");
+				}
+			} else {
+				const label = document.querySelector(`#${id}-label`);
+				if (label) {
+					label.classList.remove("active");
+				}
+			}
+		}
+	}, [isOpen, id, showListLabel]);
 
 	const handleClick = () => {
 		setIsOpen(!isOpen);
@@ -53,15 +67,15 @@ function Dropdown({ label, options, onChange, id, selectedOptionNumber = 0 }) {
 
 	return (
 		<>
-			<label>{label}</label>
-			<span className="relative">
+			<label id={id + "-label"}>{label}</label>
+			<div id={id} className="dropdown-wrapper">
 				<span className="dropdown-button" id={id} onClick={handleClick}>
 					<span className="dropdown-icon"></span>
-
-					<span className="dropdown-text">{selectedOption}</span>
+					<input type="text" className="dropdown-text select-dropdown" readOnly={true} data-activates={id + "-menu"} value={selectedOption} onClick={handleClick} />
 				</span>
 				{isOpen && (
 					<div className="dropdown-list-container" id={`${id}-content`}>
+						{showListLabel && <div className={"dropdown-option label"}>{listLabel}</div>}
 						<ul id={id + "-menu"} className="dropdown-list">
 							{options.map((option, index) => {
 								let label = option;
@@ -71,17 +85,21 @@ function Dropdown({ label, options, onChange, id, selectedOptionNumber = 0 }) {
 									value = option.value;
 								}
 								return (
-									<li className="dropdown-option" key={index} value={value} id={`${id}-${value}`} onClick={() => handleOptionClick(label, value)}>
-										<div id={"ui-id-" + (index + 1)} className={"dropdown-list-item-wrapper " + (selectedOption === label ? "current-selection" : "")}>
-											{label}
-										</div>
+									<li
+										className={"dropdown-option" + (selectedOption === label ? " current-selection" : "")}
+										key={index}
+										value={value}
+										id={`${id}-${value}`}
+										onClick={() => handleOptionClick(label, value)}
+									>
+										{label}
 									</li>
 								);
 							})}
 						</ul>
 					</div>
 				)}
-			</span>
+			</div>
 		</>
 	);
 }

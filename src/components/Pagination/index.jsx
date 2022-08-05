@@ -62,7 +62,7 @@ function Pagination({ totalCount, pageSize, siblingCount = 1, currentPage, onPag
 	return (
 		<>
 			<button
-				className={"paginate_button previous" + (className ? " " + className : "") + (currentPage === 1 ? " disabled" : "")}
+				className={"paginate-button previous" + (className ? " " + className : "") + (currentPage === 1 ? " disabled" : "")}
 				disabled={currentPage === 1}
 				data-dt-idx={idxCount}
 				tabIndex={currentPage === 1 ? -1 : 0}
@@ -84,7 +84,7 @@ function Pagination({ totalCount, pageSize, siblingCount = 1, currentPage, onPag
 					return (
 						<button
 							key={index}
-							className={"paginate_button" + (className ? " " + className : "") + (currentPage === pageNumber ? " current" : "")}
+							className={"paginate-button" + (className ? " " + className : "") + (currentPage === pageNumber ? " current" : "")}
 							data-dt-idx={idxCount}
 							onClick={() => onPageChange(pageNumber)}
 						>
@@ -94,7 +94,7 @@ function Pagination({ totalCount, pageSize, siblingCount = 1, currentPage, onPag
 				})}
 			</span>
 			<button
-				className={"paginate_button next" + (currentPage >= lastPage ? " disabled" : "")}
+				className={"paginate-button next" + (currentPage >= lastPage ? " disabled" : "")}
 				disabled={currentPage === lastPage}
 				tabIndex={currentPage === lastPage ? -1 : 0}
 				data-dt-idx={idxCount + 1}

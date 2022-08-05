@@ -1,0 +1,37 @@
+/* ---------------------------------------- */
+/* ==          VARIABLES             */
+/*---------------------------------------- */
+
+$primary-color: #6c8213;
+$secondary-color: #93ad18;
+$tertiary-color: #5a6f08;
+$light-color: #f5f5f5;
+$dark-color: #333;
+$invalid-color: #dc3545;
+
+$font-size: (
+	desktop: 1rem,
+);
+
+$breakpoints: (
+	desktop: 1440px,
+);
+
+/* ---------------------------------------- */
+/* ==        GENERAL MIXINS            */
+/*---------------------------------------- */
+/* This is a mixin that will be used to create a breakpoint for the desktop. */
+@mixin desktop-breakpoint {
+	@media screen and (min-width: map-get($breakpoints, desktop)) {
+		@content;
+	}
+}
+
+@mixin no-margin {
+	margin: 0;
+}
+
+@mixin background-opacity($color, $opacity: 0.5) {
+	background: $color; /* The Fallback */
+	background: rgba($color, $opacity);
+}

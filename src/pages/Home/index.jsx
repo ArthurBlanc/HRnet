@@ -1,4 +1,5 @@
 import CreateEmployeeForm from "../../components/CreateEmployeeForm";
+import Button from "../../components/Button";
 
 function Home() {
 	return (
@@ -7,7 +8,9 @@ function Home() {
 				<h1>HRnet</h1>
 			</div>
 			<div className="container">
-				<a href="employee-list">View Current Employees</a>
+				<a href="employee-list">
+					<Button text="Employee List" />
+				</a>
 				<h2>Create Employee</h2>
 				<CreateEmployeeForm />
 			</div>

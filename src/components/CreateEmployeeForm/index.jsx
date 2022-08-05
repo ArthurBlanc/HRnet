@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { states, departments } from "../../utils/statesAndDepartments";
 
 import Modal from "../Modal";
 import Dropdown from "../Dropdown";
-
+import Button from "../Button";
 import DatePicker from "../DatePicker";
+
+import "./styles.scss";
 
 function CreateEmployeeForm() {
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -35,6 +37,59 @@ function CreateEmployeeForm() {
 	const dateMMDDYYYY = /^(0[1-9]|1[0-2]).(0[1-9]|1\d|2\d|3[01]).(19|20)\d{2}$/;
 	const addressRegex = /^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
 	const zipRegex = /^\d{4}$|^\d{5}$/;
+
+	const addClass = useCallback((type, selectorAttribute, selector, classToAdd, state) => {
+		const element = document.querySelector(`${type}[${selectorAttribute}="${selector}"]`);
+
+		if (element && state !== "") {
+			element.classList.add(classToAdd);
+		} else {
+			element.classList.remove(classToAdd);
+		}
+	}, []);
+
+	useEffect(() => {
+		addClass("label", "for", "startDate", "active", startDate);
+	}, [startDate, addClass]);
+
+	useEffect(() => {
+		addClass("label", "for", "dateOfBirth", "active", dateOfBirth);
+	}, [dateOfBirth, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "firstName", "invalid", firstNameError);
+		addClass("label", "for", "firstName", "invalid", firstNameError);
+	}, [firstNameError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "lastName", "invalid", lastNameError);
+		addClass("label", "for", "lastName", "invalid", lastNameError);
+	}, [lastNameError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "dateOfBirth", "invalid", dateOfBirthError);
+		addClass("label", "for", "dateOfBirth", "invalid", dateOfBirthError);
+	}, [dateOfBirthError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "startDate", "invalid", startDateError);
+		addClass("label", "for", "startDate", "invalid", startDateError);
+	}, [startDateError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "street", "invalid", streetError);
+		addClass("label", "for", "street", "invalid", streetError);
+	}, [streetError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "city", "invalid", cityError);
+		addClass("label", "for", "city", "invalid", cityError);
+	}, [cityError, addClass]);
+
+	useEffect(() => {
+		addClass("input", "id", "zip", "invalid", zipError);
+		addClass("label", "for", "zip", "invalid", zipError);
+	}, [zipError, addClass]);
 
 	const validateFirstName = () => {
 		if (!nameRegex.test(firstName)) {
@@ -120,12 +175,16 @@ function CreateEmployeeForm() {
 
 	const handleDateOfBirthChange = (value) => {
 		setDateOfBirth(value);
-		setDateOfBirthError("");
+		if (dateMMDDYYYY.test(value)) {
+			setDateOfBirthError("");
+		}
 	};
 
 	const handleStartDateChange = (value) => {
 		setStartDate(value);
-		setStartDateError("");
+		if (dateMMDDYYYY.test(value)) {
+			setStartDateError("");
+		}
 	};
 
 	const handleStreetChange = (e) => {
@@ -152,6 +211,17 @@ function CreateEmployeeForm() {
 	const handleDepartmentChange = (value) => {
 		setDepartment(value);
 		setDepartmentError("");
+	};
+
+	const handleInputFocus = (e) => {
+		const label = e.target.previousSibling;
+		label.classList.add("active");
+
+		e.target.addEventListener("blur", () => {
+			if (e.target.value === "") {
+				label.classList.remove("active");
+			}
+		});
 	};
 
 	const handleSubmit = (e) => {
@@ -200,45 +270,88 @@ function CreateEmployeeForm() {
 	return (
 		<>
 			<form id="create-employee" onSubmit={handleSubmit}>
-				<label htmlFor="firstName">First Name</label>
-				<input type="text" className="form-control" id="firstName" value={firstName} onChange={handleFirstNameChange} onBlur={validateFirstName} />
-				<div className="error">{firstNameError}</div>
+				<div className="form-group">
+					<label htmlFor="firstName" className={"form-label"}>
+						First Name *
+					</label>
+					<input type="text" className={"form-control form-input"} id="firstName" value={firstName} onChange={handleFirstNameChange} onFocus={handleInputFocus} onBlur={validateFirstName} />
+					<div className="error">{firstNameError}</div>
+				</div>
+				<div className="form-group">
+					<label htmlFor="lastName" className="form-label">
+						Last Name *
+					</label>
+					<input type="text" className="form-control form-input" id="lastName" value={lastName} onChange={handleLastNameChange} onFocus={handleInputFocus} onBlur={validateLastName} />
+					<div className="error">{lastNameError}</div>
+				</div>
 
-				<label htmlFor="lastName">Last Name</label>
-				<input type="text" className="form-control" id="lastName" value={lastName} onChange={handleLastNameChange} onBlur={validateLastName} />
+				<DatePicker
+					id="dateOfBirth"
+					label="Date of Birth *"
+					labelClassName="form-label"
+					onChange={handleDateOfBirthChange}
+					onFocus={handleInputFocus}
+					yearsBackNumber={80}
+					yearsForwardNumber={0}
+					onBlur={validateDateOfBirth}
+					errorMessage={dateOfBirthError}
+				/>
 
-				<div className="error">{lastNameError}</div>
-
-				<DatePicker id="dateOfBirth" label="Date of Birth" labelClassName="form-label" onChange={handleDateOfBirthChange} yearsBackNumber={80} yearsForwardNumber={0} />
-				<div className="error">{dateOfBirthError}</div>
-
-				<DatePicker id="startDate" label="Start Date" labelClassName="form-label" onChange={handleStartDateChange} yearsBackNumber={50} yearsForwardNumber={1} />
-				<div className="error">{startDateError}</div>
+				<DatePicker
+					id="startDate"
+					label="Start Date*"
+					labelClassName="form-label"
+					onChange={handleStartDateChange}
+					onFocus={handleInputFocus}
+					yearsBackNumber={50}
+					yearsForwardNumber={1}
+					onBlur={validateStartDate}
+					errorMessage={startDateError}
+				/>
 
 				<fieldset className="address">
 					<legend>Address</legend>
-
-					<label htmlFor="street">Street</label>
-					<input type="text" className="form-control" id="street" value={street} onChange={handleStreetChange} onBlur={validateStreet} />
-					<div className="error">{streetError}</div>
-
-					<label htmlFor="city">City</label>
-					<input type="text" className="form-control" id="city" value={city} onChange={handleCityChange} onBlur={validateCity} />
-					<div className="error">{cityError}</div>
-
-					<Dropdown label="State" options={states} dropdownText={countryStateLabel} onChange={handleStateChange} onBlur={validateState} id={"state"} />
-					<div className="error">{stateError}</div>
-
-					<label htmlFor="zip">Zip</label>
-					<input type="text" className="form-control" id="zip" value={zip} onChange={handleZipChange} onBlur={validateZip} />
-					<div className="error">{zipError}</div>
+					<div className="form-group">
+						<label htmlFor="street" className="form-label">
+							Street *
+						</label>
+						<input type="text" className="form-control form-input" id="street" value={street} onChange={handleStreetChange} onFocus={handleInputFocus} onBlur={validateStreet} />
+						<div className="error">{streetError}</div>
+					</div>
+					<div className="form-group">
+						<label htmlFor="city" className="form-label">
+							City *
+						</label>
+						<input type="text" className="form-control form-input" id="city" value={city} onChange={handleCityChange} onFocus={handleInputFocus} onBlur={validateCity} />
+						<div className="error">{cityError}</div>
+					</div>
+					<div className="form-group">
+						<Dropdown label="State *" options={states} dropdownText={countryStateLabel} onChange={handleStateChange} onBlur={validateState} id={"state"} listLabel="Chose your state" showListLabel={true} />
+						<div className="error">{stateError}</div>
+					</div>
+					<div className="form-group">
+						<label htmlFor="zip" className="form-label">
+							Zip *
+						</label>
+						<input type="text" className="form-control form-input" id="zip" value={zip} onChange={handleZipChange} onFocus={handleInputFocus} onBlur={validateZip} />
+						{zipError && <div className="error">{zipError}</div>}
+					</div>
 				</fieldset>
-				<Dropdown label="Department" options={departments} dropdownText={department} onChange={handleDepartmentChange} onBlur={validateDepartment} id={"department"} />
-				<div className="error">{departmentError}</div>
+				<div className="form-group">
+					<Dropdown
+						label="Department *"
+						options={departments}
+						dropdownText={department}
+						onChange={handleDepartmentChange}
+						onBlur={validateDepartment}
+						id={"department"}
+						listLabel="Chose your department"
+						showListLabel={true}
+					/>
+					<div className="error">{departmentError}</div>
+				</div>
 			</form>
-			<button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-				Save
-			</button>
+			<Button type="submit" text={"Save"} onClick={handleSubmit} />
 
 			<Modal isOpenState={showConfirmationModal} onClose={setShowConfirmationModal} content="Employee Created!" id="confirmation" />
 		</>

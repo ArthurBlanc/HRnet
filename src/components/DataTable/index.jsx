@@ -71,27 +71,27 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 	};
 
 	const handleSort = (event, column) => {
-		document.querySelectorAll(".sorting_asc").forEach((element) => {
+		document.querySelectorAll(".sorting-asc").forEach((element) => {
 			element.classList.add("sorting");
-			element.classList.remove("sorting_asc");
+			element.classList.remove("sorting-asc");
 		});
 
-		document.querySelectorAll(".sorting_desc").forEach((element) => {
+		document.querySelectorAll(".sorting-desc").forEach((element) => {
 			element.classList.add("sorting");
-			element.classList.remove("sorting_desc");
+			element.classList.remove("sorting-desc");
 		});
 
-		const oldSortedColumns = document.querySelectorAll(".sorting_1");
+		const oldSortedColumns = document.querySelectorAll(".sorting-1");
 		if (oldSortedColumns.length > 0) {
 			oldSortedColumns.forEach((column) => {
-				column.classList.remove("sorting_1");
+				column.classList.remove("sorting-1");
 			});
 		}
 
 		const newSortedColumns = document.querySelectorAll("." + column);
 		if (newSortedColumns.length > 0) {
 			newSortedColumns.forEach((column) => {
-				column.classList.add("sorting_1");
+				column.classList.add("sorting-1");
 			});
 		}
 
@@ -105,22 +105,22 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 		}
 
 		if (direction === "asc") {
-			event.currentTarget.classList.remove("sorting_desc");
-			event.currentTarget.classList.add("sorting_asc");
+			event.currentTarget.classList.remove("sorting-desc");
+			event.currentTarget.classList.add("sorting-asc");
 		} else if (direction === "desc") {
-			event.currentTarget.classList.remove("sorting_asc");
-			event.currentTarget.classList.add("sorting_desc");
+			event.currentTarget.classList.remove("sorting-asc");
+			event.currentTarget.classList.add("sorting-desc");
 		}
 
 		setSortColumn(column);
 	};
 
 	return (
-		<div id={tableId + "-table_wrapper"} className="dataTables_wrapper">
-			<div id={tableId + "-table_length"} className="dataTables_length">
+		<div id={tableId + "-table-wrapper"}>
+			<div id={tableId + "-table-length"} className="data-tables-length">
 				<label>
 					{"Show "}
-					<select className="" name={tableId + "-table_length"} aria-controls={tableId + "-table"} value={rowsPerPage} onChange={handleChangeRowsPerPage}>
+					<select className="" name={tableId + "-table-length"} aria-controls={tableId + "-table"} value={rowsPerPage} onChange={handleChangeRowsPerPage}>
 						<option value={10}>10</option>
 						<option value={25}>25</option>
 						<option value={50}>50</option>
@@ -129,13 +129,13 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 					{" entries"}
 				</label>
 			</div>
-			<div id={tableId + "-table_filter"} className="dataTables_filter">
+			<div id={tableId + "-table-filter"} className="data-tables-filter">
 				<label>
 					{"Search: "}
 					<input className="" type="search" placeholder="" aria-controls={tableId + "-table"} value={search} onChange={handleSearch} />
 				</label>
 			</div>
-			<table id={tableId + "-table"} className="dataTable" role="grid" aria-describedby="employee-table_info">
+			<table id={tableId + "-table"} className="data-table" role="grid" aria-describedby="employee-table-info">
 				<thead>
 					<tr role="row">
 						{columns.map((column) => (
@@ -148,7 +148,7 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 				<tbody>
 					{paginatedData.length === 0 && (
 						<tr className="odd">
-							<td colSpan="9" className="dataTables_empty" valign="top">
+							<td colSpan="9" className="data-tables-empty" valign="top">
 								No data available in table
 							</td>
 						</tr>
@@ -167,13 +167,13 @@ function DataTable({ data, columns, tableId, sortId = "startDate" }) {
 				</tbody>
 			</table>
 
-			<div id={tableId + "-table_info"} className="dataTables_info" role="status" aria-live="polite">
+			<div id={tableId + "-table-info"} className="data-tables-info" role="status" aria-live="polite">
 				{`Showing ${paginatedData.length === 0 ? 0 : 1 + (page * rowsPerPage - rowsPerPage)} to ${
 					page * rowsPerPage <= totalFilteredCount ? page * rowsPerPage : totalFilteredCount
 				} of ${totalFilteredCount} entries`}
 				{totalCount !== totalFilteredCount && " (filtered from " + totalCount + " total entries)"}
 			</div>
-			<div id={tableId + "-table_paginate"} className="dataTables_paginate paging_simple_numbers">
+			<div id={tableId + "-table-paginate"} className="data-tables-paginate paging-simple-numbers">
 				<Pagination totalCount={totalFilteredCount} pageSize={rowsPerPage} siblingCount={1} currentPage={page} onPageChange={handleChangePage} />
 			</div>
 		</div>

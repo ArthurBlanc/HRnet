@@ -1,0 +1,23 @@
+@import "../../variables.scss";
+
+.data-table tbody th,
+.data-table tbody td {
+	border-top: 0;
+}
+
+.data-table tbody tr.odd {
+	@include background-opacity($secondary-color, 0.5);
+}
+
+.data-table.hover tbody tr:hover,
+.data-table tbody tr:hover {
+	@include background-opacity($primary-color, 0.5);
+}
+
+.data-table tbody tr > .sorting-1 {
+	@include background-opacity($primary-color, 0.5);
+}
+
+.data-table tbody tr.even > .sorting-1 {
+	@include background-opacity($secondary-color, 0.5);
+}

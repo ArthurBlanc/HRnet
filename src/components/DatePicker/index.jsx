@@ -4,7 +4,21 @@ import Dropdown from "../Dropdown";
 
 import "./styles.scss";
 
-function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNumber = 50, separator = "/", dateFormat = "MMDDYYYY", firstDayOfTheWeek = "Sunday" }) {
+function DatePicker({
+	id,
+	label,
+	onChange,
+	yearsBackNumber = 120,
+	yearsForwardNumber = 50,
+	separator = "/",
+	dateFormat = "MMDDYYYY",
+	firstDayOfTheWeek = "Sunday",
+	labelClassName,
+	placeholder,
+	onFocus,
+	onBlur,
+	errorMessage,
+}) {
 	const months = [
 		{ label: "January", value: 1 },
 		{ label: "February", value: 2 },
@@ -198,12 +212,14 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 			document.addEventListener("click", handleClickOutside);
 			return () => {
 				document.removeEventListener("click", handleClickOutside);
+				onBlur(selectedDate);
 			};
 		}
-	}, [showDatePicker, id]);
+	}, [showDatePicker, id, selectedDate, onBlur]);
 
-	const handleFocus = () => {
+	const handleFocus = (e) => {
 		setShowDatePicker(true);
+		onFocus(e);
 	};
 
 	const twoDigit = (num) => {
@@ -333,13 +349,28 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 
 	return (
 		<div>
-			<label htmlFor={id}>{label}</label>
-			<input type="text" id={id} name={id} className="form-control" value={selectedDate} onChange={handleChangeSelectedDateInput} onFocus={handleFocus} onBlur={handleOnBlur} />
+			<div className="form-group">
+				<label htmlFor={id} className={labelClassName}>
+					{label}
+				</label>
+				<input
+					type="text"
+					id={id}
+					name={id}
+					className="form-control form-input"
+					value={selectedDate}
+					placeholder={placeholder}
+					onChange={handleChangeSelectedDateInput}
+					onFocus={handleFocus}
+					onBlur={handleOnBlur}
+				/>
+				<div className="error">{errorMessage}</div>
+			</div>
 
 			{showDatePicker && (
 				<>
 					<div className="date-picker-wrapper" id={id + "-date-picker"}>
-						<div className="date-picker noselect">
+						<div className="date-picker">
 							<div className="month-picker-wrapper">
 								<button className="prev" onClick={handlePreviousMonth}></button>
 								<button
