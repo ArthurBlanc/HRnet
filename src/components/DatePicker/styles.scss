@@ -78,6 +78,15 @@
 			cursor: default;
 		}
 		td {
+			&.calendar-today {
+				color: #33aaff;
+			}
+			&.current {
+				background: #33aaff;
+				box-shadow: #178fe5 0 0.0625rem 0.1875rem 0 inset;
+				color: #fff;
+				font-weight: 700;
+			}
 			&.other-month {
 				opacity: 0.5;
 			}

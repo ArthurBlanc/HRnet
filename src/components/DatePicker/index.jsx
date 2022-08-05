@@ -4,7 +4,7 @@ import Dropdown from "../Dropdown";
 
 import "./styles.scss";
 
-function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNumber = 50 }) {
+function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNumber = 50, separator = "/", dateFormat = "MMDDYYYY", firstDayOfTheWeek = "Sunday" }) {
 	const months = [
 		{ label: "January", value: 1 },
 		{ label: "February", value: 2 },
@@ -39,11 +39,17 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 	const [numberOfDaysInPreviousMonth, setNumberOfDaysInPreviousMonth] = useState(0);
 	const [numberOfWeeksInShowedMonth, setNumberOfWeeksInShowedMonth] = useState(0);
 
-	const [daysOfWeek] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
+	const [daysOfWeek, setDaysOfWeek] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
 	const [calendarWeeksInShowedMonth, setCalendarWeeksInShowedMonth] = useState([]);
 	const [years] = useState([...Array(yearsForwardNumber + yearsBackNumber + 1).keys()].map((i) => currentYear - yearsBackNumber + i));
 	const [minYear] = useState(currentYear - yearsBackNumber);
 	const [maxYear] = useState(currentYear + yearsForwardNumber);
+
+	useEffect(() => {
+		if (firstDayOfTheWeek === "Monday") {
+			setDaysOfWeek(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]);
+		}
+	}, [firstDayOfTheWeek]);
 
 	useEffect(() => {
 		if (onChange) {
@@ -54,11 +60,14 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 	useEffect(() => {
 		if (showDatePicker) {
 			const firstDayOfShowedMonth = (month, year) => {
+				if (firstDayOfTheWeek === "Monday") {
+					return new Date(year, month - 1, 1).getDay() - 1;
+				}
 				return new Date(year, month - 1, 1).getDay();
 			};
 			setFirstDayOfShowedMonth(firstDayOfShowedMonth(showedMonth, showedYear));
 		}
-	}, [showDatePicker, showedYear, showedMonth]);
+	}, [showDatePicker, showedYear, showedMonth, firstDayOfTheWeek]);
 
 	useEffect(() => {
 		if (showDatePicker) {
@@ -206,7 +215,10 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 		const month = parseInt(e.target.dataset.month);
 		const year = parseInt(e.target.dataset.year);
 
-		let formattedDate = twoDigit(month) + "/" + twoDigit(day) + "/" + year;
+		let formattedDate = twoDigit(month) + separator + twoDigit(day) + separator + year;
+		if (dateFormat === "DDMMYYYY") {
+			formattedDate = twoDigit(day) + separator + twoDigit(month) + separator + year;
+		}
 
 		setSelectedDay(day);
 		setSelectedMonth(month);
@@ -216,6 +228,60 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 		setShowedYear(year);
 		setSelectedDate(formattedDate);
 		setShowDatePicker(false);
+	};
+
+	const isDateValid = (date) => {
+		let regexDate = new RegExp(`^(0[1-9]|1[0-2])${separator}(0[1-9]|[1-2][0-9]|3[0-1])${separator}(19|20)\\d{2}$`);
+		if (dateFormat === "DDMMYYYY") {
+			regexDate = new RegExp(`^(0[1-9]|[1-2][0-9]|3[0-1])${separator}(0[1-9]|1[0-2])${separator}(19|20)\\d{2}$`);
+		}
+
+		if (regexDate.test(date)) {
+			const year = date.split(separator)[2];
+			if (year >= minYear && year <= maxYear) {
+				return true;
+			}
+		}
+		return false;
+	};
+
+	const handleChangeSelectedDateInput = (e) => {
+		let date = e.target.value;
+
+		if (isDateValid(date)) {
+			let day, month, year;
+
+			if (dateFormat === "MMDDYYYY") {
+				[month, day, year] = date.split(separator);
+			} else if (dateFormat === "DDMMYYYY") {
+				[day, month, year] = date.split(separator);
+			}
+
+			setSelectedDay(parseInt(day));
+			setSelectedMonth(parseInt(month));
+			setSelectedYear(parseInt(year));
+			setShowedMonth(parseInt(month));
+			setShowedYear(parseInt(year));
+		}
+
+		setSelectedDate(date);
+	};
+
+	const handleOnBlur = (e) => {
+		const date = e.target.value;
+		if (!isDateValid(date) && date !== "") {
+			if (dateFormat === "MMDDYYYY") {
+				setSelectedDate(twoDigit(currentMonth) + separator + twoDigit(currentDay) + separator + currentYear);
+			} else if (dateFormat === "DDMMYYYY") {
+				setSelectedDate(twoDigit(currentDay) + separator + twoDigit(currentMonth) + separator + currentYear);
+			}
+
+			setSelectedDay(currentDay);
+			setSelectedMonth(currentMonth);
+			setSelectedYear(currentYear);
+			setShowedMonth(currentMonth);
+			setShowedYear(currentYear);
+		}
 	};
 
 	const handleNextMonth = (e) => {
@@ -268,7 +334,7 @@ function DatePicker({ id, label, onChange, yearsBackNumber = 120, yearsForwardNu
 	return (
 		<div>
 			<label htmlFor={id}>{label}</label>
-			<input type="text" id={id} name={id} className="form-control" value={selectedDate} onFocus={handleFocus} readOnly={true} />
+			<input type="text" id={id} name={id} className="form-control" value={selectedDate} onChange={handleChangeSelectedDateInput} onFocus={handleFocus} onBlur={handleOnBlur} />
 
 			{showDatePicker && (
 				<>
