@@ -1,50 +1,39 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+
+import { useClickOutside } from "../../Hooks/useClickOutside";
 
 import "./styles.scss";
 
-function Modal({ content, id, isOpenState = false, onClose }) {
-	const [isOpen, setIsOpen] = useState(isOpenState);
-
+/**
+ * Modal component that can be opened and closed by clicking outside of the modal or the close button.
+ *
+ *  @returns {React.Component} - The modal component.
+ */
+function Modal({
+	id,
+	modalContent,
+	isOpenStateInParent = false,
+	onClose,
+	modalClassName = "modal",
+	modalBackgroundClassName = "modal-background",
+	addCloseButton = true,
+	closeButtonClassName = "close-modal",
+	closeButtonText = "Close",
+	...props
+}) {
+	// UseRef hook to create a ref for the modal.
+	// The useEffect hook is then used to add an event listener to the document.
+	// The event listener checks if the user clicked outside of the modal.
+	const ref = useRef();
+	const { checkIfClickedOutside, addListenerClickedOutside } = useClickOutside(ref, isOpenStateInParent, onClose);
 	useEffect(() => {
-		setIsOpen(isOpenState);
-	}, [isOpenState]);
-
-	useEffect(() => {
-		const modal = document.querySelector(`#${id}`);
-		if (modal) {
-			const handleClickOutside = (e) => {
-				if (modal.contains(e.target)) {
-					return;
-				}
-				setIsOpen(false);
-			};
-			document.addEventListener("click", handleClickOutside);
-			return () => {
-				document.removeEventListener("click", handleClickOutside);
-			};
+		if (isOpenStateInParent) {
+			addListenerClickedOutside(checkIfClickedOutside);
 		}
-	}, [isOpen, id]);
-
-	useEffect(() => {
-		const main = document.querySelector("main");
-		const removeBackground = () => {
-			const modalBackgrounds = document.querySelectorAll(".modal-background");
-			modalBackgrounds.forEach((modalBackground) => {
-				main.removeChild(modalBackground);
-			});
-		};
-		removeBackground();
-		if (main) {
-			if (isOpen) {
-				const background = document.createElement("div");
-				background.classList.add("modal-background");
-				main.appendChild(background);
-			}
-		}
-	}, [isOpen]);
+	}, [isOpenStateInParent, addListenerClickedOutside, checkIfClickedOutside]);
 
 	const handleClose = () => {
-		setIsOpen(false);
 		if (onClose) {
 			onClose(false);
 		}
@@ -52,16 +41,50 @@ function Modal({ content, id, isOpenState = false, onClose }) {
 
 	return (
 		<>
-			{isOpen && (
-				<div className="modal" id={id}>
-					{content}
-					<button className="close-modal" onClick={handleClose}>
-						Close
-					</button>
-				</div>
+			{isOpenStateInParent && (
+				<>
+					<span id={id + "-modal-background"} className={modalBackgroundClassName}></span>
+					<div id={id + "-modal"} ref={ref} className={modalClassName} {...props}>
+						{modalContent}
+						{addCloseButton && (
+							<button id={id + "-modal-button"} className={closeButtonClassName} type="button" onClick={handleClose}>
+								{closeButtonText}
+							</button>
+						)}
+					</div>
+				</>
 			)}
 		</>
 	);
 }
+
+Modal.propTypes = {
+	// id string (required): The id of the modal.
+	id: PropTypes.string.isRequired,
+
+	// modalContent node (required): The content of the modal.
+	modalContent: PropTypes.node.isRequired,
+
+	// isOpenStateInParent (required): A boolean that determines whether or not the modal is open.
+	isOpenStateInParent: PropTypes.bool.isRequired,
+
+	// onClose (required): A function that is called when the modal is closed.
+	onClose: PropTypes.func.isRequired,
+
+	// modalClassName string: The class name of the modal.
+	modalClassName: PropTypes.string,
+
+	// modalBackgroundClassName string: The class name of the modal background.
+	modalBackgroundClassName: PropTypes.string,
+
+	// addCloseButton boolean: Determines whether or not to add a close button to the modal.
+	addCloseButton: PropTypes.bool,
+
+	// closeButtonClassName string: The class name of the close button.
+	closeButtonClassName: PropTypes.string,
+
+	// closeButtonText node: The text of the close button.
+	closeButtonText: PropTypes.node,
+};
 
 export default Modal;

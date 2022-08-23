@@ -2,10 +2,12 @@
 	&-length {
 		float: left;
 	}
-	&-filter {
-		float: right;
-		input {
-			margin-left: 0.5em;
+	&-search {
+		&-wrapper {
+			float: right;
+			input {
+				margin-left: 0.5em;
+			}
 		}
 	}
 	&-info {
@@ -26,6 +28,55 @@
 	clear: both;
 	border-bottom: 1px solid #111;
 	border-spacing: 0;
+
+	@media screen and (max-width: 800px) {
+		table {
+			border: 0;
+		}
+
+		table thead {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			margin: -1px;
+			padding: 0;
+			overflow: hidden;
+			border: none;
+			clip: rect(0 0 0 0);
+		}
+
+		table tr {
+			display: block;
+			margin-bottom: 0.625em;
+			border-bottom: 3px solid #ddd;
+			&:hover {
+				pointer-events: none;
+			}
+		}
+
+		table td {
+			display: block;
+			height: 1rem;
+			border-bottom: 1px solid #ddd;
+			font-size: 0.8em;
+			text-align: right;
+		}
+
+		table td::before {
+			float: left;
+			font-weight: bold;
+			text-transform: uppercase;
+			/*
+		  * aria-label has no advantage, it won't be read inside a table
+		  content: attr(aria-label);
+		  */
+			content: attr(class);
+		}
+
+		table td:last-child {
+			border-bottom: 0;
+		}
+	}
 	thead {
 		.sorting,
 		.sorting-asc,
