@@ -71,20 +71,24 @@ function DataTable({
 		const isDate = (value) => {
 			return !isNaN(Date.parse(value));
 		};
+		// Create a copy of the data to sort.
+		const dataCopy = [...data];
 
-		return data.sort((a, b) => {
-			// Sorting the data by date.
-			if (isDate(a[column]) && isDate(b[column])) {
-				const dateA = new Date(a[column]);
-				const dateB = new Date(b[column]);
-				return direction === "asc" ? dateA - dateB : dateB - dateA;
-			} // If the value is not a valid date, it will sort the data by string.
-			else {
-				const stringA = String(a[column]).toLowerCase();
-				const stringB = String(b[column]).toLowerCase();
-				return direction === "asc" ? stringA > stringB : stringB > stringA;
-			}
-		});
+		if (dataCopy && dataCopy.length > 0) {
+			return dataCopy.sort((a, b) => {
+				// Sorting the data by date.
+				if (isDate(a[column]) && isDate(b[column])) {
+					const dateA = new Date(a[column]);
+					const dateB = new Date(b[column]);
+					return direction === "asc" ? dateA - dateB : dateB - dateA;
+				} // If the value is not a valid date, it will sort the data by string.
+				else {
+					const stringA = String(a[column]).toLowerCase();
+					const stringB = String(b[column]).toLowerCase();
+					return direction === "asc" ? stringA > stringB : stringB > stringA;
+				}
+			});
+		}
 	};
 	// State to track the current currentPage.
 	const [currentPage, setCurrentPage] = useState(1);
@@ -103,14 +107,22 @@ function DataTable({
 	// State to store the data that matches the searchInput query.
 	const [filteredData, setFilteredData] = useState(data);
 	// State to store the data that matches the searchInput query and are sorted.
-	const [sortedData, setSortedData] = useState([sortData(filteredData, sortColumn, sortOrder)]);
+	const [sortedData, setSortedData] = useState(filteredData);
 	// State to store the data that matches the searchInput query, are sorted on the current page.
-	const [paginatedData, setPaginatedData] = useState(sortedData.slice(firstItemOnPage, lastItemOnPage));
+	const [paginatedData, setPaginatedData] = useState(sortedData);
 	// State to track the count of all items that match the searchInput query.
 	const [totalFilteredItemsCount, setTotalFilteredCount] = useState(filteredData.length);
 
 	// Variable to track the count of all items.
 	const totalItemsCount = data.length;
+
+	useEffect(() => {
+		if (filteredData.length > 0) {
+			setSortedData(sortData(filteredData, sortColumn, sortOrder));
+		} else {
+			setSortedData([]);
+		}
+	}, [filteredData, sortColumn, sortOrder]);
 
 	useEffect(() => {
 		// Calculating the first item on the current page.
@@ -123,7 +135,6 @@ function DataTable({
 		setFirstItemOnPage(firstItemOnPage + 1);
 		setLastItemOnPage(lastItemOnPage);
 		setPaginatedData(sortedData.slice(firstItemOnPage, lastItemOnPage));
-		setSortedData(sortData(filteredData, sortColumn, sortOrder));
 
 		// If the first item on the page is greater than the length of the sorted data, it will set the
 		// current page to 1.
@@ -144,7 +155,8 @@ function DataTable({
 		const searchValue = event.target ? event.target.value : event;
 		setSearchInput(searchValue);
 
-		let filteredData = data;
+		let filteredData = [...data];
+
 		const searchValueLowerCase = searchValue.toLowerCase();
 		if (searchValueLowerCase) {
 			filteredData = data.filter((item) => {
@@ -238,7 +250,7 @@ function DataTable({
 						</tr>
 					)}
 
-					{paginatedData &&
+					{paginatedData.length > 0 &&
 						paginatedData.map((row, index) => (
 							<tr
 								key={index}

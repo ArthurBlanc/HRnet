@@ -44,6 +44,10 @@ form {
 
 	.error {
 		color: $invalid-color;
+		&.small {
+			color: #777;
+			font-size: 0.85rem;
+		}
 	}
 
 	.address {

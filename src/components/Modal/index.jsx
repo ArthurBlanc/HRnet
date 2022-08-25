@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-import { useClickOutside } from "../../Hooks/useClickOutside";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 import "./styles.scss";
 

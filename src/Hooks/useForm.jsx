@@ -15,7 +15,7 @@ export const useForm = (options) => {
 	 * argument and sets the data state with the event value
 	 */
 	const handleChange = (key, sanitizeFn) => (event) => {
-		if (event && key) {
+		if (event !== undefined && key) {
 			// If event as an target value, value is the target value else value is the event value.
 			const value = event.target ? event.target.value : event;
 			// If the sanitize function is passed, then sanitize the value.

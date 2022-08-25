@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-import { useClickOutside } from "../../Hooks/useClickOutside";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 import Input from "../Input";
 

@@ -1,12 +1,22 @@
-import DataTable from "../../components/DataTable";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import DataTable from "../../components/DataTable";
+
+import { selectEmployeeList } from "../../store/selectors";
+
+import { useSelector } from "react-redux";
 
 import "./styles.scss";
 
 function EmployeeList() {
 	const navigate = useNavigate();
 
-	const employees = JSON.parse(localStorage.getItem("employees"));
+	const employees = useSelector(selectEmployeeList());
+
+	useEffect(() => {
+		document.title = "Current Employees - HRnet";
+	}, []);
 
 	const columns = [
 		{ name: "First Name", id: "firstName", sortable: true },

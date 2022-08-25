@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { useClickOutside } from "../../Hooks/useClickOutside";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 import Dropdown from "../Dropdown";
 import Input from "../Input";
@@ -24,6 +24,7 @@ import "./styles.scss";
 function DatePicker({
 	id,
 	label,
+	value,
 	onChange,
 	onFocus,
 	onBlurFunction,
@@ -112,8 +113,6 @@ function DatePicker({
 	// State to have the current year
 	const [currentYear] = useState(currentDate.getFullYear());
 
-	// State to track the selected date by the user
-	const [selectedDate, setSelectedDate] = useState("");
 	// State to track the selected day by the user
 	const [selectedDay, setSelectedDay] = useState("");
 	// State to track the selected ymonth by the user
@@ -374,8 +373,15 @@ function DatePicker({
 
 	// When user manually enters a something in input, check if it is valid date
 	// If true, update the states.
-	const handleChangeInput = (event) => {
-		let date = event.target ? event.target.value : event;
+	const handleChangeInput = (event, length) => {
+		const insertSeparator = (thisValue, separator) => {
+			if ((thisValue.length === 2 && length === 1) || (thisValue.length === 5 && length === 4)) {
+				thisValue += separator;
+				return thisValue;
+			}
+			return thisValue;
+		};
+		let date = insertSeparator(event.target ? event.target.value : event, separator);
 
 		if (isDateValid(date)) {
 			let day, month, year;
@@ -392,7 +398,6 @@ function DatePicker({
 			setShowedMonth(+month);
 			setShowedYear(+year);
 		}
-		setSelectedDate(date);
 		if (onChange) {
 			onChange(date);
 		}
@@ -415,7 +420,6 @@ function DatePicker({
 			setSelectedYear(currentYear);
 			setShowedMonth(currentMonth);
 			setShowedYear(currentYear);
-			setSelectedDate(formattedDate);
 			if (onChange) {
 				onChange(formattedDate);
 			}
@@ -476,7 +480,6 @@ function DatePicker({
 
 			setShowedMonth(month);
 			setShowedYear(year);
-			setSelectedDate(formattedDate);
 			if (onChange) {
 				onChange(formattedDate);
 			}
@@ -493,7 +496,7 @@ function DatePicker({
 				className={dropdownInputClassName}
 				error={error}
 				readOnly={false}
-				value={selectedDate}
+				value={value}
 				wrapperClassName={inputWrapperClassName}
 				addErrorElement={!datePickerIsOpen}
 				maxLength={maxLength}
@@ -504,7 +507,7 @@ function DatePicker({
 				invalidClassName={invalidClassName}
 				errorClassName={errorClassName}
 				requiredFeedbackClassName={requiredFeedbackClassName}
-				onChange={handleChangeInput}
+				onChange={(event) => handleChangeInput(event, value.length)}
 				onFocus={handleFocus}
 				onBlur={handleOnBlur}
 				{...props}
@@ -609,6 +612,9 @@ DatePicker.propTypes = {
 
 	// label string: The label of the date picker.
 	label: PropTypes.string,
+
+	// value node: The value of the date picker.
+	value: PropTypes.node,
 
 	// onChange function: The callback function that is called when the date picker is changed.
 	onChange: PropTypes.func,

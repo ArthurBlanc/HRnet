@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "../../Hooks/useForm";
+import { useForm } from "../../hooks/useForm";
+import { useDispatch } from "react-redux";
+
+import { addEmployeeAction } from "../../store/employee";
 
 import { states, departments } from "../../utils/statesAndDepartments";
+
+import toRegexRange from "to-regex-range";
 
 import Input from "../../components/Input";
 import Modal from "../../components/Modal";
@@ -13,13 +18,32 @@ import "./styles.scss";
 
 function Home() {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const nameRegex = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,128}$";
 	const dateRegex = "^(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/(19|20)\\d{2}$";
+	const dateRegexOnChange = "^[\\d\\/]{0,10}$";
 	const addressRegex = "^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,128}$";
 	const zipRegex = "^\\d{4}$|^\\d{5}$";
-	const zipRegexOnChange = "^\\d{1,5}$";
+	const zipRegexOnChange = "^\\d{0,5}$";
+
+	const dateOfBirthYearsBack = 80;
+	const dateOfBirthYearsForward = 0;
+	const startDateYearsBack = 50;
+	const startDateYearsForward = 1;
+
+	const currentYear = new Date().getFullYear();
+
+	useEffect(() => {
+		document.title = "Create Employee - HRnet";
+	}, []);
+
+	const dateRegexWithRange = (min, max) => {
+		const regexRange = toRegexRange(min, max);
+		const dateRegex = `^(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/${regexRange}$`;
+		return dateRegex;
+	};
 
 	const {
 		handleSubmit, // handles form submission
@@ -58,7 +82,11 @@ function Home() {
 				},
 				pattern: {
 					value: dateRegex,
-					message: "Date of Birth must be in the format MM/DD/YYYY",
+					message: "Date of Birth wasn't in the format MM/DD/YYYY, it was replace by today's date",
+				},
+				custom: {
+					isValid: (value) => RegExp(dateRegexWithRange(currentYear - dateOfBirthYearsBack, currentYear + dateOfBirthYearsForward)).test(value),
+					message: "The year is not in the allowed range, the date was replace by today's date",
 				},
 			},
 			startDate: {
@@ -68,7 +96,11 @@ function Home() {
 				},
 				pattern: {
 					value: dateRegex,
-					message: "Start Date must be in the format MM/DD/YYYY",
+					message: "Start Date wasn't in the format MM/DD/YYYY, it was replace by today's date",
+				},
+				custom: {
+					isValid: (value) => RegExp(dateRegexWithRange(currentYear - startDateYearsBack, currentYear + startDateYearsForward)).test(value),
+					message: "The year is not in the allowed range, the date was replace by today's date",
 				},
 			},
 			street: {
@@ -123,7 +155,6 @@ function Home() {
 			},
 		},
 		onSubmit: () => {
-			const employees = JSON.parse(localStorage.getItem("employees")) || [];
 			const employee = {
 				firstName: sanitizerOnSubmit(data.firstName),
 				lastName: sanitizerOnSubmit(data.lastName),
@@ -135,8 +166,7 @@ function Home() {
 				state: sanitizerOnSubmit(data.state),
 				zipCode: sanitizerOnSubmit(data.zip),
 			};
-			employees.push(employee);
-			localStorage.setItem("employees", JSON.stringify(employees));
+			dispatch(addEmployeeAction(employee));
 			setShowConfirmationModal(true);
 		},
 		initialValues: {
@@ -155,21 +185,22 @@ function Home() {
 	const sanitizerOnSubmit = (value) => {
 		return value.trim();
 	};
-	const sanitizerOnChange = (value, regex) => {
-		let firstLetterUpperCase = value.charAt(0).toUpperCase() + value.slice(1);
+	const sanitizerOnChange = (event, regex) => {
+		const value = event.target ? event.target.value : event;
+		let valueWithFirstLetterUpperCase = value.charAt(0).toUpperCase() + value.slice(1);
 
 		// check if first letter is a letter or a number, if not, remove it
 		let regexFirstLetter = new RegExp("^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]");
-		if (!regexFirstLetter.test(firstLetterUpperCase.charAt(0))) {
-			firstLetterUpperCase = firstLetterUpperCase.slice(0, -1);
+		if (!regexFirstLetter.test(valueWithFirstLetterUpperCase.charAt(0))) {
+			valueWithFirstLetterUpperCase = valueWithFirstLetterUpperCase.slice(0, -1);
 		}
 
-		// remove last character is not in the regex
-		if (!RegExp(regex).test(firstLetterUpperCase)) {
-			firstLetterUpperCase = firstLetterUpperCase.slice(0, -1);
+		// remove last character if not in the regex
+		if (!RegExp(regex).test(valueWithFirstLetterUpperCase)) {
+			valueWithFirstLetterUpperCase = valueWithFirstLetterUpperCase.slice(0, -1);
 		}
 
-		return firstLetterUpperCase;
+		return valueWithFirstLetterUpperCase;
 	};
 
 	return (
@@ -210,25 +241,30 @@ function Home() {
 						id="dateOfBirth"
 						label="Date of Birth"
 						value={data.dateOfBirth}
-						onChange={handleChange("dateOfBirth")}
+						onChange={handleChange("dateOfBirth", (event) => sanitizerOnChange(event, dateRegexOnChange))}
 						onBlurFunction={handleValidation}
 						maxLength={10}
 						error={errors.dateOfBirth || ""}
-						yearsBackNumber={80}
-						yearsForwardNumber={0}
+						yearsBackNumber={dateOfBirthYearsBack}
+						yearsForwardNumber={dateOfBirthYearsForward}
 						requiredFeedbackEnabled={true}
+						invalidClassName={data.dateOfBirth ? "" : "invalid"}
+						errorClassName={data.dateOfBirth ? "error small" : "error"}
 					/>
 
 					<DatePicker
 						id="startDate"
 						label="Start Date"
-						onChange={handleChange("startDate")}
+						value={data.startDate}
+						onChange={handleChange("startDate", (event) => sanitizerOnChange(event, dateRegexOnChange))}
 						onBlurFunction={handleValidation}
 						maxLength={10}
 						error={errors.startDate || ""}
-						yearsBackNumber={50}
-						yearsForwardNumber={1}
+						yearsBackNumber={startDateYearsBack}
+						yearsForwardNumber={startDateYearsForward}
 						requiredFeedbackEnabled={true}
+						invalidClassName={data.startDate ? "" : "invalid"}
+						errorClassName={data.startDate ? "error small" : "error"}
 					/>
 
 					<fieldset className="address">
