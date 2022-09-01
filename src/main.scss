@@ -1,13 +1,114 @@
 @import "variables.scss";
 
 /* ---------------------------------------- */
+/* ==  Reset browser default styles     */
+/*---------------------------------------- */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+output,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* ---------------------------------------- */
 /* ==              FONT                 */
 /*---------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @mixin main-typography {
 	font-family: "Roboto", sans-serif;
-	font-size: map-get($font-size, desktop);
+	font-size: map-get($font-size, mobile);
+	@include tablet-breakpoint {
+		font-size: map-get($font-size, tablet);
+	}
+	@include desktop-breakpoint {
+		font-size: map-get($font-size, desktop);
+	}
 }
 
 @mixin title-typography {
@@ -19,6 +120,38 @@ html {
 }
 
 h1 {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	font-size: 2rem;
+	font-weight: 600;
+	line-height: 1.5;
+	@include title-typography;
+}
+
+h2 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+	@include title-typography;
+}
+
+h3 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	font-size: 1.3rem;
+	font-weight: 500;
+	line-height: 1.2;
+	@include title-typography;
+}
+
+h4 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+	font-weight: 500;
+	line-height: 1.2;
 	@include title-typography;
 }
 
@@ -29,19 +162,32 @@ h1 {
 body {
 	min-width: 100vw;
 	min-height: 100vh;
-	padding: 0;
 	background: linear-gradient(109.6deg, $secondary-color 11.2%, $primary-color 91.7%);
+	@include tablet-breakpoint {
+		min-width: 100vw;
+		min-height: 100vh;
+	}
+}
+
+#root {
+	margin: 1rem;
 }
 
 main {
-	width: fit-content;
-	max-width: 1200px;
-	margin: 0 auto;
-	margin-top: 2rem;
-	padding: 2rem 6rem;
+	width: min(100%, 75rem);
+	padding: 1rem 2rem;
 	border-radius: 1rem;
 	background-color: $light-color;
 	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+	margin-inline: auto;
+	@include tablet-breakpoint {
+		width: fit-content;
+		margin-top: 2rem;
+		padding: 2rem;
+	}
+	@include desktop-breakpoint {
+		padding: 2rem 6rem;
+	}
 }
 
 button {
@@ -66,11 +212,8 @@ button {
 	}
 }
 
-.title {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+select {
+	font-size: 100%;
 }
 
 .container {
@@ -91,6 +234,11 @@ button {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.horizontal-center {
+	display: block;
+	margin: 0 auto;
 }
 
 .relative {

@@ -33,6 +33,7 @@ function DataTable({
 	itemsPerPageOptions = [10, 25, 50, 100],
 	itemsPerPageSelectionEnabled = true,
 	searchEnabled = true,
+	sortSelectionEnabled = true,
 	tableInfoEnabled = true,
 	paginationEnabled = true,
 	// Class names for the component.
@@ -221,6 +222,29 @@ function DataTable({
 					/>
 				</div>
 			)}
+			{sortSelectionEnabled && (
+				<div className="only-mobile">
+					{"Sort by: "}
+					<select value={sortColumn} onChange={(e) => setSortColumn(e.target.value)}>
+						{columns.map((option, index) => (
+							<option key={option + "-" + index} value={option.id}>
+								{option.name}
+							</option>
+						))}
+					</select>
+					<select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</div>
+			)}
+
+			{paginationEnabled && (
+				<div id={tableId + "-table-paginate"} className={dataTablesPaginateClassName + " only-mobile"}>
+					<Pagination totalCount={totalFilteredItemsCount} pageSize={itemsPerPage} siblingCount={1} currentPage={currentPage} onPageChange={setCurrentPage} />
+				</div>
+			)}
+
 			<table id={tableId + "-table"} className={dataTableClassName} role="grid" aria-describedby="employee-table-info">
 				<thead className={dataTableHeaderClassName}>
 					<tr role="row" className={dataTableHeaderTrClassName}>
@@ -264,6 +288,7 @@ function DataTable({
 										// If the column is sorted, add the sorted class name
 										className={dataTableBodyTdClassName + " " + (column.id + (column.id === sortColumn ? " " + dataTableBodyTdSortedClassName : ""))}
 										colSpan={column.bodyColSpan ? column.bodyColSpan : 1}
+										data-label={column.name}
 									>
 										{row[column.id]}
 									</td>
@@ -309,6 +334,9 @@ DataTable.propTypes = {
 
 	// searchEnabled boolean: Whether the search input should be enabled.
 	searchEnabled: PropTypes.bool,
+
+	// sortSelectionEnabled boolean: Whether the sort dropdown should be enabled.
+	sortSelectionEnabled: PropTypes.bool,
 
 	// tableInfoEnabled boolean: Whether the table info should be enabled.
 	tableInfoEnabled: PropTypes.bool,

@@ -38,9 +38,12 @@ function DatePicker({
 	todayButtonText = "Today",
 	// Class names for the component.
 	labelClassName,
+	dateClassName = "date",
+	headerClassName = "header-day",
+	datePickerInputWrapperClassName = "date-picker-input-wrapper",
 	datePickerWrapperClassName = "date-picker-wrapper",
 	datePickerClassName = "date-picker",
-	datePickerMonthWrapperClassName = "date-picker-month-wrapper",
+	datePickerNavWrapperClassName = "date-picker-nav-wrapper",
 	datePickerPreviousButtonClassName = "prev",
 	datePickerTodayButtonClassName = "today",
 	datePickerNextButtonClassName = "next",
@@ -50,10 +53,10 @@ function DatePicker({
 	calendarTableClassName = "",
 	calendarHeaderClassName = "",
 	calendarHeaderTrClassName = "",
-	calendarHeaderThClassName = "",
+	calendarHeaderThClassName = "header-day-wrapper",
 	calendarBodyClassName = "",
 	calendarBodyTrClassName = "",
-	calendarBodyTdClassName = "date",
+	calendarBodyTdClassName = "date-wrapper",
 	calendarForbiddenClassName = "forbidden-date",
 	calendarOtherMonthClassName = "other-month",
 	calendarTodayClassName = "calendarData-today",
@@ -72,6 +75,7 @@ function DatePicker({
 	monthDropdownOptionSelectedClassName = "current-selection",
 	monthDropdownListClassName = "dropdown-list",
 	monthDropdownListLabelClassName = "label",
+	monthDropdownInputClassName = "dropdown-text",
 	// Year dropdown props.
 	yearDropdownLabel,
 	yearListLabel = "Choose your year",
@@ -86,13 +90,14 @@ function DatePicker({
 	yearDropdownOptionSelectedClassName = "current-selection",
 	yearDropdownListClassName = "dropdown-list",
 	yearDropdownListLabelClassName = "label",
+	yearDropdownInputClassName = "dropdown-text",
 	// Input props.
 	error,
 	maxLength = 10,
 	required = false,
 	requiredFeedbackEnabled = false,
 	requiredFeedback = "*",
-	dropdownInputClassName = "dropdown-text",
+	inputClassName = "form-control form-input",
 	// Input classnames.
 	inputWrapperClassName = "form-group",
 	activeClassName = "active",
@@ -239,7 +244,7 @@ function DatePicker({
 					const isLastMonthOfTheCalendar = isLastYearOfTheCalendar && isLastMonthOfTheYear;
 
 					// ClassName for the day.
-					let className = calendarBodyTdClassName;
+					let className = dateClassName;
 					// Number of the day.
 					let day = dayValue;
 					// Number of the month of the day.
@@ -324,7 +329,7 @@ function DatePicker({
 		showedMonth,
 		showedYear,
 		firstDayOfTheWeek,
-		calendarBodyTdClassName,
+		dateClassName,
 		calendarForbiddenClassName,
 		calendarOtherMonthClassName,
 		calendarTodayClassName,
@@ -489,11 +494,11 @@ function DatePicker({
 	};
 
 	return (
-		<div ref={ref}>
+		<div ref={ref} className={datePickerInputWrapperClassName}>
 			<Input
 				id={id}
 				label={label}
-				className={dropdownInputClassName}
+				className={inputClassName}
 				error={error}
 				readOnly={false}
 				value={value}
@@ -516,7 +521,7 @@ function DatePicker({
 			{datePickerIsOpen && (
 				<div id={id + "-date-picker"} className={datePickerWrapperClassName}>
 					<div className={datePickerClassName}>
-						<div className={datePickerMonthWrapperClassName}>
+						<div className={datePickerNavWrapperClassName}>
 							<button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth}>
 								{previousButtonText}
 							</button>
@@ -541,6 +546,7 @@ function DatePicker({
 									dropdownOptionSelectedClassName={monthDropdownOptionSelectedClassName}
 									dropdownListClassName={monthDropdownListClassName}
 									dropdownListLabelClassName={monthDropdownListLabelClassName}
+									dropdownInputClassName={monthDropdownInputClassName}
 								/>
 							</div>
 							<div className={datePickerYearDropdownWrapperClassName}>
@@ -561,6 +567,7 @@ function DatePicker({
 									dropdownOptionSelectedClassName={yearDropdownOptionSelectedClassName}
 									dropdownListClassName={yearDropdownListClassName}
 									dropdownListLabelClassName={yearDropdownListLabelClassName}
+									dropdownInputClassName={yearDropdownInputClassName}
 								/>
 							</div>
 							<button className={datePickerNextButtonClassName} onClick={handleNextMonth}>
@@ -574,7 +581,7 @@ function DatePicker({
 									<tr className={calendarHeaderTrClassName}>
 										{daysOfWeek.map((day) => (
 											<th key={day} className={calendarHeaderThClassName}>
-												{day}
+												<div className={headerClassName}>{day}</div>
 											</th>
 										))}
 									</tr>
@@ -583,15 +590,16 @@ function DatePicker({
 									{calendarData.map((week, i) => (
 										<tr key={i} className={calendarBodyTrClassName}>
 											{Object.keys(week).map((day, j) => (
-												<td
-													key={j}
-													className={week[day].className}
-													data-date={week[day].day}
-													data-month={week[day].month}
-													data-year={week[day].year}
-													onMouseDown={week[day].className.includes(calendarForbiddenClassName) ? null : handleDayClick}
-												>
-													{week[day].day}
+												<td key={j} className={calendarBodyTdClassName}>
+													<div
+														className={week[day].className}
+														data-date={week[day].day}
+														data-month={week[day].month}
+														data-year={week[day].year}
+														onMouseDown={week[day].className.includes(calendarForbiddenClassName) ? null : handleDayClick}
+													>
+														{week[day].day}
+													</div>
 												</td>
 											))}
 										</tr>
@@ -652,14 +660,23 @@ DatePicker.propTypes = {
 	// labelClassName string: The class name of the label.
 	labelClassName: PropTypes.string,
 
+	// dateClassName string: The class name of the date.
+	dateClassName: PropTypes.string,
+
+	// headerClassName string: The class name of the header table.
+	headerClassName: PropTypes.string,
+
+	// datePickerInputWrapperClassName string: The class name of the date picker input wrapper.
+	datePickerInputWrapperClassName: PropTypes.string,
+
 	// datePickerWrapperClassName string: The class name of the date picker wrapper.
 	datePickerWrapperClassName: PropTypes.string,
 
 	// datePickerClassName string: The class name of the date picker.
 	datePickerClassName: PropTypes.string,
 
-	// datePickerMonthWrapperClassName string: The class name of the month wrapper.
-	datePickerMonthWrapperClassName: PropTypes.string,
+	// datePickerNavWrapperClassName string: The class name of the nav wrapper.
+	datePickerNavWrapperClassName: PropTypes.string,
 
 	// datePickerPreviousButtonClassName string: The class name of the previous button.
 	datePickerPreviousButtonClassName: PropTypes.string,
@@ -748,6 +765,9 @@ DatePicker.propTypes = {
 	// monthDropdownListLiClassName string: The class name of the month dropdown list li.
 	monthDropdownListLabelClassName: PropTypes.string,
 
+	// monthDropdownInputClassName string: The class name of the month dropdown input.
+	monthDropdownInputClassName: PropTypes.string,
+
 	// yearDropdownLabel string: The label of the year dropdown.
 	yearDropdownLabel: PropTypes.string,
 
@@ -784,6 +804,9 @@ DatePicker.propTypes = {
 	// yearDropdownListLabelClassName string: The class name of the year dropdown list li.
 	yearDropdownListLabelClassName: PropTypes.string,
 
+	// yearDropdownInputClassName string: The class name of the year dropdown input.
+	yearDropdownInputClassName: PropTypes.string,
+
 	// error string: The error message.
 	error: PropTypes.string,
 
@@ -799,8 +822,8 @@ DatePicker.propTypes = {
 	// requiredFeedback string: The required feedback message.
 	requiredFeedback: PropTypes.string,
 
-	// dropdownInputClassName string: The class name of the dropdown input.
-	dropdownInputClassName: PropTypes.string,
+	// inputClassName string: The class name of the dropdown input.
+	inputClassName: PropTypes.string,
 
 	// inputWrapperClassName string: The class name of the input wrapper.
 	inputWrapperClassName: PropTypes.string,

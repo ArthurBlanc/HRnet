@@ -10,25 +10,35 @@ $dark-color: #333;
 $invalid-color: #dc3545;
 
 $font-size: (
+	mobile: 4vw,
+	tablet: 0.95rem,
 	desktop: 1rem,
 );
 
 $breakpoints: (
-	desktop: 1440px,
+	tablet: 768px,
+	desktop: 992px,
+	big-desktop: 1200px,
 );
 
 /* ---------------------------------------- */
 /* ==        GENERAL MIXINS            */
 /*---------------------------------------- */
 /* This is a mixin that will be used to create a breakpoint for the desktop. */
+@mixin tablet-breakpoint {
+	@media screen and (min-width: map-get($breakpoints, tablet)) {
+		@content;
+	}
+}
 @mixin desktop-breakpoint {
 	@media screen and (min-width: map-get($breakpoints, desktop)) {
 		@content;
 	}
 }
-
-@mixin no-margin {
-	margin: 0;
+@mixin big-desktop-breakpoint {
+	@media screen and (min-width: map-get($breakpoints, big-desktop)) {
+		@content;
+	}
 }
 
 @mixin background-opacity($color, $opacity: 0.5) {

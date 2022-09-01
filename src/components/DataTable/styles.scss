@@ -1,10 +1,28 @@
+@import "../../variables.scss";
+
 .data-tables {
+	&-wrapper {
+		width: 100%;
+		text-align: center;
+		.only-mobile {
+			@include tablet-breakpoint {
+				display: none;
+			}
+		}
+		& > div {
+			margin-bottom: 0.5em;
+		}
+	}
 	&-length {
-		float: left;
+		@include tablet-breakpoint {
+			float: left;
+		}
 	}
 	&-search {
 		&-wrapper {
-			float: right;
+			@include tablet-breakpoint {
+				float: right;
+			}
 			input {
 				margin-left: 0.5em;
 			}
@@ -12,11 +30,15 @@
 	}
 	&-info {
 		padding-top: 0.8em;
-		float: left;
+		@include tablet-breakpoint {
+			float: left;
+		}
 	}
 	&-paginate {
 		padding-top: 0.25em;
-		text-align: right;
+		@include tablet-breakpoint {
+			text-align: right;
+		}
 	}
 	&-empty {
 		text-align: center;
@@ -25,100 +47,90 @@
 
 .data-table {
 	width: 100%;
-	clear: both;
-	border-bottom: 1px solid #111;
-	border-spacing: 0;
-
-	@media screen and (max-width: 800px) {
-		table {
-			border: 0;
-		}
-
-		table thead {
-			position: absolute;
-			width: 1px;
-			height: 1px;
-			margin: -1px;
-			padding: 0;
-			overflow: hidden;
-			border: none;
-			clip: rect(0 0 0 0);
-		}
-
-		table tr {
-			display: block;
-			margin-bottom: 0.625em;
-			border-bottom: 3px solid #ddd;
-			&:hover {
-				pointer-events: none;
-			}
-		}
-
-		table td {
-			display: block;
-			height: 1rem;
-			border-bottom: 1px solid #ddd;
-			font-size: 0.8em;
-			text-align: right;
-		}
-
-		table td::before {
-			float: left;
-			font-weight: bold;
-			text-transform: uppercase;
-			/*
-		  * aria-label has no advantage, it won't be read inside a table
-		  content: attr(aria-label);
-		  */
-			content: attr(class);
-		}
-
-		table td:last-child {
-			border-bottom: 0;
-		}
+	@include tablet-breakpoint {
+		clear: both;
+		border-bottom: 1px solid #111;
+		border-spacing: 0;
 	}
-	thead {
-		.sorting,
-		.sorting-asc,
-		.sorting-desc,
-		.sorting-asc-disabled,
-		.sorting-desc-disabled {
-			background-position: center right;
-			background-repeat: no-repeat;
-			cursor: pointer;
-			user-select: none;
-		}
 
-		.sorting {
-			background-image: url("/assets/sort_both.png");
-		}
-		.sorting-asc {
-			background-image: url("/assets/sort_asc.png");
-		}
-		.sorting-desc {
-			background-image: url("/assets/sort_desc.png");
-		}
-		th,
-		td {
-			padding: 0.625rem 1rem;
-			border-bottom: 1px solid #111;
+	caption {
+		font-size: 1.3em;
+	}
+
+	thead {
+		display: none;
+		@include tablet-breakpoint {
+			display: table-header-group;
+			.sorting,
+			.sorting-asc,
+			.sorting-desc,
+			.sorting-asc-disabled,
+			.sorting-desc-disabled {
+				background-position: center right;
+				background-repeat: no-repeat;
+				cursor: pointer;
+				user-select: none;
+			}
+
+			.sorting {
+				background-image: url("/assets/sort_both.png");
+			}
+			.sorting-asc {
+				background-image: url("/assets/sort_asc.png");
+			}
+			.sorting-desc {
+				background-image: url("/assets/sort_desc.png");
+			}
+			th,
+			td {
+				padding: 0.625rem 1rem;
+				border-bottom: 1px solid #111;
+				vertical-align: middle;
+			}
 		}
 	}
 	tbody {
-		th,
-		td {
-			padding: 0.5rem 0.625rem;
-			border-top: 1px solid #ddd;
-		}
 		tr {
-			background-color: #ffffff;
-			&.odd {
-				background-color: #f9f9f9;
+			display: block;
+			margin-bottom: 1rem;
+			border: 1px solid black;
+			@include tablet-breakpoint {
+				display: table-row;
+				background-color: #ffffff;
+				&.odd {
+					background-color: #f9f9f9;
+				}
+				&:first-child th,
+				&:first-child td {
+					border-top: none;
+				}
 			}
-			&:first-child th,
-			&:first-child td {
-				border-top: none;
+		}
+
+		td {
+			display: block;
+			padding: 0.5rem 0.625rem;
+			border-bottom: 1px solid #ddd;
+			text-align: right;
+			@include tablet-breakpoint {
+				display: table-cell;
+				border: 0;
+				text-align: center;
 			}
+		}
+
+		td::before {
+			float: left;
+			font-weight: bold;
+			text-transform: uppercase;
+			content: attr(data-label);
+			@include tablet-breakpoint {
+				content: "";
+			}
+		}
+
+		td:last-child {
+			border-bottom: 0;
 		}
 	}
 }

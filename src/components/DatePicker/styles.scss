@@ -1,8 +1,13 @@
+@import "../../variables.scss";
+
 .date-picker {
-	width: 15.625rem;
+	width: 100%;
 	margin-left: 0.5rem;
 	float: left;
 	user-select: none;
+	&-input-wrapper {
+		position: relative;
+	}
 	* {
 		padding: 0;
 	}
@@ -29,6 +34,7 @@
 	&-wrapper {
 		z-index: 90;
 		position: absolute;
+		width: 100%;
 		padding: 0.5rem;
 		padding-top: 0.125rem;
 		padding-left: 0;
@@ -36,7 +42,18 @@
 		background: #fff;
 		box-shadow: 0 0.3125rem 0.9375rem -0.3125rem rgba(0, 0, 0, 0.506);
 	}
-
+	&-nav {
+		&-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.3rem 0;
+			.dropdown-icon {
+				position: static;
+				transform: translateY(20%);
+			}
+		}
+	}
 	.calendar {
 		table {
 			width: 100%;
@@ -44,13 +61,16 @@
 		}
 		td,
 		th {
-			width: 14.2857142%;
-			height: 1.5625rem;
+			display: inline-block;
+			width: 14.286%;
+			height: 0;
+			padding-bottom: 14.286%;
 			border: 1px solid #ddd;
 			background: #f5f5f5;
 			color: #666;
 			font-size: 0.75rem;
 			text-align: right;
+			vertical-align: middle;
 			cursor: pointer;
 		}
 		th {
@@ -58,7 +78,27 @@
 			text-align: center;
 			cursor: default;
 		}
-		td {
+		.header-day {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			&-wrapper {
+				position: relative;
+			}
+		}
+		.date {
+			display: flex;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			align-items: center;
+			justify-content: center;
+			width: 75%;
+			height: 75%;
+			padding-right: 0.3125rem;
+			transform: translate(-50%, -50%);
+			border-radius: 50%;
 			&.calendar-today {
 				color: #33aaff;
 			}
@@ -71,9 +111,9 @@
 			&.other-month {
 				opacity: 0.5;
 			}
-		}
-		.date {
-			padding-right: 0.3125rem;
+			&-wrapper {
+				position: relative;
+			}
 			&-today {
 				color: #33aaff;
 			}
@@ -144,26 +184,16 @@
 		}
 	}
 
-	.prev {
-		float: left;
-		background-position: -1.25rem 0;
-	}
-	.next {
-		float: right;
-	}
-	.today {
-		margin-left: 0.3125rem;
-		float: left;
-		background-position: -4.375rem 0;
-	}
 	.next,
 	.prev,
 	.today {
-		width: 1.25rem;
-		height: 1.875rem;
+		width: 1.3rem;
+		height: 1.3rem;
 		overflow: hidden;
 		border: 0;
 		background-color: transparent;
+		background-position: center;
+		background-repeat: no-repeat;
 		text-indent: 100%;
 		cursor: pointer;
 		opacity: 0.5;
@@ -171,10 +201,20 @@
 			opacity: 1;
 		}
 	}
-	.prev,
-	.next,
+
+	.prev {
+		float: left;
+		background-image: url("/assets/angle-left-solid.svg");
+	}
+	.next {
+		float: right;
+		background-image: url("/assets/angle-right-solid.svg");
+	}
 	.today {
-		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);
+		width: 1rem;
+		height: 1rem;
+		float: left;
+		background-image: url("/assets/house-solid.svg");
 	}
 
 	&-background {

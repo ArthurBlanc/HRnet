@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import ConditionalWrapper from "../ConditionalWrapper";
 
+import "./styles.scss";
+
 /**
  * Function to add an input element with label and error message (can be disable).
  *
@@ -65,6 +67,11 @@ function Input({
 	const handleBlur = (event) => {
 		if (onBlur) {
 			onBlur(event, id);
+			if (!error) {
+				// add valid class if there is no error
+				event.target.classList.add("valid");
+				event.target.previousSibling.classList.add("valid");
+			}
 		}
 		setIsFocused(false);
 	};

@@ -205,10 +205,10 @@ function Home() {
 
 	return (
 		<main>
-			<div className="title">
-				<h1>HRnet</h1>
-			</div>
-			<div className="container">
+			<div className="container home-page">
+				<div className="title">
+					<h1>HRnet</h1>
+				</div>
 				<button className="button" onClick={() => navigate("/employee-list")}>
 					Employee List
 				</button>
@@ -318,11 +318,9 @@ function Home() {
 							requiredFeedbackEnabled={true}
 						/>
 					</div>
-					<div className="form-group">
-						<button id="form-submit-button" type="submit" className="button">
-							Create
-						</button>
-					</div>
+					<button id="form-submit-button" type="submit" className="button horizontal-center">
+						Create
+					</button>
 				</form>
 				<Modal id="confirmation" modalContent="Employee Created!" isOpenStateInParent={showConfirmationModal} onClose={setShowConfirmationModal} />
 			</div>

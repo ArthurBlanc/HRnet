@@ -16,12 +16,16 @@
 		padding: 0.5em 1em;
 	}
 	&-icon {
-		$size: 1rem;
+		position: absolute;
+		top: 50%;
+		right: 0;
 		order: 2;
-		width: $size;
-		height: $size;
-		background-image: url("/assets/ui-icons_777777_256x240.png");
-		background-position: -4.0625rem -1rem;
+		width: 0.5rem;
+		height: 1rem;
+		margin: 0 0.5rem;
+		transform: translateY(-50%);
+		background-image: url("/assets/caret-down-solid.svg");
+		background-repeat: no-repeat;
 	}
 	&-text {
 		overflow: hidden;

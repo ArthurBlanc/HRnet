@@ -4,8 +4,8 @@ form {
 	.form {
 		&-group {
 			position: relative;
-			margin-top: 1rem;
-			margin-bottom: 1rem;
+			margin-top: 1.5rem;
+			margin-bottom: 1.5rem;
 		}
 		&-label {
 			position: absolute;
@@ -13,15 +13,17 @@ form {
 			left: 0;
 			color: #757575;
 			cursor: text;
-
 			transition: 0.2s ease-out;
 			&.active {
 				transform: translateY(-140%);
-				color: $secondary-color;
 				font-size: 0.8rem;
 			}
+
 			&.invalid {
 				color: $invalid-color;
+			}
+			&.valid {
+				color: $secondary-color;
 			}
 		}
 		&-input {
@@ -33,11 +35,11 @@ form {
 			background-color: transparent;
 			font-size: 1rem;
 			transition: all 0.3s;
-			&:focus {
-				border-color: $secondary-color;
-			}
 			&.invalid {
 				border-color: $invalid-color;
+			}
+			&.valid {
+				border-color: $secondary-color;
 			}
 		}
 	}
@@ -51,14 +53,9 @@ form {
 	}
 
 	.address {
+		padding: 0 1rem 1rem 1rem;
+		border: 2px solid $secondary-color;
 		border-color: $secondary-color;
-	}
-
-	label {
-		color: #757575;
-		&.active {
-			color: $secondary-color;
-		}
 	}
 
 	.dropdown {
@@ -85,12 +82,6 @@ form {
 		&-button {
 			padding: 0;
 		}
-		&-icon {
-			position: absolute;
-			top: 35%;
-			right: 0;
-			transform: translateY(-50%);
-		}
 		&-list {
 			&-container {
 				top: 0;
@@ -104,8 +95,7 @@ form {
 		width: 100%;
 		margin-left: 0;
 		&-wrapper {
-			width: 20rem;
-			padding: 0.5rem 0;
+			padding: 0;
 		}
 		.dropdown {
 			&-option {
@@ -131,23 +121,19 @@ form {
 				&:hover {
 					background: $primary-color;
 				}
-			}
-
-			td.calendar-today {
-				color: $secondary-color;
-			}
-			td.current-selection {
-				background: $secondary-color;
-				box-shadow: $primary-color 0 0.0625rem 0.1875rem 0 inset;
-				color: $light-color;
+				&.calendar-today {
+					color: $secondary-color;
+				}
+				&.current-selection {
+					background: $secondary-color;
+					box-shadow: $primary-color 0 0.0625rem 0.1875rem 0 inset;
+					color: $light-color;
+				}
 			}
 
 			td,
 			th {
-				width: 14%;
-				height: calc(20rem / 7.11);
 				border: 0;
-				border-radius: 50%;
 				background: transparent;
 				text-align: center;
 			}
@@ -161,6 +147,11 @@ form {
 }
 
 #create-employee {
-	width: 20rem;
+	width: 100%;
 	margin-bottom: 1rem;
+}
+.home-page {
+	@include tablet-breakpoint {
+		width: 20rem;
+	}
 }
