@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Pagination from "../Pagination";
-import Input from "../Input";
-
 import "./styles.scss";
 
 /**
@@ -173,13 +171,18 @@ function DataTable({
 	// If the column is the same as the current sort column, then toggle the sort order.
 	// Otherwise, set the sort order to ascending
 	const handleSortChange = (column) => {
-		let direction = "asc";
-		if (column === sortColumn) {
-			direction = sortOrder === "asc" ? "desc" : "asc";
-		}
+		const currentColumn = columns.find((col) => col.id === column);
+		// Check if the column is sortable
+		if (currentColumn.sortable) {
+			let direction = "asc";
+			if (column === sortColumn) {
+				direction = sortOrder === "asc" ? "desc" : "asc";
+			}
 
-		setSortOrder(direction);
-		setSortColumn(column);
+			setSortOrder(direction);
+			setSortColumn(column);
+		}
+		return;
 	};
 
 	// Sets the items per page to the value of the event target and sets the current page to 1.
@@ -208,17 +211,19 @@ function DataTable({
 
 			{searchEnabled && (
 				<div id={tableId + "-table-search-wrapper"} className={dataTablesSearchWrapperClassName}>
-					<Input
+					<label id={tableId + "-table-search-input-label"} htmlFor={tableId + "-table-search-input"} className={dataTablesSearchLabelClassName}>
+						Search:{" "}
+					</label>
+					<input
 						id={tableId + "-table-search"}
+						className={dataTablesSearchInputClassName}
+						name={tableId + "-table-search"}
 						type="search"
-						value={searchInput}
-						label="Search:"
-						onChange={handleSearch}
-						labelClassName={dataTablesSearchLabelClassName}
-						inputClassName={dataTablesSearchInputClassName}
-						wrapperClassName=""
-						addErrorElement={false}
+						maxLength="128"
 						aria-controls={tableId + "-table"}
+						value={searchInput}
+						onChange={handleSearch}
+						aria-label={"Search in table " + tableId}
 					/>
 				</div>
 			)}
@@ -240,14 +245,14 @@ function DataTable({
 			)}
 
 			{paginationEnabled && (
-				<div id={tableId + "-table-paginate"} className={dataTablesPaginateClassName + " only-mobile"}>
+				<div id={tableId + "-table-paginate-top"} className={dataTablesPaginateClassName + " only-mobile"}>
 					<Pagination totalCount={totalFilteredItemsCount} pageSize={itemsPerPage} siblingCount={1} currentPage={currentPage} onPageChange={setCurrentPage} />
 				</div>
 			)}
 
 			<table id={tableId + "-table"} className={dataTableClassName} role="grid" aria-describedby="employee-table-info">
 				<thead className={dataTableHeaderClassName}>
-					<tr role="row" className={dataTableHeaderTrClassName}>
+					<tr className={dataTableHeaderTrClassName}>
 						{columns.map((column) => (
 							<th
 								key={column.id}
@@ -255,10 +260,18 @@ function DataTable({
 								className={
 									dataTableHeaderThClassName + (column.sortable && column.id !== sortColumn ? " " + dataTableHeaderSortedClassName : "") + (column.id === sortColumn ? " sorting-" + sortOrder : "")
 								}
-								tabIndex="0"
-								onClick={column.sortable ? () => handleSortChange(column.id) : null}
+								tabIndex={0}
+								onClick={() => handleSortChange(column.id)}
+								// onKeyDown enter key
+								onKeyDown={(event) => {
+									if (event.key === "Enter" || event.key === " ") {
+										handleSortChange(column.id);
+									}
+								}}
+								scope="col"
 								rowSpan="1"
 								colSpan={column.headColSpan ? column.headColSpan : 1}
+								aria-label={"Sort table by " + column.name + " in " + (column.id === sortColumn ? (sortOrder === "asc" ? "descending" : "ascending") : "ascending") + " order"}
 							>
 								{column.name}
 							</th>
@@ -280,7 +293,6 @@ function DataTable({
 								key={index}
 								// If the row is odd, add the odd row class name, otherwise add the even row class name
 								className={dataTableBodyTrClassName + (index % 2 ? " " + dataTableBodyEvenRowClassName : " " + dataTableBodyOddRowClassName)}
-								role="row"
 							>
 								{columns.map((column) => (
 									<td
@@ -289,6 +301,7 @@ function DataTable({
 										className={dataTableBodyTdClassName + " " + (column.id + (column.id === sortColumn ? " " + dataTableBodyTdSortedClassName : ""))}
 										colSpan={column.bodyColSpan ? column.bodyColSpan : 1}
 										data-label={column.name}
+										aria-label={row[column.id] + " in " + column.name + " column"}
 									>
 										{row[column.id]}
 									</td>
@@ -305,7 +318,7 @@ function DataTable({
 				</div>
 			)}
 			{paginationEnabled && (
-				<div id={tableId + "-table-paginate"} className={dataTablesPaginateClassName}>
+				<div id={tableId + "-table-paginate-footer"} className={dataTablesPaginateClassName}>
 					<Pagination totalCount={totalFilteredItemsCount} pageSize={itemsPerPage} siblingCount={1} currentPage={currentPage} onPageChange={setCurrentPage} />
 				</div>
 			)}

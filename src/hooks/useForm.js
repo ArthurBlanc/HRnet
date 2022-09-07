@@ -70,7 +70,9 @@ export const useForm = (options) => {
 	 * Otherwise it sets the errors state to an empty object and calls the onSubmit function if it exists
 	 */
 	const handleSubmit = (event) => {
-		event.preventDefault();
+		if (event) {
+			event.preventDefault();
+		}
 		const validations = options?.validations;
 		if (validations) {
 			let newErrors = {};

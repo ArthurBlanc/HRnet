@@ -35,7 +35,7 @@ function EmployeeList() {
 			<div id="employee-div" className="container">
 				<h1>Current Employees</h1>
 				{employees ? <DataTable columns={columns} data={employees} tableId="employee" sortId="startDate" /> : "No Data"}
-				<button className="button" onClick={() => navigate("/")}>
+				<button className="button" onClick={() => navigate("/")} aria-label="Navigate to home page">
 					Home
 				</button>
 			</div>

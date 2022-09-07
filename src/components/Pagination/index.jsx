@@ -111,6 +111,7 @@ function Pagination({
 				disabled={currentPage === 1}
 				tabIndex={currentPage === 1 ? -1 : 0}
 				onClick={onPrevious}
+				aria-label={"Navigate  to previous page (" + (currentPage - 1) + ")"}
 				{...props}
 			>
 				Previous
@@ -132,6 +133,7 @@ function Pagination({
 							className={pageButtonClassName + (currentPage === pageNumber ? " " + currentPageClassName : "")}
 							onClick={() => onPageChange(pageNumber)}
 							{...props}
+							aria-label={`Navigate  to page ${pageNumber}`}
 						>
 							{pageNumber}
 						</button>
@@ -146,6 +148,7 @@ function Pagination({
 				disabled={currentPage === lastPage}
 				tabIndex={currentPage === lastPage ? -1 : 0}
 				onClick={onNext}
+				aria-label={"Navigate to next page (" + (currentPage + 1) + ")"}
 				{...props}
 			>
 				Next

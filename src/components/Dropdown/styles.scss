@@ -13,7 +13,10 @@
 	&-button {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 		padding: 0.5em 1em;
+		border: 0;
+		background: transparent;
 	}
 	&-icon {
 		position: absolute;
@@ -46,7 +49,8 @@
 			color: #fff;
 			font-weight: 700;
 		}
-		&:hover {
+		&:hover,
+		&:focus {
 			background: #007fff;
 			color: #ffffff;
 		}

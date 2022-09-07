@@ -61,7 +61,8 @@ form {
 	.dropdown {
 		&-option {
 			line-height: 1.5rem;
-			&:hover {
+			&:hover,
+			&:focus {
 				background: $primary-color;
 			}
 			&.current-selection {

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useKeypress } from "../../hooks/useKeypress";
+import { useTrapFocus } from "../../hooks/useTrapFocus";
 
 import Input from "../Input";
 
@@ -25,7 +27,7 @@ function Dropdown({
 	listLabel = "Choose your option",
 	showListLabel = false,
 	// Class names for the component.
-	labelClassName,
+	labelClassName = "",
 	dropdownWrapperClassName = "dropdown-wrapper",
 	dropdownButtonClassName = "dropdown-button",
 	dropdownIconClassName = "dropdown-icon",
@@ -58,7 +60,9 @@ function Dropdown({
 	// UseRef hook to create a ref for the modal.
 	// The useEffect hook is then used to add an event listener to the document.
 	const ref = useRef();
-	const { checkIfClickedOutside, addListenerClickedOutside } = useClickOutside(ref, isOpen, setIsOpen);
+	useClickOutside(ref, isOpen, () => setIsOpen(false));
+	useKeypress("Escape", isOpen, () => setIsOpen(false));
+	useTrapFocus(ref, isOpen);
 
 	useEffect(() => {
 		if (isOpen) {
@@ -67,11 +71,10 @@ function Dropdown({
 			const selectedOption = dropdown.querySelector(`.current-selection`);
 			if (selectedOption) {
 				selectedOption.scrollIntoView();
+				selectedOption.focus();
 			}
-			// The event listener checks if the user clicked outside of the modal.
-			addListenerClickedOutside(checkIfClickedOutside);
 		}
-	}, [isOpen, id, addListenerClickedOutside, checkIfClickedOutside]);
+	}, [isOpen, id]);
 
 	useEffect(() => {
 		// Setting the label and value of the dropdown.
@@ -104,10 +107,46 @@ function Dropdown({
 		if (onChange) {
 			onChange(value);
 		}
+		const button = document.getElementById(id + "-dropdown-button");
+		if (button) {
+			button.focus();
+		}
+	};
+
+	const handleKeyDown = (e, label, value) => {
+		if (e.key === "Enter" || e.key === " ") {
+			handleOptionClick(label, value);
+		}
+		if (e.key === "ArrowDown") {
+			e.preventDefault();
+			const selectedOption = e.target;
+			if (selectedOption) {
+				const nextOption = selectedOption.nextElementSibling;
+				if (nextOption) {
+					nextOption.focus();
+				}
+			}
+		}
+		if (e.key === "ArrowUp") {
+			e.preventDefault();
+			const selectedOption = e.target;
+			if (selectedOption) {
+				const previousOption = selectedOption.previousElementSibling;
+				if (previousOption) {
+					previousOption.focus();
+				}
+			}
+		}
+	};
+
+	const handleKeyDownLabel = (e) => {
+		if (e.key === "Enter" || e.key === " ") {
+			setIsOpen(true);
+		}
 	};
 
 	return (
-		<>
+		<div ref={ref}>
 			{label && (
 				<label
 					id={id + "-dropdown-label"}
@@ -118,12 +157,24 @@ function Dropdown({
 					{label} {requiredFeedbackEnabled && <span className={requiredFeedbackClassName}>{requiredFeedback}</span>}
 				</label>
 			)}
-			<div ref={ref} id={id + "-dropdown-wrapper"} className={dropdownWrapperClassName}>
-				<span id={id + "-dropdown-button"} className={dropdownButtonClassName} onClick={() => setIsOpen(true)}>
-					<span className={dropdownIconClassName}></span>
+			<div id={id + "-dropdown-wrapper"} className={dropdownWrapperClassName}>
+				<div
+					id={id + "-dropdown-button"}
+					className={dropdownButtonClassName}
+					onClick={(e) => {
+						e.preventDefault();
+						setIsOpen(true);
+					}}
+					onKeyDown={handleKeyDownLabel}
+					tabIndex={0}
+					aria-expanded={isOpen}
+					aria-label={label}
+					role="listbox"
+				>
 					<Input
 						id={id}
 						className={dropdownInputClassName}
+						tabIndex={-1}
 						error={error}
 						readOnly={true}
 						data-activates={id + "-dropdown-list"}
@@ -140,11 +191,12 @@ function Dropdown({
 						requiredFeedbackClassName={requiredFeedbackClassName}
 						{...props}
 					/>
-				</span>
+					<span className={dropdownIconClassName}></span>
+				</div>
 				{isOpen && (
-					<div className={dropdownListWrapperClassName}>
+					<div className={dropdownListWrapperClassName} aria-modal="true">
 						{showListLabel && <div className={dropdownOptionClassName + " " + dropdownListLabelClassName}>{listLabel}</div>}
-						<ul id={id + "-dropdown-list"} className={dropdownListClassName}>
+						<ul id={id + "-dropdown-list"} className={dropdownListClassName} role="listbox" tabIndex={-1}>
 							{options.map((option) => {
 								let label = option;
 								let value = option;
@@ -160,8 +212,12 @@ function Dropdown({
 										// Adding the class name "current-selection" to the selected option.
 										className={dropdownOptionClassName + (selectedOptionValue === value ? " " + dropdownOptionSelectedClassName : "")}
 										key={`${id}-dropdown-item-${value}`}
-										value={value}
 										onClick={() => handleOptionClick(label, value)}
+										onKeyDown={(e) => handleKeyDown(e, label, value)}
+										tabIndex="0"
+										role="option"
+										aria-selected={selectedOptionValue === value}
+										aria-label={label}
 									>
 										{label}
 									</li>
@@ -171,7 +227,7 @@ function Dropdown({
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	);
 }
 

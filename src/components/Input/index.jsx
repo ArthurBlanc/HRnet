@@ -45,16 +45,6 @@ function Input({
 		}
 	}, [isFocused, id]);
 
-	/*useEffect(() => {
-		if (onChange) {
-			onChange(value);
-		}
-		/**
-		 * DO NOT ADD THE ONCHANGE PROP TO THE USEEFFECT ARGUMENTS. THIS WILL CAUSE AN INFINITE LOOP.
-		 * TODO: find a way to fix this.
-		 * */
-	//}, [value]);
-
 	// If the onChange prop is defined, call it with the event.
 	const handleChange = (event) => {
 		if (onChange) {
@@ -133,6 +123,7 @@ function Input({
 					required={required}
 					readOnly={readOnly}
 					maxLength={maxLength}
+					aria-label={"Enter " + label}
 					{...props}
 				/>
 			)}

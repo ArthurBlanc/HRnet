@@ -7,6 +7,14 @@
 	user-select: none;
 	&-input-wrapper {
 		position: relative;
+		.date-format {
+			position: absolute;
+			top: 0.8rem;
+			right: 0;
+			color: #757575;
+			font-size: 0.8rem;
+			transition: 0.2s ease-out;
+		}
 	}
 	* {
 		padding: 0;
@@ -98,7 +106,9 @@
 			height: 75%;
 			padding-right: 0.3125rem;
 			transform: translate(-50%, -50%);
+			border: none;
 			border-radius: 50%;
+			background: transparent;
 			&.calendar-today {
 				color: #33aaff;
 			}
@@ -117,7 +127,8 @@
 			&-today {
 				color: #33aaff;
 			}
-			&:hover {
+			&:hover,
+			&:focus {
 				background: #ff8000;
 				color: #fff;
 			}

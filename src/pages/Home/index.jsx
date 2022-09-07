@@ -7,8 +7,6 @@ import { addEmployeeAction } from "../../store/employee";
 
 import { states, departments } from "../../utils/statesAndDepartments";
 
-import toRegexRange from "to-regex-range";
-
 import Input from "../../components/Input";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
@@ -33,17 +31,9 @@ function Home() {
 	const startDateYearsBack = 50;
 	const startDateYearsForward = 1;
 
-	const currentYear = new Date().getFullYear();
-
 	useEffect(() => {
 		document.title = "Create Employee - HRnet";
 	}, []);
-
-	const dateRegexWithRange = (min, max) => {
-		const regexRange = toRegexRange(min, max);
-		const dateRegex = `^(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])/${regexRange}$`;
-		return dateRegex;
-	};
 
 	const {
 		handleSubmit, // handles form submission
@@ -82,11 +72,7 @@ function Home() {
 				},
 				pattern: {
 					value: dateRegex,
-					message: "Date of Birth wasn't in the format MM/DD/YYYY, it was replace by today's date",
-				},
-				custom: {
-					isValid: (value) => RegExp(dateRegexWithRange(currentYear - dateOfBirthYearsBack, currentYear + dateOfBirthYearsForward)).test(value),
-					message: "The year is not in the allowed range, the date was replace by today's date",
+					message: "Date of Birth isn't in the format MM/DD/YYYY",
 				},
 			},
 			startDate: {
@@ -96,11 +82,7 @@ function Home() {
 				},
 				pattern: {
 					value: dateRegex,
-					message: "Start Date wasn't in the format MM/DD/YYYY, it was replace by today's date",
-				},
-				custom: {
-					isValid: (value) => RegExp(dateRegexWithRange(currentYear - startDateYearsBack, currentYear + startDateYearsForward)).test(value),
-					message: "The year is not in the allowed range, the date was replace by today's date",
+					message: "Start Date isn't in the format MM/DD/YYYY",
 				},
 			},
 			street: {
@@ -209,12 +191,20 @@ function Home() {
 				<div className="title">
 					<h1>HRnet</h1>
 				</div>
-				<button className="button" onClick={() => navigate("/employee-list")}>
+				<button className="button" onClick={() => navigate("/employee-list")} aria-label="Navigate to employee list page">
 					Employee List
 				</button>
 				<h2>Create Employee</h2>
 
-				<form id="create-employee" onSubmit={handleSubmit}>
+				<form
+					id="create-employee"
+					onSubmit={handleSubmit}
+					onKeyPress={(event) => {
+						if (event.key === "Enter") {
+							event.preventDefault();
+						}
+					}}
+				>
 					<Input
 						id="firstName"
 						label="First Name"
@@ -318,11 +308,21 @@ function Home() {
 							requiredFeedbackEnabled={true}
 						/>
 					</div>
-					<button id="form-submit-button" type="submit" className="button horizontal-center">
+					<button
+						id="form-submit-button"
+						type="submit"
+						className="button horizontal-center"
+						aria-label="Create a new employee by submitting the form"
+						onKeyDown={(event) => {
+							if (event.key === "Enter" || event.key === " ") {
+								handleSubmit();
+							}
+						}}
+					>
 						Create
 					</button>
 				</form>
-				<Modal id="confirmation" modalContent="Employee Created!" isOpenStateInParent={showConfirmationModal} onClose={setShowConfirmationModal} />
+				<Modal id="confirmation" modalContent="Employee Created!" isOpenStateInParent={showConfirmationModal} onClose={() => setShowConfirmationModal(false)} />
 			</div>
 		</main>
 	);

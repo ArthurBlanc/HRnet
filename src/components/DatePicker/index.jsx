@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useKeypress } from "../../hooks/useKeypress";
+import { useTrapFocus } from "../../hooks/useTrapFocus";
 
 import Dropdown from "../Dropdown";
 import Input from "../Input";
@@ -37,7 +39,8 @@ function DatePicker({
 	nextButtonText = "",
 	todayButtonText = "Today",
 	// Class names for the component.
-	labelClassName,
+	labelClassName = "form-label",
+	formatDateClassName = "date-format",
 	dateClassName = "date",
 	headerClassName = "header-day",
 	datePickerInputWrapperClassName = "date-picker-input-wrapper",
@@ -62,11 +65,11 @@ function DatePicker({
 	calendarTodayClassName = "calendarData-today",
 	calendarSelectedClassName = "current-selection",
 	// Month dropdown props.
-	monthDropdownLabel,
+	monthDropdownLabel = "Chose the month",
 	monthListLabel = "Choose your month",
 	monthShowListLabel = false,
 	// Month dropdown classnames.
-	monthDropdownLabelClassName,
+	monthDropdownLabelClassName = "sr-only",
 	monthDropdownWrapperClassName = "dropdown-wrapper",
 	monthDropdownButtonClassName = "dropdown-button",
 	monthDropdownIconClassName = "dropdown-icon",
@@ -77,11 +80,11 @@ function DatePicker({
 	monthDropdownListLabelClassName = "label",
 	monthDropdownInputClassName = "dropdown-text",
 	// Year dropdown props.
-	yearDropdownLabel,
+	yearDropdownLabel = "Chose the year",
 	yearListLabel = "Choose your year",
 	yearShowListLabel = false,
 	// Year dropdown classnames.
-	yearDropdownLabelClassName,
+	yearDropdownLabelClassName = "sr-only",
 	yearDropdownWrapperClassName = "dropdown-wrapper",
 	yearDropdownButtonClassName = "dropdown-button",
 	yearDropdownIconClassName = "dropdown-icon",
@@ -173,17 +176,21 @@ function DatePicker({
 		{ label: "December", value: 12 },
 	];
 
+	const closeDatePicker = () => {
+		setDatePickerIsOpen(false);
+
+		if (onBlurFunction) {
+			onBlurFunction(value, id);
+			document.activeElement.blur();
+		}
+	};
+
 	// UseRef hook to create a ref for the modal.
 	// The useEffect hook is then used to add an event listener to the document.
 	const ref = useRef();
-	const { checkIfClickedOutside, addListenerClickedOutside } = useClickOutside(ref, datePickerIsOpen, setDatePickerIsOpen);
-
-	useEffect(() => {
-		if (datePickerIsOpen) {
-			// The event listener checks if the user clicked outside of the datePicker.
-			addListenerClickedOutside(checkIfClickedOutside);
-		}
-	}, [datePickerIsOpen, addListenerClickedOutside, checkIfClickedOutside]);
+	useClickOutside(ref, datePickerIsOpen, closeDatePicker);
+	useKeypress("Escape", datePickerIsOpen, closeDatePicker);
+	useTrapFocus(ref, datePickerIsOpen);
 
 	useEffect(() => {
 		if (datePickerIsOpen) {
@@ -402,6 +409,7 @@ function DatePicker({
 			setSelectedYear(+year);
 			setShowedMonth(+month);
 			setShowedYear(+year);
+			setDatePickerIsOpen(false);
 		}
 		if (onChange) {
 			onChange(date);
@@ -428,10 +436,6 @@ function DatePicker({
 			if (onChange) {
 				onChange(formattedDate);
 			}
-		}
-
-		if (onBlurFunction) {
-			onBlurFunction(date, id);
 		}
 	};
 
@@ -470,6 +474,7 @@ function DatePicker({
 	// When a day in calendar is clicked, the selected/showed date, day, month, and year states are set.
 	// Also the date picker is closed
 	const handleDayClick = (event) => {
+		event.preventDefault();
 		const day = +event.target.dataset.date;
 		const month = +event.target.dataset.month;
 		const year = +event.target.dataset.year;
@@ -489,16 +494,35 @@ function DatePicker({
 				onChange(formattedDate);
 			}
 
+			const input = document.getElementById(id + "-input");
+			if (input) {
+				input.focus();
+			}
 			setDatePickerIsOpen(false);
+			if (onBlurFunction) {
+				onBlurFunction(formattedDate, id);
+			}
 		}
 	};
 
+	/**
+	 * It takes a month number and returns the month name
+	 * @returns The name of the month.
+	 */
+	const getMonthName = (monthNumber) => {
+		const date = new Date();
+		date.setMonth(monthNumber - 1);
+
+		return date.toLocaleString("en-US", { month: "long" });
+	};
+
 	return (
-		<div ref={ref} className={datePickerInputWrapperClassName}>
+		<div ref={ref} className={datePickerInputWrapperClassName} aria-expanded={datePickerIsOpen ? true : false} onFocus={handleFocus} role="listbox">
 			<Input
 				id={id}
 				label={label}
-				className={inputClassName}
+				labelClassName={labelClassName + (datePickerIsOpen ? " active" : "") + (isDateValid(value) ? " valid" : "")}
+				className={inputClassName + (isDateValid(value) ? " valid" : "")}
 				error={error}
 				readOnly={false}
 				value={value}
@@ -513,25 +537,42 @@ function DatePicker({
 				errorClassName={errorClassName}
 				requiredFeedbackClassName={requiredFeedbackClassName}
 				onChange={(event) => handleChangeInput(event, value.length)}
-				onFocus={handleFocus}
+				onClick={setDatePickerIsOpen}
 				onBlur={handleOnBlur}
+				aria-label={"Enter " + label + " in the format " + dateFormat + "or use the calendar to select a date"}
 				{...props}
 			/>
+			<span className={formatDateClassName + (datePickerIsOpen || value.length > 1 ? " active" : "")}>
+				{dateFormat === "MMDDYYYY" ? "MM" + separator + "DD" + separator + "YYYY" : "DD" + separator + "MM" + separator + "YYYY"}
+			</span>
 
 			{datePickerIsOpen && (
-				<div id={id + "-date-picker"} className={datePickerWrapperClassName}>
+				<div id={id + "-date-picker"} className={datePickerWrapperClassName} aria-modal="true">
 					<div className={datePickerClassName}>
 						<div className={datePickerNavWrapperClassName}>
-							<button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth}>
+							<button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth} tabIndex={-1} aria-label={"Previous Month"}>
 								{previousButtonText}
 							</button>
-							<button className={datePickerTodayButtonClassName} data-date={currentDay} data-month={currentMonth} data-year={currentYear} onMouseDown={handleDayClick}>
+							<button
+								className={datePickerTodayButtonClassName}
+								data-date={currentDay}
+								data-month={currentMonth}
+								data-year={currentYear}
+								onClick={handleDayClick}
+								aria-label={"Select Today's Date"}
+								onKeyDown={(event) => {
+									if (event.key === "Enter" || event.key === " ") {
+										handleDayClick(event);
+									}
+								}}
+							>
 								{todayButtonText}
 							</button>
 							<div className={datePickerMonthDropdownWrapperClassName}>
 								<Dropdown
 									id="month"
 									label={monthDropdownLabel}
+									aria-label={"month"}
 									options={months}
 									value={showedMonth}
 									listLabel={monthListLabel}
@@ -553,6 +594,7 @@ function DatePicker({
 								<Dropdown
 									id="year"
 									label={yearDropdownLabel}
+									aria-label={"year"}
 									options={years}
 									value={showedYear}
 									listLabel={yearListLabel}
@@ -570,7 +612,7 @@ function DatePicker({
 									dropdownInputClassName={yearDropdownInputClassName}
 								/>
 							</div>
-							<button className={datePickerNextButtonClassName} onClick={handleNextMonth}>
+							<button className={datePickerNextButtonClassName} onClick={handleNextMonth} tabIndex={-1} aria-label={"Next Month"}>
 								{nextButtonText}
 							</button>
 						</div>
@@ -580,7 +622,7 @@ function DatePicker({
 								<thead className={calendarHeaderClassName}>
 									<tr className={calendarHeaderTrClassName}>
 										{daysOfWeek.map((day) => (
-											<th key={day} className={calendarHeaderThClassName}>
+											<th key={day} className={calendarHeaderThClassName} scope="col">
 												<div className={headerClassName}>{day}</div>
 											</th>
 										))}
@@ -591,15 +633,22 @@ function DatePicker({
 										<tr key={i} className={calendarBodyTrClassName}>
 											{Object.keys(week).map((day, j) => (
 												<td key={j} className={calendarBodyTdClassName}>
-													<div
+													<button
 														className={week[day].className}
 														data-date={week[day].day}
 														data-month={week[day].month}
 														data-year={week[day].year}
+														tabIndex={week[day].className.includes(calendarOtherMonthClassName) ? -1 : "0"}
+														onKeyDown={(event) => {
+															if (event.key === "Enter" || event.key === " ") {
+																handleDayClick(event);
+															}
+														}}
+														aria-label={week[day].day + " of " + getMonthName(week[day].month) + " in " + week[day].year}
 														onMouseDown={week[day].className.includes(calendarForbiddenClassName) ? null : handleDayClick}
 													>
 														{week[day].day}
-													</div>
+													</button>
 												</td>
 											))}
 										</tr>
@@ -659,6 +708,9 @@ DatePicker.propTypes = {
 
 	// labelClassName string: The class name of the label.
 	labelClassName: PropTypes.string,
+
+	// datePickerClassName string: The class name of formatDate helper.
+	formatDateClassName: PropTypes.string,
 
 	// dateClassName string: The class name of the date.
 	dateClassName: PropTypes.string,

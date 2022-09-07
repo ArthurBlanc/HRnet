@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import PropTypes from "prop-types";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useKeypress } from "../../hooks/useKeypress";
+import { useTrapFocus } from "../../hooks/useTrapFocus";
 
 import "./styles.scss";
 
@@ -26,12 +28,9 @@ function Modal({
 	// The useEffect hook is then used to add an event listener to the document.
 	// The event listener checks if the user clicked outside of the modal.
 	const ref = useRef();
-	const { checkIfClickedOutside, addListenerClickedOutside } = useClickOutside(ref, isOpenStateInParent, onClose);
-	useEffect(() => {
-		if (isOpenStateInParent) {
-			addListenerClickedOutside(checkIfClickedOutside);
-		}
-	}, [isOpenStateInParent, addListenerClickedOutside, checkIfClickedOutside]);
+	useClickOutside(ref, isOpenStateInParent, () => onClose(false));
+	useKeypress("Escape", isOpenStateInParent, () => onClose(false));
+	useTrapFocus(ref, isOpenStateInParent);
 
 	const handleClose = () => {
 		if (onClose) {
@@ -43,11 +42,11 @@ function Modal({
 		<>
 			{isOpenStateInParent && (
 				<>
-					<span id={id + "-modal-background"} className={modalBackgroundClassName}></span>
-					<div id={id + "-modal"} ref={ref} className={modalClassName} {...props}>
+					<div id={id + "-modal-background"} className={modalBackgroundClassName}></div>
+					<div id={id + "-modal"} ref={ref} className={modalClassName} {...props} role={"dialog"} aria-modal="true">
 						{modalContent}
 						{addCloseButton && (
-							<button id={id + "-modal-button"} className={closeButtonClassName} type="button" onClick={handleClose}>
+							<button id={id + "-modal-button"} className={closeButtonClassName} type="button" onClick={handleClose} aria-label="Close Modal">
 								{closeButtonText}
 							</button>
 						)}
