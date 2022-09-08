@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Home</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="ConditionalWrapper.html">ConditionalWrapper</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dropdown.html">Dropdown</a></li><li><a href="Input.html">Input</a></li><li><a href="Modal.html">Modal</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Global</h3><ul><li><a href="global.html#useClickOutside">useClickOutside</a></li><li><a href="global.html#useForm">useForm</a></li><li><a href="global.html#useKeypress">useKeypress</a></li><li><a href="global.html#useTrapFocus">useTrapFocus</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Router</h2><h3>Components</h3><ul><li><a href="Router.html">Router</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Home</h1>
+                </header>
+                
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>P14</h1>
+<p><img src="https://forthebadge.com/images/badges/uses-js.svg" alt="forthebadge">
+<a href="https://github.com/ArthurBlanc"><img src="https://forthebadge.com/images/badges/uses-git.svg" alt="forthebadge"></a></p>
+<h2>Description :</h2>
+<blockquote>
+<p>Participez à la conversion d'une application vers React. Vous allez transformer un plugin jQuery du site en React.</p>
+<h4>Compétences évaluées</h4>
+<ul>
+<li>Analyser la performance d'une application web</li>
+<li>Déployer une application front-end</li>
+<li>Programmer en JavaScript avec la programmation fonctionnelle</li>
+<li>Refondre une application pour réduire la dette technique</li>
+</ul>
+</blockquote>
+<h3>Situation (fictive) du projet :</h3>
+<p>Développeur au sein du département technologique d'une grande société financière.</p>
+<p>Cette société utilise une application web interne, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne.</p>
+<p>Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette library sur <a href="https://github.com/ArthurBlanc/react-ab-datepicker">GitHub</a> et <a href="https://www.npmjs.com/package/react-ab-datepicker">npmjs.com</a>.</p>
+<h3>Cahier des charges :</h3>
+<pre><code>- Convertir l'ensemble du projet HRNet en React.
+  - Réaliser une nouvelle version des pages &quot;Create Employee&quot; et &quot;Employee List&quot; avec React.
+  - Ajouter un système de gestion d'état.
+  - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
+- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'applications.
+  - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
+  - Publier le plugin converti en librarie React sur GitHub ou npmjs.com
+- Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
+</code></pre>
+<h2>Installation</h2>
+<ul>
+<li><strong>Exécutez Git bash</strong></li>
+<li><strong>git clone https://github.com/ArthurBlanc/ArthurBlanc_14_02072022</strong>
+<ul>
+<li>Exécutez la commande <em><strong>npm install</strong></em>, une fois l'installation terminée, démarrez avec la commande <em><strong>npm start</strong></em> puis rendez-vous sur http://localhost:3000/.</li>
+</ul>
+</li>
+</ul>
+<h2>Développé avec</h2>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a> - Éditeur de texte et son intégration de GitHub</li>
+<li><a href="https://fr.reactjs.org/">React 18</a> - Bibliothèque JavaScript libre développée par Facebook depuis 2013</li>
+<li><a href="https://create-react-app.dev/">Create React App</a> - Boîte à outils créée par Facebook, qui est la référence pour initier un projet React</li>
+<li><a href="https://reactrouter.com/">React Router V6</a> - Bibliothèque de routage pour React</li>
+<li><a href="https://sass-lang.com/">Sass</a> - Langage de script préprocesseur qui est compilé ou interprété en CSS</li>
+<li><a href="https://redux.js.org/">Redux</a> - Bibliothèque JS de gestion d'état pour applications web</li>
+<li><a href="https://www.npmjs.com/package/redux-persist">redux-persist</a> - Enregistrez le store Redux dans un stockage persistant</li>
+<li><a href="https://www.npmjs.com/package/prop-types">Prop-types</a> - Vérification du type pour les props React</li>
+<li><a href="https://jsdoc.app/">JSDoc</a> - Générateur de documentation pour JavaScript</li>
+<li><a href="https://github.com/">GitHub</a> - Outil de gestion de versions</li>
+</ul>
+<h2>Auteur</h2>
+<p><strong>Arthur Blanc</strong> : <a href="https://github.com/ArthurBlanc/"><strong>GitHub</strong></a> - <a href="https://abcoding.fr/"><strong>Portfolio</strong></a></p>
+<hr>
+<h1>Getting Started with Create React App</h1>
+<p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
+<h2>Available Scripts</h2>
+<p>In the project directory, you can run:</p>
+<h3><code>npm start</code></h3>
+<p>Runs the app in the development mode.<br>
+Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in your browser.</p>
+<p>The page will reload when you make changes.<br>
+You may also see any lint errors in the console.</p>
+<h3><code>npm test</code></h3>
+<p>Launches the test runner in the interactive watch mode.<br>
+See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
+<h3><code>npm run build</code></h3>
+<p>Builds the app for production to the <code>build</code> folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.</p>
+<p>The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!</p>
+<p>See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for more information.</p>
+<h3><code>npm run eject</code></h3>
+<p><strong>Note: this is a one-way operation. Once you <code>eject</code>, you can't go back!</strong></p>
+<p>If you aren't satisfied with the build tool and configuration choices, you can <code>eject</code> at any time. This command will remove the single build dependency from your project.</p>
+<p>Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except <code>eject</code> will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.</p>
+<p>You don't have to ever use <code>eject</code>. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.</p>
+<h2>Learn More</h2>
+<p>You can learn more in the <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.</p>
+<p>To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.</p>
+<h3>Code Splitting</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/code-splitting">https://facebook.github.io/create-react-app/docs/code-splitting</a></p>
+<h3>Analyzing the Bundle Size</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size">https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size</a></p>
+<h3>Making a Progressive Web App</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app">https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app</a></p>
+<h3>Advanced Configuration</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/advanced-configuration">https://facebook.github.io/create-react-app/docs/advanced-configuration</a></p>
+<h3>Deployment</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/deployment">https://facebook.github.io/create-react-app/docs/deployment</a></p>
+<h3><code>npm run build</code> fails to minify</h3>
+<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify">https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify</a></p></article>
+    </section>
+
+
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

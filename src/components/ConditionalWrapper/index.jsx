@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 
 /**
  * If className is true, return the children in a div, otherwise return just the children.
+ *
+ * @category Components
+ * @component
  * @returns {React.Component} - Just the children or a div containing the children.
  */
 function ConditionalWrapper({ children, className }) {
@@ -12,10 +15,10 @@ function ConditionalWrapper({ children, className }) {
 }
 
 ConditionalWrapper.propTypes = {
-	// children node (require): The children to render.
+	/** The children to render */
 	children: PropTypes.node.isRequired,
 
-	//  className: The class name to add to the wrapper.
+	/** The class name to add to the wrapper */
 	className: PropTypes.string,
 };
 

@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/Input/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="ConditionalWrapper.html">ConditionalWrapper</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dropdown.html">Dropdown</a></li><li><a href="Input.html">Input</a></li><li><a href="Modal.html">Modal</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Global</h3><ul><li><a href="global.html#useClickOutside">useClickOutside</a></li><li><a href="global.html#useForm">useForm</a></li><li><a href="global.html#useKeypress">useKeypress</a></li><li><a href="global.html#useTrapFocus">useTrapFocus</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Router</h2><h3>Components</h3><ul><li><a href="Router.html">Router</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/Input/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
+import ConditionalWrapper from "../ConditionalWrapper";
+
+import "./styles.scss";
+
+/**
+ * Function to add an input element with label and error message (can be disable).
+ *
+ * @category Components
+ * @component
+ * @returns {React.Component} - The Input component.
+ */
+function Input({
+	id,
+	label,
+	type = "text",
+	value,
+	onChange,
+	onFocus,
+	onBlur,
+	addErrorElement = true,
+	error,
+	maxLength = 128,
+	required = false,
+	requiredFeedbackEnabled = false,
+	requiredFeedback = "*",
+	readOnly = false,
+	// Class names for the component.
+	wrapperClassName = "form-group",
+	labelClassName = "form-label",
+	inputClassName = "form-input",
+	activeClassName = "active",
+	invalidClassName = "invalid",
+	errorClassName = "error",
+	requiredFeedbackClassName = "required",
+	...props
+}) {
+	// State to track if the input is focused or not.
+	const [isFocused, setIsFocused] = useState(false);
+
+	// Focus the input element when the isFocused state is true.
+	useEffect(() => {
+		if (isFocused) {
+			document.getElementById(id + "-input").focus();
+		}
+	}, [isFocused, id]);
+
+	/** If the onChange prop is defined, call it with the event. */
+	const handleChange = (event) => {
+		if (onChange) {
+			onChange(event);
+		}
+	};
+
+	/**
+	 * If the onBlur prop is defined, call it with the event and the id.
+	 * Then set the isFocused state to false
+	 * */
+	const handleBlur = (event) => {
+		if (onBlur) {
+			onBlur(event, id);
+			if (!error) {
+				// add valid class if there is no error
+				if (event.target.value) {
+					event.target.classList.add("valid");
+				}
+				if (event.target.previousSibling) {
+					event.target.previousSibling.classList.add("valid");
+				}
+			}
+		}
+		setIsFocused(false);
+	};
+
+	/**
+	 * If the onFocus prop is defined, call it with the event.
+	 * Then set the isFocused state to true
+	 * */
+	const handleFocus = (event) => {
+		if (onFocus) {
+			onFocus(event);
+		}
+		setIsFocused(true);
+	};
+
+	/** On click on label, set the isFocused state to true */
+	const handleLabelClick = () => {
+		setIsFocused(true);
+	};
+
+	return (
+		&lt;ConditionalWrapper className={wrapperClassName}>
+			{label &amp;&amp; (
+				&lt;label
+					id={id + "-input-label"}
+					htmlFor={id + "-input"}
+					// If the isFocused state is true or value is defined, add the active class to the label.
+					// If error is defined, add the invalid class to the label.
+					className={labelClassName + (value || isFocused ? " " + activeClassName : "") + (error ? " " + invalidClassName : "")}
+					onClick={handleLabelClick}
+				>
+					{label} {requiredFeedbackEnabled &amp;&amp; &lt;span className={requiredFeedbackClassName}>{requiredFeedback}&lt;/span>}
+				&lt;/label>
+			)}
+
+			{type === "textarea" ? (
+				&lt;textarea
+					className={inputClassName}
+					id={id + "-input"}
+					name={id}
+					value={value}
+					onChange={handleChange}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
+					required={required}
+					form={id}
+					readOnly={readOnly}
+					maxLength={maxLength}
+					{...props}
+				/>
+			) : (
+				&lt;input
+					id={id + "-input"}
+					className={inputClassName + (error ? " " + invalidClassName : "")}
+					name={id}
+					type={type}
+					value={value}
+					onChange={handleChange}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
+					required={required}
+					readOnly={readOnly}
+					maxLength={maxLength}
+					aria-label={"Enter " + label}
+					{...props}
+				/>
+			)}
+			{addErrorElement &amp;&amp; (
+				&lt;p id={id + "-input-error"} className={errorClassName}>
+					{error}
+				&lt;/p>
+			)}
+		&lt;/ConditionalWrapper>
+	);
+}
+
+Input.propTypes = {
+	/** The id of input. */
+	id: PropTypes.string.isRequired,
+
+	/** The label of input. */
+	label: PropTypes.string,
+
+	/** The type of input. */
+	type: PropTypes.string,
+
+	/** The value of input. */
+	value: PropTypes.node,
+
+	/** The callback function when input value is changed. */
+	onChange: PropTypes.func,
+
+	/** The callback function when input is focused. */
+	onFocus: PropTypes.func,
+
+	/** The callback function when input is blurred. */
+	onBlur: PropTypes.func,
+
+	/** Whether to add an error element. */
+	addErrorElement: PropTypes.bool,
+
+	/** The max length of input. */
+	maxLength: PropTypes.number,
+
+	/** Whether the input is required. */
+	required: PropTypes.bool,
+
+	/** Whether to add the required feedback. */
+	requiredFeedbackEnabled: PropTypes.bool,
+
+	/** The feedback to show if the input is required. */
+	requiredFeedback: PropTypes.string,
+
+	/** Whether the input is read only. */
+	readOnly: PropTypes.bool,
+
+	/** The error message of input. */
+	error: PropTypes.string,
+
+	/** The class name of wrapper. */
+	wrapperClassName: PropTypes.string,
+
+	/** The class name of label. */
+	labelClassName: PropTypes.string,
+
+	/** The class name of input. */
+	inputClassName: PropTypes.string,
+
+	/** The class name of input when it is active. */
+	activeClassName: PropTypes.string,
+
+	/** The class name of input when it is invalid. */
+	invalidClassName: PropTypes.string,
+
+	/** The class name of input when it is error. */
+	errorClassName: PropTypes.string,
+
+	/** The class name of feedback when the input is required. */
+	requiredFeedbackClassName: PropTypes.string,
+};
+
+export default Input;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

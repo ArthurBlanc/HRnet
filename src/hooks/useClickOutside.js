@@ -3,7 +3,8 @@ import { useEffect } from "react";
 /**
  * It returns a function that checks if the click is outside the component and a function that adds an
  * event listener to the document
- * @returns An object with two functions.
+ * @category Hooks
+ * @returns an listener of a click outside of the ref.
  */
 export const useClickOutside = (ref, isOpenStateInParent, handler) => {
 	// If the component is open, and the click is outside the component, then the handler is launch.

@@ -4,7 +4,8 @@ import { useState } from "react";
  * Custom hook to manage form state and validation
  * @param {Object} options - options object
  *
- * @returns An object with the data, handleChange, handleSubmit, handleValidation, and errors.
+ * @category Hooks
+ * @returns An object with the data, errors and functions: handleChange, handleSubmit, handleValidation.
  */
 export const useForm = (options) => {
 	const [data, setData] = useState(options?.initialValues || {});

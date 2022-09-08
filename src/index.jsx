@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./main.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+// Rendering the Provider component with the store and the Router component. */
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>

@@ -7,6 +7,8 @@ import { useEffect } from "react";
  * The event listener is only added when the modal is open
  * @param ref - The ref of the element that should be focused when the modal is open.
  * @param isOpen - boolean
+ * @category Hooks
+ * @returns an function to trap the focus inside the ref.
  */
 export const useTrapFocus = (ref, isOpen) => {
 	useEffect(() => {

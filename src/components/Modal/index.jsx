@@ -10,12 +10,14 @@ import "./styles.scss";
 /**
  * Modal component that can be opened and closed by clicking outside of the modal or the close button.
  *
- *  @returns {React.Component} - The modal component.
+ * @category Components
+ * @component
+ * @returns {React.Component} - The modal component.
  */
 function Modal({
 	id,
 	modalContent,
-	isOpenStateInParent = false,
+	isOpenStateInParent,
 	onClose,
 	modalClassName = "modal",
 	modalBackgroundClassName = "modal-background",
@@ -34,7 +36,7 @@ function Modal({
 
 	const handleClose = () => {
 		if (onClose) {
-			onClose(false);
+			onClose();
 		}
 	};
 
@@ -58,31 +60,31 @@ function Modal({
 }
 
 Modal.propTypes = {
-	// id string (required): The id of the modal.
+	/** The id of the modal. */
 	id: PropTypes.string.isRequired,
 
-	// modalContent node (required): The content of the modal.
+	/** The content of the modal. */
 	modalContent: PropTypes.node.isRequired,
 
-	// isOpenStateInParent (required): A boolean that determines whether or not the modal is open.
+	/** A boolean that determines whether or not the modal is open. */
 	isOpenStateInParent: PropTypes.bool.isRequired,
 
-	// onClose (required): A function that is called when the modal is closed.
+	/** A function that is called when the modal is closed. */
 	onClose: PropTypes.func.isRequired,
 
-	// modalClassName string: The class name of the modal.
+	/** The class name of the modal. */
 	modalClassName: PropTypes.string,
 
-	// modalBackgroundClassName string: The class name of the modal background.
+	/** The class name of the modal background. */
 	modalBackgroundClassName: PropTypes.string,
 
-	// addCloseButton boolean: Determines whether or not to add a close button to the modal.
+	/** Determines whether or not to add a close button to the modal. */
 	addCloseButton: PropTypes.bool,
 
-	// closeButtonClassName string: The class name of the close button.
+	/** The class name of the close button. */
 	closeButtonClassName: PropTypes.string,
 
-	// closeButtonText node: The text of the close button.
+	/** The text of the close button. */
 	closeButtonText: PropTypes.node,
 };
 

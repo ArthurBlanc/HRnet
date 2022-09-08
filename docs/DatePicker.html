@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> DatePicker</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="ConditionalWrapper.html">ConditionalWrapper</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dropdown.html">Dropdown</a></li><li><a href="Input.html">Input</a></li><li><a href="Modal.html">Modal</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Global</h3><ul><li><a href="global.html#useClickOutside">useClickOutside</a></li><li><a href="global.html#useForm">useForm</a></li><li><a href="global.html#useKeypress">useKeypress</a></li><li><a href="global.html#useTrapFocus">useTrapFocus</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Router</h2><h3>Components</h3><ul><li><a href="Router.html">Router</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Components</p>
+                    <h1>DatePicker</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltDatePicker <i>id</i> <i>label</i> <i>value</i> <i>onChange</i> <i>onFocus</i> <i>onBlurFunction</i> <i>yearsBackNumber</i> <i>yearsForwardNumber</i> <i>separator</i> <i>dateFormat</i> <i>firstDayOfTheWeek</i> <i>previousButtonText</i> <i>nextButtonText</i> <i>todayButtonText</i> <i>labelClassName</i> <i>formatDateClassName</i> <i>dateClassName</i> <i>headerClassName</i> <i>datePickerInputWrapperClassName</i> <i>datePickerWrapperClassName</i> <i>datePickerClassName</i> <i>datePickerNavWrapperClassName</i> <i>datePickerPreviousButtonClassName</i> <i>datePickerTodayButtonClassName</i> <i>datePickerNextButtonClassName</i> <i>datePickerMonthDropdownWrapperClassName</i> <i>datePickerYearDropdownWrapperClassName</i> <i>calendarWrapperClassName</i> <i>calendarTableClassName</i> <i>calendarHeaderClassName</i> <i>calendarHeaderTrClassName</i> <i>calendarHeaderThClassName</i> <i>calendarBodyClassName</i> <i>calendarBodyTrClassName</i> <i>calendarBodyTdClassName</i> <i>calendarForbiddenClassName</i> <i>calendarOtherMonthClassName</i> <i>calendarTodayClassName</i> <i>calendarSelectedClassName</i> <i>monthDropdownLabel</i> <i>monthListLabel</i> <i>monthShowListLabel</i> <i>monthDropdownLabelClassName</i> <i>monthDropdownWrapperClassName</i> <i>monthDropdownButtonClassName</i> <i>monthDropdownIconClassName</i> <i>monthDropdownListWrapperClassName</i> <i>monthDropdownOptionClassName</i> <i>monthDropdownOptionSelectedClassName</i> <i>monthDropdownListClassName</i> <i>monthDropdownListLabelClassName</i> <i>monthDropdownInputClassName</i> <i>yearDropdownLabel</i> <i>yearListLabel</i> <i>yearShowListLabel</i> <i>yearDropdownLabelClassName</i> <i>yearDropdownWrapperClassName</i> <i>yearDropdownButtonClassName</i> <i>yearDropdownIconClassName</i> <i>yearDropdownListWrapperClassName</i> <i>yearDropdownOptionClassName</i> <i>yearDropdownOptionSelectedClassName</i> <i>yearDropdownListClassName</i> <i>yearDropdownListLabelClassName</i> <i>yearDropdownInputClassName</i> <i>error</i> <i>maxLength</i> <i>required</i> <i>requiredFeedbackEnabled</i> <i>requiredFeedback</i> <i>inputClassName</i> <i>inputWrapperClassName</i> <i>activeClassName</i> <i>invalidClassName</i> <i>errorClassName</i> <i>requiredFeedbackClassName</i> /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="DatePicker">
+        <a class="href-link" href="#DatePicker">#</a>
+        
+        <span class="code-name">
+            
+                &ltDatePicker <i>id</i> <i>label</i> <i>value</i> <i>onChange</i> <i>onFocus</i> <i>onBlurFunction</i> <i>yearsBackNumber</i> <i>yearsForwardNumber</i> <i>separator</i> <i>dateFormat</i> <i>firstDayOfTheWeek</i> <i>previousButtonText</i> <i>nextButtonText</i> <i>todayButtonText</i> <i>labelClassName</i> <i>formatDateClassName</i> <i>dateClassName</i> <i>headerClassName</i> <i>datePickerInputWrapperClassName</i> <i>datePickerWrapperClassName</i> <i>datePickerClassName</i> <i>datePickerNavWrapperClassName</i> <i>datePickerPreviousButtonClassName</i> <i>datePickerTodayButtonClassName</i> <i>datePickerNextButtonClassName</i> <i>datePickerMonthDropdownWrapperClassName</i> <i>datePickerYearDropdownWrapperClassName</i> <i>calendarWrapperClassName</i> <i>calendarTableClassName</i> <i>calendarHeaderClassName</i> <i>calendarHeaderTrClassName</i> <i>calendarHeaderThClassName</i> <i>calendarBodyClassName</i> <i>calendarBodyTrClassName</i> <i>calendarBodyTdClassName</i> <i>calendarForbiddenClassName</i> <i>calendarOtherMonthClassName</i> <i>calendarTodayClassName</i> <i>calendarSelectedClassName</i> <i>monthDropdownLabel</i> <i>monthListLabel</i> <i>monthShowListLabel</i> <i>monthDropdownLabelClassName</i> <i>monthDropdownWrapperClassName</i> <i>monthDropdownButtonClassName</i> <i>monthDropdownIconClassName</i> <i>monthDropdownListWrapperClassName</i> <i>monthDropdownOptionClassName</i> <i>monthDropdownOptionSelectedClassName</i> <i>monthDropdownListClassName</i> <i>monthDropdownListLabelClassName</i> <i>monthDropdownInputClassName</i> <i>yearDropdownLabel</i> <i>yearListLabel</i> <i>yearShowListLabel</i> <i>yearDropdownLabelClassName</i> <i>yearDropdownWrapperClassName</i> <i>yearDropdownButtonClassName</i> <i>yearDropdownIconClassName</i> <i>yearDropdownListWrapperClassName</i> <i>yearDropdownOptionClassName</i> <i>yearDropdownOptionSelectedClassName</i> <i>yearDropdownListClassName</i> <i>yearDropdownListLabelClassName</i> <i>yearDropdownInputClassName</i> <i>error</i> <i>maxLength</i> <i>required</i> <i>requiredFeedbackEnabled</i> <i>requiredFeedback</i> <i>inputClassName</i> <i>inputWrapperClassName</i> <i>activeClassName</i> <i>invalidClassName</i> <i>errorClassName</i> <i>requiredFeedbackClassName</i> /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>A date picker that allows the user to select a date. The date picker is a modal that contains a calendar.
+The calendar is open if the input is focused and closed if the user clicks outside of the date picker.
+The user can select a date by clicking on a day of the calendar or by typing in the input.
+If the user enters something that is not a valid date, the today's date will be selected.
+The calendar can start a Sunday or Monday, and can be in MMDDYYYY or DDMMYYYY format.
+The separator can be customized, by default it is a &quot;/&quot;.
+The year and month shown in the calendar can be selected with dropdowns.
+There are also arrow buttons to navigate through the months.
+A range of years can be customized, by default it is from 120 years back and 50 years forward to current year.</p>
+    </div>
+    
+
+
+
+
+
+
+
+    
+        <h5>PropTypes:</h5>
+        
+<div class="table-container">
+  <table class="params table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th class="last">Default</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>id</code></td>
+            <td>
+              string
+            </td>
+            <td>Yes</td>
+            <td>The id of the date picker</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>label</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The label of the date picker</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>value</code></td>
+            <td>
+              node
+            </td>
+            <td>No</td>
+            <td>The value of the date picker</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onChange</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>The callback function that is called when the date picker is changed</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onFocus</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>The callback function that is called when the date picker input is focused</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onBlurFunction</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>The callback function that is called when the date picker input is blurred</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearsBackNumber</code></td>
+            <td>
+              number
+            </td>
+            <td>No</td>
+            <td>The number of years to go back from the current year</td>
+            <td>120</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearsForwardNumber</code></td>
+            <td>
+              number
+            </td>
+            <td>No</td>
+            <td>The number of years to go forward from the current year</td>
+            <td>50</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>separator</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The separator between the day, month and year</td>
+            <td>"/"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>dateFormat</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The format of the date ("MMDDYYYY" or "DDMMYYYY")</td>
+            <td>"MMDDYYYY"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>firstDayOfTheWeek</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The date to be shown in the date picker ("Monday" or "Sunday")</td>
+            <td>"Sunday"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>previousButtonText</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The text of the previous button</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>nextButtonText</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The text of the next button</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>todayButtonText</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The text of the today button</td>
+            <td>"Today"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>labelClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the label</td>
+            <td>"form-label"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>formatDateClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of formatDate helper</td>
+            <td>"date-format"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>dateClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the date</td>
+            <td>"date"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>headerClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the header table</td>
+            <td>"header-day"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerInputWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the date picker input wrapper</td>
+            <td>"date-picker-input-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the date picker wrapper</td>
+            <td>"date-picker-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the date picker</td>
+            <td>"date-picker"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerNavWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the nav wrapper</td>
+            <td>"date-picker-nav-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerPreviousButtonClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the previous button</td>
+            <td>"prev"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerTodayButtonClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the today button</td>
+            <td>"today"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerNextButtonClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the next button</td>
+            <td>"next"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerMonthDropdownWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown wrapper</td>
+            <td>"label month-picker"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>datePickerYearDropdownWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown wrapper</td>
+            <td>"label year-picker"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar wrapper</td>
+            <td>"calendar"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarTableClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar table</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarHeaderClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar header</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarHeaderTrClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar header tr</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarHeaderThClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar header th</td>
+            <td>"header-day-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarBodyClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar body</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarBodyTrClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar body tr</td>
+            <td>""</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarBodyTdClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the calendar body td</td>
+            <td>"date-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarForbiddenClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the forbidden days</td>
+            <td>"forbidden-date"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarOtherMonthClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the other month days</td>
+            <td>"other-month"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarTodayClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the today days</td>
+            <td>"calendarData-today"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>calendarSelectedClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the selected days</td>
+            <td>"current-selection"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownLabel</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>the label of the month dropdown</td>
+            <td>"Chose the month"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthListLabel</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The label of the month list</td>
+            <td>"Choose your month"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthShowListLabel</code></td>
+            <td>
+              bool
+            </td>
+            <td>No</td>
+            <td>The label of the short month list</td>
+            <td>false</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownLabelClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown label</td>
+            <td>"sr-only"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown wrapper</td>
+            <td>"dropdown-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownButtonClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown button</td>
+            <td>"dropdown-button"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownIconClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown icon</td>
+            <td>"dropdown-icon"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownListWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown list wrapper</td>
+            <td>"dropdown-list-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownOptionClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown option</td>
+            <td>"dropdown-option"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownOptionSelectedClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown option selected</td>
+            <td>"current-selection"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownListClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown list</td>
+            <td>"dropdown-list"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownListLabelClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown list li</td>
+            <td>"label"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>monthDropdownInputClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the month dropdown input</td>
+            <td>"dropdown-text"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownLabel</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The label of the year dropdown</td>
+            <td>"Chose the year"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearListLabel</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The label of the year list</td>
+            <td>"Choose your year"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearShowListLabel</code></td>
+            <td>
+              bool
+            </td>
+            <td>No</td>
+            <td>The label of the short year list</td>
+            <td>false</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownLabelClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown label</td>
+            <td>"sr-only"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown wrapper</td>
+            <td>"dropdown-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownButtonClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown button</td>
+            <td>"dropdown-button"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownIconClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown icon</td>
+            <td>"dropdown-icon"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownListWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown list wrapper</td>
+            <td>"dropdown-list-wrapper"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownOptionClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown option</td>
+            <td>"dropdown-option"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownOptionSelectedClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown option selected</td>
+            <td>"current-selection"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownListClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown list</td>
+            <td>"dropdown-list"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownListLabelClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown list li</td>
+            <td>"label"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>yearDropdownInputClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the year dropdown input</td>
+            <td>"dropdown-text"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>error</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The error message</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>maxLength</code></td>
+            <td>
+              number
+            </td>
+            <td>No</td>
+            <td>The max length of the input</td>
+            <td>10</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>required</code></td>
+            <td>
+              bool
+            </td>
+            <td>No</td>
+            <td>Whether the input is required</td>
+            <td>false</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>requiredFeedbackEnabled</code></td>
+            <td>
+              bool
+            </td>
+            <td>No</td>
+            <td>Whether the required feedback is enabled</td>
+            <td>false</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>requiredFeedback</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The required feedback message</td>
+            <td>"*"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>inputClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the dropdown input</td>
+            <td>"form-control form-input"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>inputWrapperClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the input wrapper</td>
+            <td>"form-group"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>activeClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the active state</td>
+            <td>"active"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>invalidClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the invalid state</td>
+            <td>"invalid"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>errorClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the error state</td>
+            <td>"error"</td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>requiredFeedbackClassName</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>The class name of the required feedback</td>
+            <td>"required"</td>
+          </tr>
+          
+    
+    </tbody>
+  </table>
+</div>
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line29">line 29</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>The date picker component.</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">React.Component</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~getMonthName">
+        <a class="href-link" href="#~getMonthName">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                getMonthName<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>It takes a month number and returns the month name</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line531">line 531</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The name of the month.</p></div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleChangeInput">
+        <a class="href-link" href="#~handleChangeInput">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleChangeInput<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>When user manually enters a something in input, check if it is valid date
+If true, update the states.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line397">line 397</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleDayClick">
+        <a class="href-link" href="#~handleDayClick">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleDayClick<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>When a day in calendar is clicked, the selected/showed date, day, month, and year states are set.
+Also the date picker is closed</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line494">line 494</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleFocus">
+        <a class="href-link" href="#~handleFocus">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleFocus<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>If the onFocus prop is defined, call it with the event.
+Then open the date picker.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line355">line 355</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleNextMonth">
+        <a class="href-link" href="#~handleNextMonth">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleNextMonth<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>It increments the month by one, unless the month is December,
+in which case it increments the year by one and sets the month to January</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line458">line 458</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleOnBlur">
+        <a class="href-link" href="#~handleOnBlur">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleOnBlur<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>When user blur the input, check if the date is valid
+If not valid, reset the date to the today date.
+If the onBlur prop is defined, call it with the date and id of the datePicker.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line433">line 433</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handlePreviousMonth">
+        <a class="href-link" href="#~handlePreviousMonth">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handlePreviousMonth<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>It decrements the month by one, unless the month is January
+in which case it decrements the year by one and sets the month to January</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line476">line 476</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~isDateValid">
+        <a class="href-link" href="#~isDateValid">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                isDateValid<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Checks if the date is valid and in the correct format
+Also the year must be  within the min and max year</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line375">line 375</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>A boolean value.</p></div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~twoDigit">
+        <a class="href-link" href="#~twoDigit">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                twoDigit<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>It takes a number, if it is less than 10, it adds a 0 to the front of it.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_DatePicker_index.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_DatePicker_index.jsx.html">components/DatePicker/index.jsx</a>, <a href="components_DatePicker_index.jsx.html#line366">line 366</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a string of two digits.</p></div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

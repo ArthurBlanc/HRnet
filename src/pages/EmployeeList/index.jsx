@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import DataTable from "../../components/DataTable";
+import { DataTable } from "react-ab-data-table";
 
 import { selectEmployeeList } from "../../store/selectors";
 
@@ -9,6 +9,13 @@ import { useSelector } from "react-redux";
 
 import "./styles.scss";
 
+/**
+ * Render Employee List Page
+ *
+ * @category Pages
+ * @component
+ * @returns { React.Component } A React component
+ */
 function EmployeeList() {
 	const navigate = useNavigate();
 

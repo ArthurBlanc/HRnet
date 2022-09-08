@@ -1,4 +1,95 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/DatePicker/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="ConditionalWrapper.html">ConditionalWrapper</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dropdown.html">Dropdown</a></li><li><a href="Input.html">Input</a></li><li><a href="Modal.html">Modal</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Global</h3><ul><li><a href="global.html#useClickOutside">useClickOutside</a></li><li><a href="global.html#useForm">useForm</a></li><li><a href="global.html#useKeypress">useKeypress</a></li><li><a href="global.html#useTrapFocus">useTrapFocus</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Router</h2><h3>Components</h3><ul><li><a href="Router.html">Router</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/DatePicker/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
@@ -233,7 +324,7 @@ function DatePicker({
 			const numberOfWeeksInShowedMonth = Math.ceil((numberOfDaysInShowedMonth + firstDayOfShowedMonth) / 7);
 
 			// Loop for generating the week data.
-			for (let i = 0; i < numberOfWeeksInShowedMonth; i++) {
+			for (let i = 0; i &lt; numberOfWeeksInShowedMonth; i++) {
 				let weekData = {};
 
 				// Loop for generating the day data.
@@ -242,18 +333,18 @@ function DatePicker({
 					const dayValue = i * 7 + j + 1 - firstDayOfShowedMonth;
 
 					// Checking if the previous year is the first year of the calendarData.
-					const isFirstYearOfTheCalendar = showedYear - 1 < minYear;
+					const isFirstYearOfTheCalendar = showedYear - 1 &lt; minYear;
 					// Checking if the shown month is the first month of the year.
 					const isFirstMonthOfTheYear = showedMonth === 1;
 					// Checking if the shown month is the first month of the calendarData.
-					const isFirstMonthOfTheCalendar = isFirstYearOfTheCalendar && isFirstMonthOfTheYear;
+					const isFirstMonthOfTheCalendar = isFirstYearOfTheCalendar &amp;&amp; isFirstMonthOfTheYear;
 
 					// Checking if the next year is the last year of the calendarData.
 					const isLastYearOfTheCalendar = showedYear + 1 > maxYear;
 					// Checking if the shown month is the last month of the year.
 					const isLastMonthOfTheYear = showedMonth === 12;
 					// Checking if the shown month is the last month of the calendarData.
-					const isLastMonthOfTheCalendar = isLastYearOfTheCalendar && isLastMonthOfTheYear;
+					const isLastMonthOfTheCalendar = isLastYearOfTheCalendar &amp;&amp; isLastMonthOfTheYear;
 
 					// ClassName for the day.
 					let className = dateClassName;
@@ -276,13 +367,13 @@ function DatePicker({
 					};
 
 					// If dayValue is less than 1, it is the previous month.
-					if (dayValue <= 0) {
+					if (dayValue &lt;= 0) {
 						day = dayValue + numberOfDaysInPreviousMonth;
 						month = showedMonth - 1;
 
 						forbiddenDate(isFirstMonthOfTheCalendar);
 
-						if (isFirstMonthOfTheYear && !isFirstMonthOfTheCalendar) {
+						if (isFirstMonthOfTheYear &amp;&amp; !isFirstMonthOfTheCalendar) {
 							month = 12;
 							year = showedYear - 1;
 						}
@@ -294,19 +385,19 @@ function DatePicker({
 
 						forbiddenDate(isLastMonthOfTheCalendar);
 
-						if (isLastMonthOfTheYear && !isLastMonthOfTheCalendar) {
+						if (isLastMonthOfTheYear &amp;&amp; !isLastMonthOfTheCalendar) {
 							month = 1;
 							year = showedYear + 1;
 						}
 					}
 
 					// If the day is today, add the className for the today className.
-					if (day === currentDay && month === currentMonth && year === currentYear) {
+					if (day === currentDay &amp;&amp; month === currentMonth &amp;&amp; year === currentYear) {
 						className += " " + calendarTodayClassName;
 					}
 
 					// If the day is selected, add the className for the selected className.
-					if (day === selectedDay && month === selectedMonth && year === selectedYear) {
+					if (day === selectedDay &amp;&amp; month === selectedMonth &amp;&amp; year === selectedYear) {
 						className += " " + calendarSelectedClassName;
 					}
 
@@ -383,7 +474,7 @@ function DatePicker({
 
 		if (regexDate.test(date)) {
 			const year = date.split(separator)[2];
-			if (year >= minYear && year <= maxYear) {
+			if (year >= minYear &amp;&amp; year &lt;= maxYear) {
 				return true;
 			}
 		}
@@ -396,7 +487,7 @@ function DatePicker({
 	 */
 	const handleChangeInput = (event, length) => {
 		const insertSeparator = (thisValue, separator) => {
-			if ((thisValue.length === 2 && length === 1) || (thisValue.length === 5 && length === 4)) {
+			if ((thisValue.length === 2 &amp;&amp; length === 1) || (thisValue.length === 5 &amp;&amp; length === 4)) {
 				thisValue += separator;
 				return thisValue;
 			}
@@ -433,7 +524,7 @@ function DatePicker({
 	const handleOnBlur = (event) => {
 		const date = event.target ? event.target.value : event;
 
-		if (!isDateValid(date) && date !== "") {
+		if (!isDateValid(date) &amp;&amp; date !== "") {
 			let formattedDate = twoDigit(currentMonth) + separator + twoDigit(currentDay) + separator + currentYear;
 			if (dateFormat === "DDMMYYYY") {
 				formattedDate = twoDigit(currentDay) + separator + twoDigit(currentMonth) + separator + currentYear;
@@ -460,7 +551,7 @@ function DatePicker({
 			event.preventDefault();
 		}
 		if (showedMonth === 12) {
-			if (showedYear < maxYear) {
+			if (showedYear &lt; maxYear) {
 				setShowedMonth(1);
 				setShowedYear(showedYear + 1);
 			}
@@ -496,7 +587,7 @@ function DatePicker({
 		const day = +event.target.dataset.date;
 		const month = +event.target.dataset.month;
 		const year = +event.target.dataset.year;
-		if (day !== null && month !== null && year !== null) {
+		if (day !== null &amp;&amp; month !== null &amp;&amp; year !== null) {
 			let formattedDate = twoDigit(month) + separator + twoDigit(day) + separator + year;
 			if (dateFormat === "DDMMYYYY") {
 				formattedDate = twoDigit(day) + separator + twoDigit(month) + separator + year;
@@ -536,8 +627,8 @@ function DatePicker({
 	};
 
 	return (
-		<div ref={ref} className={datePickerInputWrapperClassName} aria-expanded={datePickerIsOpen ? true : false} onFocus={handleFocus} role="listbox">
-			<Input
+		&lt;div ref={ref} className={datePickerInputWrapperClassName} aria-expanded={datePickerIsOpen ? true : false} onFocus={handleFocus} role="listbox">
+			&lt;Input
 				id={id}
 				label={label}
 				labelClassName={labelClassName + (datePickerIsOpen ? " active" : "") + (isDateValid(selectedDate) ? " valid" : "")}
@@ -561,18 +652,18 @@ function DatePicker({
 				aria-label={"Enter " + label + " in the format " + dateFormat + "or use the calendar to select a date"}
 				{...props}
 			/>
-			<span className={formatDateClassName + (datePickerIsOpen || selectedDate.length > 1 ? " active" : "")}>
+			&lt;span className={formatDateClassName + (datePickerIsOpen || selectedDate.length > 1 ? " active" : "")}>
 				{dateFormat === "MMDDYYYY" ? "MM" + separator + "DD" + separator + "YYYY" : "DD" + separator + "MM" + separator + "YYYY"}
-			</span>
+			&lt;/span>
 
-			{datePickerIsOpen && (
-				<div id={id + "-date-picker"} className={datePickerWrapperClassName} aria-modal="true">
-					<div className={datePickerClassName}>
-						<div className={datePickerNavWrapperClassName}>
-							<button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth} tabIndex={-1} aria-label={"Previous Month"}>
+			{datePickerIsOpen &amp;&amp; (
+				&lt;div id={id + "-date-picker"} className={datePickerWrapperClassName} aria-modal="true">
+					&lt;div className={datePickerClassName}>
+						&lt;div className={datePickerNavWrapperClassName}>
+							&lt;button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth} tabIndex={-1} aria-label={"Previous Month"}>
 								{previousButtonText}
-							</button>
-							<button
+							&lt;/button>
+							&lt;button
 								className={datePickerTodayButtonClassName}
 								data-date={currentDay}
 								data-month={currentMonth}
@@ -586,9 +677,9 @@ function DatePicker({
 								}}
 							>
 								{todayButtonText}
-							</button>
-							<div className={datePickerMonthDropdownWrapperClassName}>
-								<Dropdown
+							&lt;/button>
+							&lt;div className={datePickerMonthDropdownWrapperClassName}>
+								&lt;Dropdown
 									id="month"
 									label={monthDropdownLabel}
 									aria-label={"month"}
@@ -608,9 +699,9 @@ function DatePicker({
 									dropdownListLabelClassName={monthDropdownListLabelClassName}
 									dropdownInputClassName={monthDropdownInputClassName}
 								/>
-							</div>
-							<div className={datePickerYearDropdownWrapperClassName}>
-								<Dropdown
+							&lt;/div>
+							&lt;div className={datePickerYearDropdownWrapperClassName}>
+								&lt;Dropdown
 									id="year"
 									label={yearDropdownLabel}
 									aria-label={"year"}
@@ -630,29 +721,29 @@ function DatePicker({
 									dropdownListLabelClassName={yearDropdownListLabelClassName}
 									dropdownInputClassName={yearDropdownInputClassName}
 								/>
-							</div>
-							<button className={datePickerNextButtonClassName} onClick={handleNextMonth} tabIndex={-1} aria-label={"Next Month"}>
+							&lt;/div>
+							&lt;button className={datePickerNextButtonClassName} onClick={handleNextMonth} tabIndex={-1} aria-label={"Next Month"}>
 								{nextButtonText}
-							</button>
-						</div>
+							&lt;/button>
+						&lt;/div>
 
-						<div className={calendarWrapperClassName}>
-							<table id={id + "-calendar"} className={calendarTableClassName}>
-								<thead className={calendarHeaderClassName}>
-									<tr className={calendarHeaderTrClassName}>
+						&lt;div className={calendarWrapperClassName}>
+							&lt;table id={id + "-calendar"} className={calendarTableClassName}>
+								&lt;thead className={calendarHeaderClassName}>
+									&lt;tr className={calendarHeaderTrClassName}>
 										{daysOfWeek.map((day) => (
-											<th key={day} className={calendarHeaderThClassName} scope="col">
-												<div className={headerClassName}>{day}</div>
-											</th>
+											&lt;th key={day} className={calendarHeaderThClassName} scope="col">
+												&lt;div className={headerClassName}>{day}&lt;/div>
+											&lt;/th>
 										))}
-									</tr>
-								</thead>
-								<tbody className={calendarBodyClassName}>
+									&lt;/tr>
+								&lt;/thead>
+								&lt;tbody className={calendarBodyClassName}>
 									{calendarData.map((week, i) => (
-										<tr key={i} className={calendarBodyTrClassName}>
+										&lt;tr key={i} className={calendarBodyTrClassName}>
 											{Object.keys(week).map((day, j) => (
-												<td key={j} className={calendarBodyTdClassName}>
-													<button
+												&lt;td key={j} className={calendarBodyTdClassName}>
+													&lt;button
 														className={week[day].className}
 														data-date={week[day].day}
 														data-month={week[day].month}
@@ -667,18 +758,18 @@ function DatePicker({
 														onMouseDown={week[day].className.includes(calendarForbiddenClassName) ? null : handleDayClick}
 													>
 														{week[day].day}
-													</button>
-												</td>
+													&lt;/button>
+												&lt;/td>
 											))}
-										</tr>
+										&lt;/tr>
 									))}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+								&lt;/tbody>
+							&lt;/table>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>
 			)}
-		</div>
+		&lt;/div>
 	);
 }
 
@@ -913,3 +1004,33 @@ DatePicker.propTypes = {
 };
 
 export default DatePicker;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

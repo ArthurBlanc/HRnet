@@ -1,3 +1,62 @@
+# P14
+
+![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)
+[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://github.com/ArthurBlanc)
+
+## Description :
+
+> Participez à la conversion d'une application vers React. Vous allez transformer un plugin jQuery du site en React.
+> #### Compétences évaluées
+>
+> -   Analyser la performance d'une application web
+> -   Déployer une application front-end
+> -   Programmer en JavaScript avec la programmation fonctionnelle
+> -   Refondre une application pour réduire la dette technique
+>
+### Situation (fictive) du projet :
+
+Développeur au sein du département technologique d'une grande société financière.
+
+Cette société utilise une application web interne, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne.
+
+Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette library sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker).
+
+### Cahier des charges :
+
+    - Convertir l'ensemble du projet HRNet en React.
+      - Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
+      - Ajouter un système de gestion d'état.
+      - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
+    - Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'applications.
+      - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
+      - Publier le plugin converti en librarie React sur GitHub ou npmjs.com
+    - Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
+
+## Installation
+
+-   **Exécutez Git bash**
+-   **git clone https://github.com/ArthurBlanc/ArthurBlanc_14_02072022**
+    -   Exécutez la commande ***npm install***, une fois l'installation terminée, démarrez avec la commande ***npm start*** puis rendez-vous sur http://localhost:3000/.
+
+## Développé avec
+
+-   [Visual Studio Code](https://code.visualstudio.com/) - Éditeur de texte et son intégration de GitHub
+-   [React 18](https://fr.reactjs.org/) - Bibliothèque JavaScript libre développée par Facebook depuis 2013
+-   [Create React App](https://create-react-app.dev/) - Boîte à outils créée par Facebook, qui est la référence pour initier un projet React
+-   [React Router V6](https://reactrouter.com/) - Bibliothèque de routage pour React
+-   [Sass](https://sass-lang.com/) - Langage de script préprocesseur qui est compilé ou interprété en CSS
+-   [Redux](https://redux.js.org/) - Bibliothèque JS de gestion d'état pour applications web
+-   [redux-persist](https://www.npmjs.com/package/redux-persist) - Enregistrez le store Redux dans un stockage persistant
+-   [Prop-types](https://www.npmjs.com/package/prop-types) - Vérification du type pour les props React
+-   [JSDoc](https://jsdoc.app/) - Générateur de documentation pour JavaScript
+-   [GitHub](https://github.com/) - Outil de gestion de versions
+
+## Auteur
+
+**Arthur Blanc** : [**GitHub**](https://github.com/ArthurBlanc/) - [**Portfolio**](https://abcoding.fr/)
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

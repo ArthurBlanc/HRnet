@@ -1,4 +1,95 @@
-import { useState, useEffect, useRef } from "react";
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/Dropdown/index.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank - Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Components</h2><h3>Components</h3><ul><li><a href="ConditionalWrapper.html">ConditionalWrapper</a></li><li><a href="DatePicker.html">DatePicker</a></li><li><a href="Dropdown.html">Dropdown</a></li><li><a href="Input.html">Input</a></li><li><a href="Modal.html">Modal</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Global</h3><ul><li><a href="global.html#useClickOutside">useClickOutside</a></li><li><a href="global.html#useForm">useForm</a></li><li><a href="global.html#useKeypress">useKeypress</a></li><li><a href="global.html#useTrapFocus">useTrapFocus</a></li></ul></div><div class="category"><h2>Pages</h2><h3>Components</h3><ul><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Router</h2><h3>Components</h3><ul><li><a href="Router.html">Router</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/Dropdown/index.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
@@ -158,19 +249,19 @@ function Dropdown({
 	};
 
 	return (
-		<div ref={ref}>
-			{label && (
-				<label
+		&lt;div ref={ref}>
+			{label &amp;&amp; (
+				&lt;label
 					id={id + "-dropdown-label"}
 					htmlFor={id + "-input"}
 					// Adding the class name "active" to the label if the dropdown is open.
 					className={labelClassName + (isOpen ? " active" : "")}
 				>
-					{label} {requiredFeedbackEnabled && <span className={requiredFeedbackClassName}>{requiredFeedback}</span>}
-				</label>
+					{label} {requiredFeedbackEnabled &amp;&amp; &lt;span className={requiredFeedbackClassName}>{requiredFeedback}&lt;/span>}
+				&lt;/label>
 			)}
-			<div id={id + "-dropdown-wrapper"} className={dropdownWrapperClassName}>
-				<div
+			&lt;div id={id + "-dropdown-wrapper"} className={dropdownWrapperClassName}>
+				&lt;div
 					id={id + "-dropdown-button"}
 					className={dropdownButtonClassName}
 					onClick={(e) => {
@@ -183,7 +274,7 @@ function Dropdown({
 					aria-label={label}
 					role="listbox"
 				>
-					<Input
+					&lt;Input
 						id={id}
 						className={dropdownInputClassName}
 						tabIndex={-1}
@@ -203,23 +294,23 @@ function Dropdown({
 						requiredFeedbackClassName={requiredFeedbackClassName}
 						{...props}
 					/>
-					<span className={dropdownIconClassName}></span>
-				</div>
-				{isOpen && (
-					<div className={dropdownListWrapperClassName} aria-modal="true">
-						{showListLabel && <div className={dropdownOptionClassName + " " + dropdownListLabelClassName}>{listLabel}</div>}
-						<ul id={id + "-dropdown-list"} className={dropdownListClassName} role="listbox" tabIndex={-1}>
+					&lt;span className={dropdownIconClassName}>&lt;/span>
+				&lt;/div>
+				{isOpen &amp;&amp; (
+					&lt;div className={dropdownListWrapperClassName} aria-modal="true">
+						{showListLabel &amp;&amp; &lt;div className={dropdownOptionClassName + " " + dropdownListLabelClassName}>{listLabel}&lt;/div>}
+						&lt;ul id={id + "-dropdown-list"} className={dropdownListClassName} role="listbox" tabIndex={-1}>
 							{options.map((option) => {
 								let label = option;
 								let value = option;
 								// Checking if the option is an object.
 								//If it is, it sets the label and value to the label and value of the object.
-								if (option.label && option.value) {
+								if (option.label &amp;&amp; option.value) {
 									label = option.label;
 									value = option.value;
 								}
 								return (
-									<li
+									&lt;li
 										id={`${id}-dropdown-item-${value}`}
 										// Adding the class name "current-selection" to the selected option.
 										className={dropdownOptionClassName + (selectedOptionValue === value ? " " + dropdownOptionSelectedClassName : "")}
@@ -232,14 +323,14 @@ function Dropdown({
 										aria-label={label}
 									>
 										{label}
-									</li>
+									&lt;/li>
 								);
 							})}
-						</ul>
-					</div>
+						&lt;/ul>
+					&lt;/div>
 				)}
-			</div>
-		</div>
+			&lt;/div>
+		&lt;/div>
 	);
 }
 
@@ -327,3 +418,33 @@ Dropdown.propTypes = {
 };
 
 export default Dropdown;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

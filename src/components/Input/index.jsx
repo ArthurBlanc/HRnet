@@ -8,6 +8,8 @@ import "./styles.scss";
 /**
  * Function to add an input element with label and error message (can be disable).
  *
+ * @category Components
+ * @component
  * @returns {React.Component} - The Input component.
  */
 function Input({
@@ -45,29 +47,37 @@ function Input({
 		}
 	}, [isFocused, id]);
 
-	// If the onChange prop is defined, call it with the event.
+	/** If the onChange prop is defined, call it with the event. */
 	const handleChange = (event) => {
 		if (onChange) {
 			onChange(event);
 		}
 	};
 
-	// If the onBlur prop is defined, call it with the event and the id.
-	// Then set the isFocused state to false
+	/**
+	 * If the onBlur prop is defined, call it with the event and the id.
+	 * Then set the isFocused state to false
+	 * */
 	const handleBlur = (event) => {
 		if (onBlur) {
 			onBlur(event, id);
 			if (!error) {
 				// add valid class if there is no error
-				event.target.classList.add("valid");
-				event.target.previousSibling.classList.add("valid");
+				if (event.target.value) {
+					event.target.classList.add("valid");
+				}
+				if (event.target.previousSibling) {
+					event.target.previousSibling.classList.add("valid");
+				}
 			}
 		}
 		setIsFocused(false);
 	};
 
-	// If the onFocus prop is defined, call it with the event.
-	// Then set the isFocused state to true
+	/**
+	 * If the onFocus prop is defined, call it with the event.
+	 * Then set the isFocused state to true
+	 * */
 	const handleFocus = (event) => {
 		if (onFocus) {
 			onFocus(event);
@@ -75,7 +85,7 @@ function Input({
 		setIsFocused(true);
 	};
 
-	// On click on label, set the isFocused state to true
+	/** On click on label, set the isFocused state to true */
 	const handleLabelClick = () => {
 		setIsFocused(true);
 	};
@@ -137,67 +147,67 @@ function Input({
 }
 
 Input.propTypes = {
-	// Id string (required): The id of input.
+	/** The id of input. */
 	id: PropTypes.string.isRequired,
 
-	// Label string: The label of input.
+	/** The label of input. */
 	label: PropTypes.string,
 
-	// Type string: The type of input.
+	/** The type of input. */
 	type: PropTypes.string,
 
-	// Value node: The value of input.
+	/** The value of input. */
 	value: PropTypes.node,
 
-	// onChange function: The callback function when input value is changed.
+	/** The callback function when input value is changed. */
 	onChange: PropTypes.func,
 
-	// onFocus function: The callback function when input is focused.
+	/** The callback function when input is focused. */
 	onFocus: PropTypes.func,
 
-	// onBlur function: The callback function when input is blurred.
+	/** The callback function when input is blurred. */
 	onBlur: PropTypes.func,
 
-	// addErrorElement boolean: Whether to add an error element.
+	/** Whether to add an error element. */
 	addErrorElement: PropTypes.bool,
 
-	// MaxLength number: The max length of input.
+	/** The max length of input. */
 	maxLength: PropTypes.number,
 
-	// Required boolean: Whether the input is required.
+	/** Whether the input is required. */
 	required: PropTypes.bool,
 
-	// RequiredFeedbackEnabled boolean: Whether to add the required feedback.
+	/** Whether to add the required feedback. */
 	requiredFeedbackEnabled: PropTypes.bool,
 
-	// RequiredFeedback string: The feedback to show if the input is required.
+	/** The feedback to show if the input is required. */
 	requiredFeedback: PropTypes.string,
 
-	// ReadOnly boolean: Whether the input is read only.
+	/** Whether the input is read only. */
 	readOnly: PropTypes.bool,
 
-	// Error string: The error message of input.
+	/** The error message of input. */
 	error: PropTypes.string,
 
-	// WrapperClassName string: The class name of wrapper.
+	/** The class name of wrapper. */
 	wrapperClassName: PropTypes.string,
 
-	// LabelClassName string: The class name of label.
+	/** The class name of label. */
 	labelClassName: PropTypes.string,
 
-	// InputClassName string: The class name of input.
+	/** The class name of input. */
 	inputClassName: PropTypes.string,
 
-	// ActiveClassName string: The class name of input when it is active.
+	/** The class name of input when it is active. */
 	activeClassName: PropTypes.string,
 
-	// InvalidClassName string: The class name of input when it is invalid.
+	/** The class name of input when it is invalid. */
 	invalidClassName: PropTypes.string,
 
-	// ErrorClassName string: The class name of input when it is error.
+	/** The class name of input when it is error. */
 	errorClassName: PropTypes.string,
 
-	// RequiredFeedbackClassName string: The class name of feedback when the input is required.
+	/** The class name of feedback when the input is required. */
 	requiredFeedbackClassName: PropTypes.string,
 };
 

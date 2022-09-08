@@ -10,6 +10,8 @@ import { useEffect } from "react";
  * @param key - The key to listen for.
  * @param isOpenStateInParent - This is a boolean that tells us whether the modal is open or not.
  * @param handler - The function to call when the key is pressed.
+ * @category Hooks
+ * @returns an listener of a keypress.
  */
 export const useKeypress = (key, isOpenStateInParent, handler) => {
 	useEffect(() => {
