@@ -65,7 +65,7 @@ function DatePicker({
 	calendarBodyTdClassName = "date-wrapper",
 	calendarForbiddenClassName = "forbidden-date",
 	calendarOtherMonthClassName = "other-month",
-	calendarTodayClassName = "calendarData-today",
+	calendarTodayClassName = "calendar-today",
 	calendarSelectedClassName = "current-selection",
 	// Month dropdown props.
 	monthDropdownLabel = "Chose the month",
@@ -143,9 +143,25 @@ function DatePicker({
 
 	// Cache the daysOfWeek value.
 	const daysOfWeek = useMemo(() => {
-		let week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		let week = [
+			{ full: "Sunday", abbr: "Sun" },
+			{ full: "Monday", abbr: "Mon" },
+			{ full: "Tuesday", abbr: "Tue" },
+			{ full: "Wednesday", abbr: "Wed" },
+			{ full: "Thursday", abbr: "Thu" },
+			{ full: "Friday", abbr: "Fri" },
+			{ full: "Saturday", abbr: "Sat" },
+		];
 		if (firstDayOfTheWeek === "Monday") {
-			week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+			week = [
+				{ full: "Monday", abbr: "Mon" },
+				{ full: "Tuesday", abbr: "Tue" },
+				{ full: "Wednesday", abbr: "Wed" },
+				{ full: "Thursday", abbr: "Thu" },
+				{ full: "Friday", abbr: "Fri" },
+				{ full: "Saturday", abbr: "Sat" },
+				{ full: "Sunday", abbr: "Sun" },
+			];
 		}
 		return week;
 	}, [firstDayOfTheWeek]);
@@ -237,7 +253,7 @@ function DatePicker({
 				let weekData = {};
 
 				// Loop for generating the day data.
-				daysOfWeek.forEach((daysOfWeek, j) => {
+				daysOfWeek.forEach((dayOfWeek, j) => {
 					// Calculating the day value
 					const dayValue = i * 7 + j + 1 - firstDayOfShowedMonth;
 
@@ -319,7 +335,7 @@ function DatePicker({
 						isLastMonthOfTheCalendar: isLastMonthOfTheCalendar,
 					};
 					// Adding the day to the to the week.
-					weekData[daysOfWeek] = dayData;
+					weekData[dayOfWeek.abbr] = dayData;
 				});
 				// Adding the week to the month.
 				calendarData.push(weekData);
@@ -536,7 +552,7 @@ function DatePicker({
 	};
 
 	return (
-		<div ref={ref} className={datePickerInputWrapperClassName} aria-expanded={datePickerIsOpen ? true : false} onFocus={handleFocus} role="listbox">
+		<div ref={ref} className={datePickerInputWrapperClassName} onFocus={handleFocus}>
 			<Input
 				id={id}
 				label={label}
@@ -558,9 +574,19 @@ function DatePicker({
 				onChange={(event) => handleChangeInput(event, selectedDate.length)}
 				onClick={setDatePickerIsOpen}
 				onBlur={handleOnBlur}
-				aria-label={"Enter " + label + " in the format " + dateFormat + "or use the calendar to select a date"}
+				aria-label={
+					"Enter " +
+					label +
+					" in the format " +
+					(dateFormat === "MMDDYYYY" ? "MM" + separator + "DD" + separator + "YYYY" : "DD" + separator + "MM" + separator + "YYYY") +
+					" or use the calendar to select a date"
+				}
+				aria-controls={id + "-date-picker"}
+				role={"combobox"}
+				aria-expanded={datePickerIsOpen ? true : false}
 				{...props}
 			/>
+
 			<span className={formatDateClassName + (datePickerIsOpen || selectedDate.length > 1 ? " active" : "")}>
 				{dateFormat === "MMDDYYYY" ? "MM" + separator + "DD" + separator + "YYYY" : "DD" + separator + "MM" + separator + "YYYY"}
 			</span>
@@ -569,7 +595,17 @@ function DatePicker({
 				<div id={id + "-date-picker"} className={datePickerWrapperClassName} aria-modal="true">
 					<div className={datePickerClassName}>
 						<div className={datePickerNavWrapperClassName}>
-							<button className={datePickerPreviousButtonClassName} onClick={handlePreviousMonth} tabIndex={-1} aria-label={"Previous Month"}>
+							<button
+								className={datePickerPreviousButtonClassName}
+								tabIndex="-1"
+								onClick={handlePreviousMonth}
+								onKeyDown={(event) => {
+									if (event.key === "Enter" || event.key === " ") {
+										handlePreviousMonth();
+									}
+								}}
+								aria-label={"Previous Month (" + getMonthName(showedMonth - 1) + ")"}
+							>
 								{previousButtonText}
 							</button>
 							<button
@@ -631,7 +667,17 @@ function DatePicker({
 									dropdownInputClassName={yearDropdownInputClassName}
 								/>
 							</div>
-							<button className={datePickerNextButtonClassName} onClick={handleNextMonth} tabIndex={-1} aria-label={"Next Month"}>
+							<button
+								className={datePickerNextButtonClassName}
+								onClick={handleNextMonth}
+								tabIndex="-1"
+								onKeyDown={(event) => {
+									if (event.key === "Enter" || event.key === " ") {
+										handleNextMonth();
+									}
+								}}
+								aria-label={"Next Month (" + getMonthName(showedMonth + 1) + ")"}
+							>
 								{nextButtonText}
 							</button>
 						</div>
@@ -641,8 +687,8 @@ function DatePicker({
 								<thead className={calendarHeaderClassName}>
 									<tr className={calendarHeaderTrClassName}>
 										{daysOfWeek.map((day) => (
-											<th key={day} className={calendarHeaderThClassName} scope="col">
-												<div className={headerClassName}>{day}</div>
+											<th key={day.full} className={calendarHeaderThClassName} scope="col" abbr={day.full}>
+												<div className={headerClassName}>{day.abbr}</div>
 											</th>
 										))}
 									</tr>
@@ -663,7 +709,8 @@ function DatePicker({
 																handleDayClick(event);
 															}
 														}}
-														aria-label={week[day].day + " of " + getMonthName(week[day].month) + " in " + week[day].year}
+														aria-label={daysOfWeek[j].full + " " + week[day].day + " " + getMonthName(week[day].month) + " " + week[day].year}
+														aria-current={week[day].className.includes(calendarTodayClassName) ? "date" : null}
 														onMouseDown={week[day].className.includes(calendarForbiddenClassName) ? null : handleDayClick}
 													>
 														{week[day].day}

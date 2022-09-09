@@ -11,7 +11,7 @@ form {
 			position: absolute;
 			top: 0.8rem;
 			left: 0;
-			color: #757575;
+			color: #525252;
 			cursor: text;
 			transition: 0.2s ease-out;
 			&.active {
@@ -119,7 +119,8 @@ form {
 		.calendar {
 			.date {
 				padding: 0;
-				&:hover {
+				&:hover,
+				&:focus {
 					background: $primary-color;
 				}
 				&.calendar-today {

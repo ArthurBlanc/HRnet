@@ -3,7 +3,7 @@
 ![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)
 [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://github.com/ArthurBlanc)
 
-[Documentation](https://arthurblanc.github.io/ArthurBlanc_14_02072022/)
+[Documentation](https://arthurblanc.github.io/ArthurBlanc_14_02072022/) - [Live demo](https://arthurblanc.github.io/P14-live/)
 ## Description :
 
 > Participez à la conversion d'une application vers React. Vous allez transformer un plugin jQuery du site en React.
@@ -24,14 +24,14 @@ Mon rôle a été de mettre l'application à niveau en utilisant React, de conve
 
 ### Cahier des charges :
 
-    - Convertir l'ensemble du projet HRNet en React.
-      - Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
-      - Ajouter un système de gestion d'état.
-      - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
-    - Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'applications.
-      - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
-      - Publier le plugin converti en librarie React sur GitHub ou npmjs.com
-    - Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
+- Convertir l'ensemble du projet en React.
+  - Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
+  - Ajouter un système de gestion d'état.
+  - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
+- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'applications.
+  - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
+  - Publier le plugin converti en librarie React sur GitHub ou npmjs.com
+- Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
 
 ## Installation
 

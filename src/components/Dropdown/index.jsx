@@ -179,9 +179,10 @@ function Dropdown({
 					}}
 					onKeyDown={handleKeyDownLabel}
 					tabIndex={0}
-					aria-expanded={isOpen}
 					aria-label={label}
-					role="listbox"
+					aria-expanded={isOpen ? true : false}
+					role={"combobox"}
+					aria-controls={id + "-dropdown-list"}
 				>
 					<Input
 						id={id}

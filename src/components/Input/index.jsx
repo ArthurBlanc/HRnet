@@ -117,6 +117,7 @@ function Input({
 					required={required}
 					form={id}
 					readOnly={readOnly}
+					aria-required={requiredFeedbackEnabled || required}
 					maxLength={maxLength}
 					{...props}
 				/>
@@ -133,6 +134,7 @@ function Input({
 					required={required}
 					readOnly={readOnly}
 					maxLength={maxLength}
+					aria-required={requiredFeedbackEnabled || required}
 					aria-label={"Enter " + label}
 					{...props}
 				/>
