@@ -419,6 +419,7 @@ function DatePicker({
 			return thisValue;
 		};
 		let date = insertSeparator(event.target ? event.target.value : event, separator);
+		setSelectedDate(date);
 
 		if (isDateValid(date)) {
 			let day, month, year;
@@ -435,7 +436,6 @@ function DatePicker({
 			setShowedMonth(+month);
 			setShowedYear(+year);
 			setDatePickerIsOpen(false);
-			setSelectedDate(date);
 		}
 		if (onChange) {
 			onChange(date);

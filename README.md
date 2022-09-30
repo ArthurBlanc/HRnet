@@ -20,7 +20,7 @@ Développeur au sein du département technologique d'une grande société financ
 
 Cette société utilise une application web interne, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne.
 
-Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette library sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker).
+Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker).
 
 ### Cahier des charges :
 
@@ -28,9 +28,9 @@ Mon rôle a été de mettre l'application à niveau en utilisant React, de conve
   - Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
   - Ajouter un système de gestion d'état.
   - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
-- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'applications.
+- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'application.
   - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
-  - Publier le plugin converti en librarie React sur GitHub ou npmjs.com
+  - Publier le plugin converti en librairie React sur GitHub ou npmjs.com
 - Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
 
 ## Installation
