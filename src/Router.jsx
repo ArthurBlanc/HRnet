@@ -14,7 +14,7 @@ import EmployeeList from "./pages/EmployeeList";
 function Router() {
 	return (
 		<React.StrictMode>
-			<BrowserRouter basename="/P14-live">
+			<BrowserRouter basename="/HRnet-live">
 				<Routes>
 					<Route exact path="/" element={<Home />} />
 					<Route exact path="/employee-list" element={<EmployeeList />} />

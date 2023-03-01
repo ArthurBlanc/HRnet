@@ -3,17 +3,19 @@
 ![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)
 [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://github.com/ArthurBlanc)
 
-[Documentation](https://arthurblanc.github.io/ArthurBlanc_14_02072022/) - [Live demo](https://arthurblanc.github.io/P14-live/)
+[Documentation](https://arthurblanc.github.io/ArthurBlanc_14_02072022/) - [Live demo](https://arthurblanc.github.io/HRnet-live/)
+
 ## Description :
 
 > Participez à la conversion d'une application vers React. Vous allez transformer un plugin jQuery du site en React.
+>
 > #### Compétences évaluées
 >
 > -   Analyser la performance d'une application web
 > -   Déployer une application front-end
 > -   Programmer en JavaScript avec la programmation fonctionnelle
 > -   Refondre une application pour réduire la dette technique
->
+
 ### Situation (fictive) du projet :
 
 Développeur au sein du département technologique d'une grande société financière.
@@ -24,20 +26,20 @@ Mon rôle a été de mettre l'application à niveau en utilisant React, de conve
 
 ### Cahier des charges :
 
-- Convertir l'ensemble du projet en React.
-  - Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
-  - Ajouter un système de gestion d'état.
-  - S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
-- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'application.
-  - Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
-  - Publier le plugin converti en librairie React sur GitHub ou npmjs.com
-- Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
+-   Convertir l'ensemble du projet en React.
+    -   Réaliser une nouvelle version des pages "Create Employee" et "Employee List" avec React.
+    -   Ajouter un système de gestion d'état.
+    -   S'assurer que tout est cohérent au niveau du style. Un design plus moderne est le bienvenu.
+-   Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'application.
+    -   Ne convertir que le code qui traite de la fonctionnalité réelle (La conversion du code ne doit pas une traduction exacte à l'identique).
+    -   Publier le plugin converti en librairie React sur GitHub ou npmjs.com
+-   Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
 
 ## Installation
 
 -   **Exécutez Git bash**
 -   **git clone https://github.com/ArthurBlanc/ArthurBlanc_14_02072022**
-    -   Exécutez la commande ***npm install***, une fois l'installation terminée, démarrez avec la commande ***npm start*** puis rendez-vous sur [http://localhost:3000/P14-live](http://localhost:3000/P14-live).
+    -   Exécutez la commande **_npm install_**, une fois l'installation terminée, démarrez avec la commande **_npm start_** puis rendez-vous sur [http://localhost:3000/P14-live](http://localhost:3000/P14-live).
 
 ## Développé avec
 
