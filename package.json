@@ -2,7 +2,7 @@
 	"name": "hrnet",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://arthurblanc.github.io/P14-live/",
+	"homepage": "https://arthurblanc.github.io/HRnet-live/",
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.5",
 		"react": "^18.2.0",
