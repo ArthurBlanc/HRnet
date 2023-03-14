@@ -1,20 +1,27 @@
-# P14
+![HRnet](/public/logo192.png)
 
+# HRnet 👥💼
+
+[![forthebadge](https://forthebadge.com/images/badges/validated-html5.svg)](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Farthurblanc.github.io%2FHRnet-live%2F)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Farthurblanc.github.io%2FHRnet-live%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=fr)
 ![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)
 [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://github.com/ArthurBlanc)
+[![React](https://img.shields.io/badge/react-20232a?style=for-the-badge&logo=react&logocolor=61dafb)](https://reactjs.org/)
 
-[Documentation](https://arthurblanc.github.io/ArthurBlanc_14_02072022/) - [Live demo](https://arthurblanc.github.io/HRnet-live/)
+[Site live](https://arthurblanc.github.io/HRnet-live/) - [Documentation](https://arthurblanc.github.io/HRnet/) - <a href="#description-fr-">README en Français</a> - <a href="#en-description">English README</a>
 
-## Description :
+## Description FR :
+
+Ceci est un projet réalisé dans le cadre du programme de formation Développeur Front-end JavaScript React chez [OpenClassrooms](https://openclassrooms.com/fr/paths/516-developpeur-dapplication-javascript-react)
 
 > Participez à la conversion d'une application vers React. Vous allez transformer un plugin jQuery du site en React.
 >
-> #### Compétences évaluées
+> #### Compétences évaluées :
 >
-> -   Analyser la performance d'une application web
-> -   Déployer une application front-end
-> -   Programmer en JavaScript avec la programmation fonctionnelle
-> -   Refondre une application pour réduire la dette technique
+> -   Analyser la performance d'une application web 📈
+> -   Déployer une application front-end 🚀
+> -   Programmer en JavaScript avec la programmation fonctionnelle 🤖
+> -   Refondre une application pour réduire la dette technique 🛠️
 
 ### Situation (fictive) du projet :
 
@@ -22,7 +29,7 @@ Développeur au sein du département technologique d'une grande société financ
 
 Cette société utilise une application web interne, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne.
 
-Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker).
+Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker) et de fournir des [comparatifs de performances](/lighthouse-repport).
 
 ### Cahier des charges :
 
@@ -35,98 +42,106 @@ Mon rôle a été de mettre l'application à niveau en utilisant React, de conve
     -   Publier le plugin converti en librairie React sur GitHub ou npmjs.com
 -   Effectuer des tests de performance Lighthouse en comparant l'ancienne et la nouvelle application.
 
-## Installation
+## Installation :
 
--   **Exécutez Git bash**
--   **git clone https://github.com/ArthurBlanc/ArthurBlanc_14_02072022**
-    -   Exécutez la commande **_npm install_**, une fois l'installation terminée, démarrez avec la commande **_npm start_** puis rendez-vous sur [http://localhost:3000/P14-live](http://localhost:3000/P14-live).
+1. Cloner le repository:
 
-## Développé avec
+-   `git clone https://github.com/ArthurBlanc/HRnet`
 
--   [Visual Studio Code](https://code.visualstudio.com/) - Éditeur de texte et son intégration de GitHub
--   [React 18](https://fr.reactjs.org/) - Bibliothèque JavaScript libre développée par Facebook depuis 2013
+2. Installer toutes les dépendances pour le front-end:
+
+-   `npm install` ou `yarn`
+
+3. Lancer le front-end:
+
+-   `npm start` ou `yarn start`
+
+Le front-end sera lancé à l'URL:
+`http://localhost:3000/HRnet-live/`.
+
+## Développé avec :
+
+-   [Visual Studio Code](https://code.visualstudio.com/) - Éditeur de texte
+-   [Sass](https://sass-lang.com/) - Préprocesseur CSS
+-   [React 18](https://fr.reactjs.org/) - Bibliothèque JavaScript libre développée par Facebook
 -   [Create React App](https://create-react-app.dev/) - Boîte à outils créée par Facebook, qui est la référence pour initier un projet React
 -   [React Router V6](https://reactrouter.com/) - Bibliothèque de routage pour React
--   [Sass](https://sass-lang.com/) - Langage de script préprocesseur qui est compilé ou interprété en CSS
+-   [Prop-types](https://www.npmjs.com/package/prop-types) - Un package utilisé pour documenter les types de propriétés prévus transmises aux composants React
 -   [Redux](https://redux.js.org/) - Bibliothèque JS de gestion d'état pour applications web
 -   [redux-persist](https://www.npmjs.com/package/redux-persist) - Enregistrez le store Redux dans un stockage persistant
--   [Prop-types](https://www.npmjs.com/package/prop-types) - Vérification du type pour les props React
 -   [JSDoc](https://jsdoc.app/) - Générateur de documentation pour JavaScript
 -   [GitHub](https://github.com/) - Outil de gestion de versions
+-   [GitHub Pages](https://pages.github.com/) - Outil d’hébergement
 
-## Auteur
+## Auteur :
 
-**Arthur Blanc** : [**GitHub**](https://github.com/ArthurBlanc/) - [**Portfolio**](https://abcoding.fr/)
+**Arthur Blanc** : [**GitHub**](https://github.com/ArthurBlanc/) - [**Portfolio**](https://abcoding.fr/portfolio)
 
 ---
 
-# Getting Started with Create React App
+## EN Description:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a project carried out as part of the Front-End JavaScript React Developer training program at [OpenClassrooms](https://openclassrooms.com/en/paths/517-javascript-react-developer).
 
-## Available Scripts
+> Participate in the conversion of an application to React. You will transform a jQuery plugin on the website into React.
+>
+> #### Evaluated skills:
+>
+> -   Analyze the performance of a web application 📈
+> -   Deploy a front-end application 🚀
+> -   Program in JavaScript with functional programming 🤖
+> -   Refactor an application to reduce technical debt 🛠️
 
-In the project directory, you can run:
+### Project (fictional) situation:
 
-### `npm start`
+Developer in the technology department of a large financial company.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/P14-live](http://localhost:3000/P14-live) to view it in your browser.
+This company uses an internal web application that manages employee records. The application is old and uses jQuery on the front-end, which results in considerable bugs and an increase in internal complaints.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+My role was to upgrade the application using React, to convert one of the four jQuery plugins used by the application into a React library and publish this library on [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) and [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker) and provide [performance comparisons](/lighthouse-repport).
 
-### `npm test`
+### Specifications:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   Convert the entire project to React.
+    -   Build a new version of the "Create Employee" and "Employee List" pages with React.
+    -   Add a state management system.
+    -   Ensure that everything is consistent in terms of style. A more modern design is welcome.
+-   Convert one of the current four jQuery plugins to a React library. Replace the remaining three jQuery plugins with React components in the application.
+    -   Only convert the code that deals with the actual functionality (The code conversion should not be an exact translation).
+    -   Publish the converted plugin as a React library on GitHub or npmjs.com.
+-   Perform Lighthouse performance tests comparing the old and new applications.
 
-### `npm run build`
+## Installation:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   `git clone https://github.com/ArthurBlanc/HRnet`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install all dependencies for Front-end:
 
-### `npm run eject`
+-   `npm install` or `yarn`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Launch front-end on port 3000 (default port):
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   `npm start` or `yarn start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Front-end will launch at URL:
+`http://localhost:3000/HRnet-live/`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Developed with:
 
-## Learn More
+-   [Visual Studio Code](https://code.visualstudio.com/) - Text editor
+-   [Sass](https://sass-lang.com/) - CSS preprocessor
+-   [React 18](https://reactjs.org/) - Free and open-source JavaScript library developed by Facebook
+-   [Create React App](https://create-react-app.dev/) - Toolkit created by Facebook, which is the reference for initiating a React project
+-   [React Router V6](https://reactrouter.com/) - Routing library for React
+-   [Prop-types](https://www.npmjs.com/package/prop-types) - A package used to document the intended types of properties passed to React components
+-   [Redux](https://redux.js.org/) - JS library for state management in web applications
+-   [redux-persist](https://www.npmjs.com/package/redux-persist) - Save Redux store to persistent storage
+-   [JSDoc](https://jsdoc.app/) - Documentation generator for JavaScript
+-   [GitHub](https://github.com/) - Version control tool
+-   [GitHub Pages](https://pages.github.com/) - Hosting tool
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Author:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Arthur Blanc**: [**GitHub**](https://github.com/ArthurBlanc/) - [**Portfolio**](https://abcoding.fr/portfolio)
