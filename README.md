@@ -29,7 +29,7 @@ Développeur au sein du département technologique d'une grande société financ
 
 Cette société utilise une application web interne, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne.
 
-Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) et [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker) et de fournir des [comparatifs de performances](/lighthouse-repport).
+Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/ArthurBlanc/react-ab-data-table) et [npmjs.com](https://www.npmjs.com/package/react-ab-data-table) et de fournir des [comparatifs de performances](/lighthouse-repport).
 
 ### Cahier des charges :
 
@@ -98,7 +98,7 @@ Developer in the technology department of a large financial company.
 
 This company uses an internal web application that manages employee records. The application is old and uses jQuery on the front-end, which results in considerable bugs and an increase in internal complaints.
 
-My role was to upgrade the application using React, to convert one of the four jQuery plugins used by the application into a React library and publish this library on [GitHub](https://github.com/ArthurBlanc/react-ab-datepicker) and [npmjs.com](https://www.npmjs.com/package/react-ab-datepicker) and provide [performance comparisons](/lighthouse-repport).
+My role was to upgrade the application using React, to convert one of the four jQuery plugins used by the application into a React library and publish this library on [GitHub](https://github.com/ArthurBlanc/react-ab-data-table) and [npmjs.com](https://www.npmjs.com/package/react-ab-data-table) and provide [performance comparisons](/lighthouse-repport).
 
 ### Specifications:
 
