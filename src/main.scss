@@ -159,14 +159,13 @@ h4 {
 /* ==            GENERAL                */
 /*---------------------------------------- */
 
+html {
+	height: -webkit-fill-available;
+}
+
+html,
 body {
-	min-width: 100vw;
-	min-height: 100vh;
 	background: linear-gradient(109.6deg, $secondary-color 11.2%, $primary-color 91.7%);
-	@include tablet-breakpoint {
-		min-width: 100vw;
-		min-height: 100vh;
-	}
 }
 
 img {
@@ -186,6 +185,7 @@ main {
 	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 	margin-inline: auto;
 	@include tablet-breakpoint {
+		width: -moz-fit-content;
 		width: fit-content;
 		margin-top: 2rem;
 		padding: 2rem;
